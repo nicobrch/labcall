@@ -1,16 +1,19 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
+import DashEstudiante from "@/components/Dashboard/dashEstudiante";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "TailAdmin | Next.js E-commerce Dashboard Template",
-  description: "This is Home Blog page for TailAdmin Next.js",
+  title: "LabCall",
+  description: "",
   // other metadata
 };
+
+// pendiente
+// se debe hacer la separacion de estudiante y profesor, tendran diferentes dashboard y menus de navegacion
 
 export default function Home() {
   return (
     <>
-      <ECommerce />
+      <DashEstudiante />
     </>
   );
 }

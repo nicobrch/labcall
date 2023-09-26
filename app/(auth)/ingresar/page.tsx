@@ -1,14 +1,52 @@
+"use client"
 import React from "react";
+import {useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "LabCall | Iniciar Sesión",
-  description: "This is Signup page for TailAdmin Next.js",
-  // other metadata
-};
+import { validate, clean, format } from "rut.js";
 
 const SignUp: React.FC = () => {
+  const [rut, setRut] = useState("");
+  const [rutError, setRutError] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission status
+
+  const handleRutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRut(event.target.value);
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const isValidRut = validate(rut);
+
+    if (!isValidRut) {
+      setRutError("Rut invalido");
+    } else {
+      setRutError("");
+
+      try {
+        // Conectarse a API
+        const response = await fetch("API_ENDPOINT", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ rut }), // Enviar RUT a la API
+        });
+
+        if (response.ok) {
+          // Rut valido, hacer redirect
+          setFormSubmitted(true);
+        } else {
+          // Rut invalido, generar advertencias
+          console.error("Credenciales inválidas");
+        }
+      } catch (error) {
+        console.error("Error al conectarse a la API:", error);
+      }
+    }
+  };
+
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -36,15 +74,15 @@ const SignUp: React.FC = () => {
                 Iniciar Sesión
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Usuario
+                    RUT
                   </label>
                   <div className="relative">
                     <input
                       type="text"
-                      placeholder="Nombre de usuario"
+                      placeholder="12.345.678-9"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -111,6 +149,7 @@ const SignUp: React.FC = () => {
                   <input
                     type="submit"
                     value="Ingresar"
+                    disabled={formSubmitted}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>

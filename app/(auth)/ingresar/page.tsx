@@ -53,7 +53,7 @@ const SignUp: React.FC = () => {
               </Link>
               <span className="mt-15">
                 <Image
-                    src="/imagen.png"
+                    src={"/images/cards/cards-01.png"}
                     width={500}
                     height={500}
                     alt="Imagen de portada"

@@ -1,14 +1,11 @@
 "use client"
-import React from "react";
-import {useState} from "react";
+import React, {useState} from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { validate, clean, format } from "rut.js";
+import {useRouter} from "next/navigation";
 
 const SignUp: React.FC = () => {
   const [rut, setRut] = useState("");
-  const [rutError, setRutError] = useState("");
-  const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission status
+  const router = useRouter()
 
   const handleRutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRut(event.target.value);
@@ -17,33 +14,25 @@ const SignUp: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isValidRut = validate(rut);
+    try {
+      const response = await fetch("/api/auth/ingresar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ rut })
+      })
 
-    if (!isValidRut) {
-      setRutError("Rut invalido");
-    } else {
-      setRutError("");
-
-      try {
-        // Conectarse a API
-        const response = await fetch("API_ENDPOINT", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ rut }), // Enviar RUT a la API
-        });
-
-        if (response.ok) {
-          // Rut valido, hacer redirect
-          setFormSubmitted(true);
-        } else {
-          // Rut invalido, generar advertencias
-          console.error("Credenciales inválidas");
-        }
-      } catch (error) {
-        console.error("Error al conectarse a la API:", error);
+      if (response.ok) {
+        // Rut valido, hacer redirect
+        console.log("API Respondió OK!")
+        router.push("/")
+      } else {
+        // Rut invalido, generar advertencias
+        console.error("API Respondió mal :(");
       }
+    } catch (error) {
+      console.error("Connection Error:", error)
     }
   };
 
@@ -82,7 +71,10 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="text"
+                      title="rut"
                       placeholder="12.345.678-9"
+                      value={rut}
+                      onChange={handleRutChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -117,6 +109,7 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
+                      title="pswd"
                       placeholder="Contraseña"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
@@ -149,7 +142,6 @@ const SignUp: React.FC = () => {
                   <input
                     type="submit"
                     value="Ingresar"
-                    disabled={formSubmitted}
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>
@@ -157,7 +149,7 @@ const SignUp: React.FC = () => {
                 <div className="mt-6 text-center">
                   <p>
                     ¿Olvidaste tu contraseña?{" "}
-                    <Link href="/auth/signin" className="text-primary">
+                    <Link href="/" className="text-primary">
                       Recuperar contraseña
                     </Link>
                   </p>

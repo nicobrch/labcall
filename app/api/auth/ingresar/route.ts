@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     } else {
         return NextResponse.json(
             {
-                message: "Rut invalido"
+                message: "Rut inválido. Por favor intente nuevamente."
             },
             {
                 status: 500

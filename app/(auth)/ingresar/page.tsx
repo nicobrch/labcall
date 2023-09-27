@@ -1,10 +1,12 @@
 "use client"
 import React, {useState} from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {useRouter} from "next/navigation";
 
 const SignUp: React.FC = () => {
-  const [rut, setRut] = useState("");
+  const [rut, setRut] = useState("")
+  const [apiResponse, setApiResponse] = useState("")
   const router = useRouter()
 
   const handleRutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,11 +26,13 @@ const SignUp: React.FC = () => {
       })
 
       if (response.ok) {
-        // Rut valido, hacer redirect
+        // Credenciales validas, hacer redirect
         console.log("API Respondió OK!")
         router.push("/")
       } else {
-        // Rut invalido, generar advertencias
+        // Credenciales invalidas, generar advertencias
+        const data = await response.json()
+        setApiResponse(data.message)
         console.error("API Respondió mal :(");
       }
     } catch (error) {
@@ -47,12 +51,13 @@ const SignUp: React.FC = () => {
                   LabCall
                 </h2>
               </Link>
-              <p className="2xl:px-20">
-                Información
-              </p>
-
-              <span className="mt-15 inline-block">
-                <p>Imagen</p>
+              <span className="mt-15">
+                <Image
+                    src="/imagen.png"
+                    width={500}
+                    height={500}
+                    alt="Imagen de portada"
+                />
               </span>
             </div>
           </div>
@@ -65,6 +70,14 @@ const SignUp: React.FC = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
+                  { apiResponse != "" ? (
+                      <div className="flex items-center justify-center">
+                        <p className="text-danger">
+                          {apiResponse}
+                        </p>
+                      </div>
+                  ) : <></>
+                  }
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     RUT
                   </label>

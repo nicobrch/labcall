@@ -1,13 +1,7 @@
-FROM node:18
+FROM mysql:latest
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
-COPY . .
-
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]
+# Variables de entorno (Estas pueden ser cambiadas más adelante)
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=db_prlabcalolift_v2
+ENV MYSQL_USER=labcal
+ENV MYSQL_PASSWORD=labcal

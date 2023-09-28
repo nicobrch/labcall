@@ -2,7 +2,7 @@ import DashEstudiante from "@/components/Dashboard/dashEstudiante";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "LabCall",
+  title: "LabCal",
   description: "",
   // other metadata
 };

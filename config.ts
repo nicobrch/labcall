@@ -5,3 +5,4 @@ export const DATABASE_CREDENTIALS = {
   database: process.env.BD_DATABASE || "labcal",
   port: process.env.BD_PORT || 3309,
 };
+export const SALT_ROUNDS = 10;

@@ -1,22 +1,10 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { IUser } from "../interfaces/user";
 
-export interface UserAttributes {
-  rut?: string;
-  firstname?: string; // Primer nombre
-  lastname1?: string; // Primer apellido
-  lastname2?: string; // Segundo apellido
-  email?: string;
-  password?: string;
-  type?: string;
-  active?: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface UserModel extends Model<UserAttributes, UserAttributes> {}
+export interface UserModel extends Model<IUser, IUser> {}
 
 export default function defineUserModel(sequelize: Sequelize) {
-  const User = sequelize.define<UserModel, UserAttributes>(
+  const User = sequelize.define<UserModel, IUser>(
     "user",
     {
       rut: {

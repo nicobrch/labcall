@@ -15,15 +15,15 @@ import { useState } from "react";
 const Pregunta = () => {
     var data = { 
         "id": 1,
-        "pregunta": "Juanito tiene dos manzanas y se come una. Calcule la masa del sol.",
-        "respuesta_correcta": "La masa del sol, pero sin una manzana",
+        "pregunta": "Marco compró 7 espejos de radio 10 cm que desea poner en la pared como decoración, para esto debe poner un pegamento en barra en toda la superficie posterior de cada espejo. Si cada barra de pegamento cubre 270 cm². Determine el número de barras de pegamento que se debe comprar para poner los 7 espejos y asegurar que estos queden bien pegados. Utilizar pi igual a 3.14.",
+        "respuesta_correcta": "9",
         "alternativas": [
-          "La masa del sol, pero sin una manzana",
-          "300.000 km/s",
-          "Si",
-          "No traje calculadora"
+          "8",
+          "9",
+          "10",
+          "No se la respuesta"
         ],
-        "explicacion": "La respuesta es: La masa del sol, pero sin una manzana, ya que Juanito se comio una de las manzanas."
+        "explicacion": "Como Marco debe poner pegamento en los espejos, se debe calcular el área (A) para uno de ellos, utilizando la formula A=πr². Reemplazando el radio (10 cm), y π=3.14, resulta en A=314 cm². Al tener 7 espejos, se multiplica el área obtenida por 7, resultando un área final de 2198 cm². Por otro lado, cada barra de pegamento cubre 270 cm², por lo que se divide el área final por 270 cm², quedando como respuesta 8,14, pero, como se quieren comprar barras enteras, la respuesta es 9 barras de pegamento."
       }
 
     const [isChecked1, setIsChecked1] = useState<boolean>(false);

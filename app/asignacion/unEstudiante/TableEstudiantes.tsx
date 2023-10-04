@@ -89,6 +89,9 @@ const TableEstudiantes = ({}: TableEstudiantesProps) => {
     abilities: [],
   });
   const [showModal2, setShowModal2] = useState(false);
+
+  const [selectedStudent, setSelectedStudent] = useState<Student>(students[0]);
+
   // multiple selection
   const addStudentToSelected = (student: Student) => {
     setSelectedStudents([...selectedStudents, student]);
@@ -219,8 +222,12 @@ const TableEstudiantes = ({}: TableEstudiantesProps) => {
                     <div className="items-center justify-center">
                       <button
                         className="inline-flex items-center justify-center rounded-full bg-black py-3 w-25 text-center font-medium text-sm text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mr-2"
-                        onClick={() => setShowModal2(true)}
-                        disabled={selectedStudents.length === 0}
+                        onClick={() => {
+                          console.log("selectedStudent", student);
+
+                          setShowModal2(true);
+                          setSelectedStudent(student);
+                        }}
                       >
                         Ver ejes
                       </button>
@@ -273,15 +280,20 @@ const TableEstudiantes = ({}: TableEstudiantesProps) => {
       />
       {/* <Modal
 				title="Ejes de estudiante"
-				body={<Selects student={student} axis={students.axis} setAxis={setMultiStudentAxis} />}
+				body={
+					<div>
+						{selectedStudent.axis.map((eje, index) => (
+							<Selects key={index} student={selectedStudent} selectedAxis={eje} updateStudentAxis={updateStudentAxis} removeStudentAxis={removeStudentAxis} />
+						))}
+					</div>
+				}
 				show={showModal2}
 				setShow={setShowModal2}
 				onSubmit={() => {
-					selectedStudents.forEach((student) => {
-						updateStudentAxis(student, multiStudentAxis);
-					});
-
-					setShowModal(false);
+					// selectedStudents.forEach((student) => {
+					// 	updateStudentAxis(student, multiStudentAxis);
+					// });
+					// setShowModal(false);
 				}}
 			/> */}
     </>

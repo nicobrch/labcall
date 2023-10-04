@@ -5,7 +5,7 @@ import "./satoshi.css";
 import React, { useState, useEffect } from "react";
 import Loader from "@/components/common/Loader";
 
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Sidebar-Student";
 import Header from "@/components/Header";
 
 export default function RootLayout({
@@ -20,8 +20,8 @@ export default function RootLayout({
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
-
   return (
+    
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <div className="dark:bg-boxdark-2 dark:text-bodydark">
@@ -33,6 +33,7 @@ export default function RootLayout({
               <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
+                
               />
               {/* <!-- ===== Sidebar End ===== --> */}
 

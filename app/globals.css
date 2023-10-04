@@ -174,3 +174,15 @@ span.flatpickr-weekday,
 .map-btn .jvectormap-container .jvectormap-zoomin {
   right: 45px;
 }
+
+p {
+  text-align: justify;
+}
+
+.color-boton{
+  background-color: #00AFB9;
+}
+
+h3 {
+  text-align: center;
+}

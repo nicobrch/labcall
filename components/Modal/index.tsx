@@ -16,8 +16,8 @@ export default function Modal({ title, body, show, setShow, onSubmit }: ModalPro
 
 	return (
 		<>
-			<div className="justify-center px-4 items-center flex overflow-x-hidden overflow-y-auto absolute inset-0 z-50 outline-none focus:outline-none">
-				<div className="w-auto my-6 mx-auto max-w-3xl">
+			<div id="modal-root" className="justify-center px-4 items-center flex overflow-x-hidden overflow-y-auto absolute inset-0 z-50 outline-none focus:outline-none">
+				<div className="w-auto my-6 mx-auto max-w-full">
 					{/*content*/}
 					<div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
 						{/*header*/}
@@ -25,9 +25,7 @@ export default function Modal({ title, body, show, setShow, onSubmit }: ModalPro
 							<h3 className="text-3xl font-semibold">{title}</h3>
 						</div>
 						{/*body*/}
-						<div className="relative p-6 flex-auto">
-							<p className="my-4 text-slate-500 text-lg leading-relaxed">{body}</p>
-						</div>
+						<div className="relative p-6">{body}</div>
 						{/*footer*/}
 						<div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
 							<button

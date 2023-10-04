@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
 import { Ability, Axis, Student } from "@/types/student";
-import { parse } from "path";
 
 export interface Option {
 	label: string;
@@ -71,7 +70,7 @@ const Selects = ({ student, selectedAxis, updateStudentAxis, removeStudentAxis }
 	};
 
 	return (
-		<div className="py-5 dark:border-strokedark flex">
+		<div className="py-5 dark:border-strokedark flex overflow-x-scroll">
 			<Select
 				className="w-full dark:border-strokedark dark:text-black min-w-47.5 w-1/3 h-full mr-2"
 				placeholder="Seleccionar eje"

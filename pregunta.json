@@ -1,0 +1,56 @@
+[
+  {
+    "id": "00140001",
+    "id_nodo": 14,
+    "pregunta": "Considere un triángulo rectángulo con lados de longitud 3 unidades y 4 unidades. ¿Cuál de las siguientes opciones es la mejor estimación para la longitud de la hipotenusa del triángulo?",
+    "type": "multichoice",
+    "respuestas": [
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      },
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      },
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      },
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      }
+    ]
+  },
+  {
+    "pregunta": "Considere un triángulo rectángulo con lados de longitud 3 unidades y 4 unidades. ¿Cuál de las siguientes opciones es la mejor estimación para la longitud de la hipotenusa del triángulo?",
+    "type": "multichoice",
+    "respuestas": [
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      },
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      },
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      },
+      {
+        "id": 1,
+        "respuesta": "El estudiante reconoce la figúra del triángulo y logra aplicar correctamente la formula para obtener la hipotenusa.",
+        "data-fraction": 100
+      }
+    ]
+  }
+]

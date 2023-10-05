@@ -1,15 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { IAlternative } from "./Alternative.model";
-
-export interface IQuestion {
-  id?: number;
-  questionText: string;
-  imageURL?: string;
-  figureCaption?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  alternatives?: IAlternative[];
-}
+import { IQuestion } from "../interfaces/question";
 
 export interface QuestionModel extends Model<IQuestion, IQuestion> {}
 

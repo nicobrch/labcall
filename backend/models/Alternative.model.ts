@@ -1,14 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-
-export interface IAlternative {
-  id?: number;
-  questionId: number;
-  answerText: string;
-  isCorrect: boolean;
-  feedback: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
+import { IAlternative } from "../interfaces/alternative";
 
 export interface AlternativeModel extends Model<IAlternative, IAlternative> {}
 
@@ -24,7 +15,7 @@ export default function defineAlternativeModel(sequelize: Sequelize) {
       questionId: {
         type: DataTypes.INTEGER,
         references: {
-          model: "question", // nombre de la tabla, no del modelo
+          model: "question",
           key: "id",
         },
         allowNull: false,

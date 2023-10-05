@@ -1,41 +1,46 @@
 import { signInUser } from "@/backend/services/user.service";
+import { ValidationFailedError } from "@/backend/error/customErrors";
 import { NextRequest, NextResponse } from "next/server";
 import { validate, clean } from "rut.js";
 
 export async function POST(request: NextRequest) {
-  const { rut } = await request.json();
   // UTILIZA signInUser. El servicio ya valida por si mismo
   // Revisa su documentación para ver cómo trabaja los casos donde las credenciales son inválidas (por ejemplo)
 
-  const rutIsValid: boolean = validate(rut);
-  if (!rutIsValid) {
-    // Caso 1: Rut no cumple formato (está mal escrito o no existe)
+  try {
+    const {rut, password} = await request.json()
+    const user = await signInUser({rut, password})
     return NextResponse.json(
       {
-        message: "Rut escrito incorrectamente. Por favor intente nuevamente.",
+        message: "Inicio de sesión exitoso.",
+        user,
       },
       {
-        status: 500,
+        status: 200,
       }
     );
-  } else if (clean(rut) != "204042829") {
-    // Caso 2: Credenciales inválidas (rut o contraseñas incorrectos en la bdd)
-    return NextResponse.json(
-      {
-        message:
-          "Credenciales inválidas. Por favor revise su usuario o contraseña e intente nuevamente.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
-  return NextResponse.json(
-    {
-      message: rut,
-    },
-    {
-      status: 200,
+  } catch (error: ValidationFailedError | any) {
+    if (error.name === "ValidationFailedError") {
+      // No se pudo validar el usuario, entregar mensaje de error.
+      return NextResponse.json(
+        {
+          message: error.message,
+          // Error.message contiene ya el error para cada caso
+        },
+        {
+          status: 500,
+        }
+      );
+    } else {
+      // Algún otro error que no es propio de ValidationFailedError
+      return NextResponse.json(
+        {
+          message: "Ocurrió un error al procesar la solicitud.",
+        },
+        {
+          status: 500,
+        }
+      );
     }
-  );
+  }
 }

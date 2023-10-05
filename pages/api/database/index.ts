@@ -1,3 +1,4 @@
+import { seedQuestions } from "@/backend/loaders/initialValuesDatabase/initialQuestion";
 import sequelize from "@/backend/loaders/sequelize";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -9,7 +10,9 @@ export default async function handler(
     await sequelize.authenticate();
 
     // Forzar la creación de tablas y bases de datos. Esto borrará todos los datos existentes.
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: true }).then(() => {
+      seedQuestions();
+    });
     res
       .status(200)
       .json({ message: "Base de datos y tablas creadas con éxito." });

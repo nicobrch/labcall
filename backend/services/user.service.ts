@@ -1,7 +1,10 @@
 import { validate } from "rut.js";
 import { ValidationFailedError } from "../error/customErrors";
-import { User } from "../loaders/sequelize";
 import { ISignInUser, IUser } from "../interfaces/user";
+import UserRep from "../repositories/user.rep";
+import QuestionRepository from "../repositories/question.rep";
+
+const User = new UserRep();
 
 /**
  * Inicia la sesión de un usuario validando su RUT y contraseña.
@@ -30,12 +33,12 @@ export const signInUser = async (signInData: ISignInUser) => {
     }
     // const isValidPassword = await compare(password, userResponse.getDataValue('password'));
 
-    const isValidPassword = userResponse.getDataValue("password") === password;
+    const isValidPassword = userResponse.password === password;
 
     if (!isValidPassword) {
       throw new ValidationFailedError("La contraseña ingresada es incorrecta");
     }
-    const user = userResponse.toJSON();
+    const user = userResponse;
     delete user.password;
     return {
       ...userResponse,

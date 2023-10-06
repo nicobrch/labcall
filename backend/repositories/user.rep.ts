@@ -10,7 +10,7 @@ import {
 /**
  * Repositorio para interactuar con la entrutad.
  */
-export default class ClienteRep {
+export default class UserRep {
   /**
    * Constructor de la clase.
    * No requiere parámetros, ya que no realiza ninguna operación específica en el constructor.

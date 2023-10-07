@@ -91,13 +91,14 @@ const Selects = ({ student, selectedAxis, updateStudentAxis, removeStudentAxis }
 				value={parseAbilitiesToOptionArray(selectedAxis.abilities)}
 				onChange={onChangeAbilities}
 			/>
-
-			<button
-				className="inline-flex items-center justify-center rounded-sm bg-black p-4 text-center font-medium text-sm text-white hover:bg-opacity-90 h-4 w-4"
-				onClick={() => removeStudentAxis(student, selectedAxis)}
-			>
-				X
-			</button>
+			<div className="flex items-center justify-center">
+				<button
+					className="inline-flex items-center justify-center rounded-sm bg-black p-4 text-center font-medium text-sm text-white hover:bg-opacity-90 h-4 w-4"
+					onClick={() => removeStudentAxis(student, selectedAxis)}
+				>
+					X
+				</button>
+			</div>
 		</div>
 	);
 };

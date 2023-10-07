@@ -45,11 +45,18 @@ const MultiStudentSelects = ({ students, axis, setAxis }: MultiStudentSelectsPro
 
 	return (
 		<div>
-			<h4>Modificando estudiantes: {students.map((student) => student.name)}</h4>
+			<h4>
+				Modificando estudiantes:
+				<ol style={{ listStyleType: "decimal", justifyContent: "flex-start", paddingLeft: "20px", paddingTop: "5px" }}>
+					{students.map((student, index) => (
+						<li key={index}>{student.name}</li>
+					))}
+				</ol>
+			</h4>
 
-			<div className="py-5 dark:border-strokedark flex">
+			<div className="py-5 dark:border-strokedark sm:flex-col">
 				<Select
-					className="w-full dark:border-strokedark dark:text-black min-w-47.5 w-1/2 h-full mr-2"
+					className="w-full dark:border-strokedark dark:text-black min-w-47.5 h-full mb-2 sm:mb-0 sm:w-1/2 sm:mr-2"
 					placeholder="Seleccionar eje"
 					classNamePrefix="Eje"
 					name="Eje"
@@ -60,7 +67,7 @@ const MultiStudentSelects = ({ students, axis, setAxis }: MultiStudentSelectsPro
 
 				<Select
 					placeholder="Seleccionar habilidad"
-					className="w-full dark:border-strokedark dark:text-black min-w-47.5 w-1/2 mr-2"
+					className="w-full dark:border-strokedark dark:text-black min-w-47.5 h-full sm:w-1/2 md:w-1/2"
 					classNamePrefix="Habilidad"
 					isMulti
 					name="Habilidad"
@@ -68,6 +75,9 @@ const MultiStudentSelects = ({ students, axis, setAxis }: MultiStudentSelectsPro
 					value={selectedAbilities}
 					onChange={onChangeAbilities}
 				/>
+			</div>
+			<div className="flex items-center justify-center">
+				<button className="inline-flex items-center justify-center rounded-sm bg-black p-4 text-center font-medium text-sm text-white hover:bg-opacity-90 h-4 w-4">X</button>
 			</div>
 		</div>
 	);

@@ -5,17 +5,17 @@ import {
   WhereOptions,
 } from "sequelize";
 import sequelize, {
-  Question as Entity,
+  StudentResponse as Entity,
   Alternative,
 } from "../loaders/sequelize";
 import { NotFoundError, InternalServerError } from "../error/customErrors";
 import {
-  IQuestion as I,
-  ICreateQuestion as ICreate,
-  IUpdateQuestion as IUpdate,
-} from "../interfaces/question";
+  IStudentResponse as I,
+  ICreateStudentResponse as ICreate,
+  IUpdateStudentResponse as IUpdate,
+} from "../interfaces/studentResponse";
 
-export default class QuestionRepository {
+export default class StudentResponseRep {
   public Model = Entity;
   async getAll(options?: FindOptions): Promise<I[]> {
     const questions = await Entity.findAll(options);
@@ -35,10 +35,7 @@ export default class QuestionRepository {
   }
 
   async findByPk(id: I["id"], options?: FindOptions): Promise<I> {
-    const question = await Entity.findByPk(id, {
-      ...options,
-      include: [{ model: Alternative, as: "alternatives" }], // Incluye las alternativas por defecto
-    });
+    const question = await Entity.findByPk(id, options);
     if (!question) {
       throw new NotFoundError("Elemento no encontrado");
     }

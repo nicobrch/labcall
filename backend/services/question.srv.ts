@@ -1,8 +1,11 @@
+import { Sequelize } from "sequelize";
 import NodeRep from "../repositories/node.rep";
 import QuestionRepository from "../repositories/question.rep";
+import AlternativeRepository from "../repositories/alternative.rep";
 
 const Question = new QuestionRepository();
 const Node = new NodeRep();
+const Alternative = new AlternativeRepository();
 
 export const getNodeQuestions = async (node_id: number) => {
   try {
@@ -31,6 +34,24 @@ export const getNodes = async () => {
     });
     return nodes;
   } catch (error: any) {
+    throw error;
+  }
+};
+
+export const getStudentQuestion = (user_id: number, node_id?: number) => {
+  try {
+    const question = Question.findOne(
+      {},
+      {
+        order: Sequelize.literal("RAND()"),
+        include: {
+          model: Alternative.Model,
+          as: "alternatives",
+        },
+      }
+    );
+    return question;
+  } catch (error) {
     throw error;
   }
 };

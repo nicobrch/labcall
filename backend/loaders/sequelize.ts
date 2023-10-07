@@ -24,6 +24,14 @@ const sequelize = new Sequelize(
 
 export const models = loadModels(sequelize);
 
-export const { User, Question, Alternative, Node, UserNode } = models;
+export const {
+  User,
+  Question,
+  Alternative,
+  Node,
+  UserNode,
+  StudentResponse,
+  Course,
+} = models;
 
 export default sequelize;

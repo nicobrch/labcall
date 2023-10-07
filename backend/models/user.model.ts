@@ -10,7 +10,7 @@ export default function defineUserModel(sequelize: Sequelize) {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: false,
+        autoIncrement: true,
       },
       rut: {
         type: DataTypes.STRING(13),
@@ -46,6 +46,10 @@ export default function defineUserModel(sequelize: Sequelize) {
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      course_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
       createdAt: {
         type: DataTypes.DATE,

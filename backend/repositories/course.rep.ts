@@ -1,25 +1,42 @@
-import { CreateOptions, FindOptions, DestroyOptions } from "sequelize";
-import sequelize, { Alternative as Entity } from "../loaders/sequelize";
+import {
+  CreateOptions,
+  FindOptions,
+  DestroyOptions,
+  WhereOptions,
+} from "sequelize";
+import sequelize, { Course as Entity } from "../loaders/sequelize";
 import { NotFoundError, InternalServerError } from "../error/customErrors";
 import {
-  IAlternative as I,
-  ICreateAlternative as ICreate,
-  IUpdateAlternative as IUpdate,
-} from "../interfaces/alternative";
+  ICourse as I,
+  ICreateCourse as ICreate,
+  IUpdateCourse as IUpdate,
+} from "../interfaces/course";
 
-export default class AlternativeRepository {
-  async getAll(options?: FindOptions): Promise<I[]> {
-    const alternatives = await Entity.findAll(options);
-    return alternatives.map((alternative) => alternative.toJSON());
-  }
+export default class CourseRep {
   public Model = Entity;
+  async getAll(options?: FindOptions): Promise<I[]> {
+    const questions = await Entity.findAll(options);
+    return questions.map((question) => question.toJSON());
+  }
+
+  async findOne(
+    where: WhereOptions<I>,
+    options?: FindOptions
+  ): Promise<I | undefined> {
+    const element = await Entity.findOne({
+      where,
+      ...options,
+    });
+
+    return element?.toJSON();
+  }
 
   async findByPk(id: I["id"], options?: FindOptions): Promise<I> {
-    const alternative = await Entity.findByPk(id, options);
-    if (!alternative) {
-      throw new NotFoundError("Alternativa no encontrada");
+    const question = await Entity.findByPk(id, options);
+    if (!question) {
+      throw new NotFoundError("Elemento no encontrado");
     }
-    return alternative.toJSON();
+    return question.toJSON();
   }
 
   async create(values: ICreate, options?: CreateOptions): Promise<void> {
@@ -35,7 +52,7 @@ export default class AlternativeRepository {
     });
     if (numberOfDestroy !== 1) {
       await transaction.rollback();
-      throw new InternalServerError("Error al eliminar la alternativa");
+      throw new InternalServerError("Error eliminando la pregunta");
     }
     await transaction.commit();
   }
@@ -48,7 +65,7 @@ export default class AlternativeRepository {
     });
     if (updated[0] !== 1) {
       await transaction.rollback();
-      throw new InternalServerError("Error actualizando la alternativa");
+      throw new InternalServerError("Error actualizando la pregunta");
     }
     await transaction.commit();
   }

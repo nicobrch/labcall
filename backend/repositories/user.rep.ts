@@ -1,4 +1,9 @@
-import { CreateOptions, DestroyOptions, FindOptions } from "sequelize";
+import {
+  CreateOptions,
+  DestroyOptions,
+  FindOptions,
+  WhereOptions,
+} from "sequelize";
 import sequelize, { User as Entity } from "../loaders/sequelize";
 import { InternalServerError, NotFoundError } from "../error/customErrors";
 import {
@@ -19,6 +24,7 @@ export default class UserRep {
     // Constructor vacío o con lógica de inicialización (si es necesario).
   }
 
+  public Model = Entity;
   /**
    * Obtiene todos los elementos del repositorio disponibles en la base de datos.
    * @param {FindOptions} options - Opciones adicionales para la búsqueda.
@@ -41,6 +47,18 @@ export default class UserRep {
     if (!element) {
       throw new NotFoundError("Elemento no encontrado en la base de datos.");
     }
+    return element?.toJSON();
+  }
+
+  async findOne(
+    where: WhereOptions<I>,
+    options?: FindOptions
+  ): Promise<I | undefined> {
+    const element = await Entity.findOne({
+      where,
+      ...options,
+    });
+
     return element?.toJSON();
   }
 

@@ -1,5 +1,5 @@
 export interface IUser {
-  id?: string;
+  id?: number;
   rut?: string;
   firstname?: string; // Primer nombre
   lastname1?: string; // Primer apellido
@@ -8,6 +8,7 @@ export interface IUser {
   password?: string;
   type?: string;
   active?: boolean;
+  course_id?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

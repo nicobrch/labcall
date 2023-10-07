@@ -4,6 +4,8 @@ import defineQuestionModel from "../models/Question.model";
 import defineAlternativeModel from "../models/Alternative.model";
 import defineNodeModel from "../models/Node.model";
 import defineUserNodeModel from "../models/UserNode.model";
+import defineStudentResponseModel from "../models/StudentResponse.model";
+import defineCourseModel from "../models/course.model";
 
 export default function loadModels(sequelize: Sequelize) {
   const User = defineUserModel(sequelize);
@@ -11,6 +13,8 @@ export default function loadModels(sequelize: Sequelize) {
   const Alternative = defineAlternativeModel(sequelize);
   const Node = defineNodeModel(sequelize);
   const UserNode = defineUserNodeModel(sequelize);
+  const StudentResponse = defineStudentResponseModel(sequelize);
+  const Course = defineCourseModel(sequelize);
 
   /**
    * Relación entre question y alternative
@@ -55,6 +59,58 @@ export default function loadModels(sequelize: Sequelize) {
     foreignKey: "node_id",
     as: "node", // En singular porque cada Question pertenece a un único Node
   });
+  /**
+   * Relación entre studentResponse y student
+   */
+  StudentResponse.belongsTo(User, {
+    foreignKey: "user_id",
+    as: "user",
+  });
+  User.hasMany(StudentResponse, {
+    foreignKey: "user_id",
+    as: "responses",
+  });
+  /**
+   * Relación entre StudentResponse y Question
+   */
+  StudentResponse.belongsTo(Question, {
+    foreignKey: "question_id",
+    as: "question",
+  });
+  Question.hasMany(StudentResponse, {
+    foreignKey: "question_id",
+    as: "responses",
+  });
+  /**
+   * Relación entre StudentResponse y Alternative
+   */
+  StudentResponse.belongsTo(Alternative, {
+    foreignKey: "alternative_id",
+    as: "alternativa",
+  });
+  Alternative.hasMany(StudentResponse, {
+    foreignKey: "alternative_id",
+    as: "responses",
+  });
+  /**
+   * Relación entre Usuario y Curso
+   */
+  User.belongsTo(Course, {
+    foreignKey: "course_id",
+    as: "curso",
+  });
+  Course.belongsTo(User, {
+    foreignKey: "course_id",
+    as: "usuarios",
+  });
 
-  return { User, Question, Alternative, Node, UserNode };
+  return {
+    User,
+    Question,
+    Alternative,
+    Node,
+    UserNode,
+    StudentResponse,
+    Course,
+  };
 }

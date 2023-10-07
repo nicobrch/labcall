@@ -1,31 +1,25 @@
 import { CreateOptions, FindOptions, DestroyOptions } from "sequelize";
-import sequelize, {
-  Question as Entity,
-  Alternative,
-} from "../loaders/sequelize";
+import sequelize, { Node as Entity } from "../loaders/sequelize";
 import { NotFoundError, InternalServerError } from "../error/customErrors";
 import {
-  IQuestion as I,
-  ICreateQuestion as ICreate,
-  IUpdateQuestion as IUpdate,
-} from "../interfaces/question";
+  INode as I,
+  ICreateNode as ICreate,
+  IUpdateNode as IUpdate,
+} from "../interfaces/node";
 
-export default class QuestionRepository {
+export default class NodeRep {
   public Model = Entity;
   async getAll(options?: FindOptions): Promise<I[]> {
-    const questions = await Entity.findAll(options);
-    return questions.map((question) => question.toJSON());
+    const alternatives = await Entity.findAll(options);
+    return alternatives.map((alternative) => alternative.toJSON());
   }
 
   async findByPk(id: I["id"], options?: FindOptions): Promise<I> {
-    const question = await Entity.findByPk(id, {
-      ...options,
-      include: [{ model: Alternative, as: "alternatives" }], // Incluye las alternativas por defecto
-    });
-    if (!question) {
-      throw new NotFoundError("Elemento no encontrado");
+    const alternative = await Entity.findByPk(id, options);
+    if (!alternative) {
+      throw new NotFoundError("Alternativa no encontrada");
     }
-    return question.toJSON();
+    return alternative.toJSON();
   }
 
   async create(values: ICreate, options?: CreateOptions): Promise<void> {
@@ -41,7 +35,7 @@ export default class QuestionRepository {
     });
     if (numberOfDestroy !== 1) {
       await transaction.rollback();
-      throw new InternalServerError("Error eliminando la pregunta");
+      throw new InternalServerError("Error al eliminar la alternativa");
     }
     await transaction.commit();
   }
@@ -54,7 +48,7 @@ export default class QuestionRepository {
     });
     if (updated[0] !== 1) {
       await transaction.rollback();
-      throw new InternalServerError("Error actualizando la pregunta");
+      throw new InternalServerError("Error actualizando la alternativa");
     }
     await transaction.commit();
   }

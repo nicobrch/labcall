@@ -5,6 +5,7 @@ const initialData = [
     questionText:
       "Resuelve el siguiente problema considerando $\\pi = 3$. En la figura se tienen 4 circunferencias tangentes, todas del mismo tamaño y su radio mide 3 cm. ¿Cuál es el área de la parte ennegrecida? Considera que el lado del cuadrado mide 12 cm.",
     imageURL: ".\\img_labcat\\circunferencias.svg",
+    node_id: 9,
     figureCaption: "Figura 1",
     alternatives: [
       {
@@ -42,6 +43,7 @@ export async function seedQuestions() {
       questionText: questionData.questionText,
       imageURL: questionData.imageURL,
       figureCaption: questionData.figureCaption,
+      node_id: questionData.node_id,
     });
 
     //@ts-ignore

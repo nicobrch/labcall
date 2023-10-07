@@ -5,13 +5,20 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 
 const SignUp: React.FC = () => {
-  const [rut, setRut] = useState("")
+  const [formData, setFormData] = useState({
+    rut: '',
+    password: ''
+  })
   const [apiResponse, setApiResponse] = useState("")
   const router = useRouter()
 
-  const handleRutChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRut(event.target.value);
-  }
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,7 +29,7 @@ const SignUp: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ rut })
+        body: JSON.stringify(formData)
       })
 
       if (response.ok) {
@@ -36,14 +43,14 @@ const SignUp: React.FC = () => {
         console.error("API Respondió mal :(");
       }
     } catch (error) {
-      console.error("Connection Error:", error)
+      console.error("Error de conexion:", error)
     }
   };
 
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="flex flex-wrap items-center">
+        <div className="flex flex-wrap items-center justify-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" href="/">
@@ -84,10 +91,11 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="text"
-                      title="rut"
+                      id="rut"
+                      name="rut"
                       placeholder="12.345.678-9"
-                      value={rut}
-                      onChange={handleRutChange}
+                      value={formData.rut}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -122,8 +130,11 @@ const SignUp: React.FC = () => {
                   <div className="relative">
                     <input
                       type="password"
-                      title="pswd"
+                      id="password"
+                      name="password"
                       placeholder="Contraseña"
+                      value={formData.password}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 

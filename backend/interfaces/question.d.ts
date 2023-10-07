@@ -2,6 +2,7 @@ import { IAlternative } from "./alternative";
 
 export interface IQuestion {
   id?: number;
+  node_id: number;
   questionText: string;
   imageURL?: string;
   figureCaption?: string;

@@ -1,4 +1,5 @@
 export interface IUser {
+  id?: string;
   rut?: string;
   firstname?: string; // Primer nombre
   lastname1?: string; // Primer apellido

@@ -7,10 +7,14 @@ export default function defineUserModel(sequelize: Sequelize) {
   const User = sequelize.define<UserModel, IUser>(
     "user",
     {
-      rut: {
-        type: DataTypes.STRING(13),
+      id: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: false,
+      },
+      rut: {
+        type: DataTypes.STRING(13),
+        allowNull: true,
       },
       firstname: {
         // Primer nombre

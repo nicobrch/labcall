@@ -1,32 +1,32 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { IQuestion } from "../interfaces/question";
+import { INode } from "../interfaces/node";
 
-export interface QuestionModel extends Model<IQuestion, IQuestion> {}
+export interface NodeModel extends Model<INode, INode> {}
 
-export default function defineQuestionModel(sequelize: Sequelize) {
-  const Question = sequelize.define<QuestionModel, IQuestion>(
-    "question",
+export default function defineNodeModel(sequelize: Sequelize) {
+  const Node = sequelize.define<NodeModel, INode>(
+    "node",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      questionText: {
-        type: DataTypes.TEXT,
-        allowNull: false,
+      axis: {
+        type: DataTypes.STRING(90),
+        allowNull: true,
       },
-      imageURL: {
+      ability: {
+        type: DataTypes.STRING(90),
+        allowNull: true,
+      },
+      description: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      figureCaption: {
-        type: DataTypes.STRING(255),
-        allowNull: true,
-      },
-      node_id: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -43,5 +43,5 @@ export default function defineQuestionModel(sequelize: Sequelize) {
     }
   );
 
-  return Question;
+  return Node;
 }

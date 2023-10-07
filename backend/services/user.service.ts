@@ -25,7 +25,9 @@ export const signInUser = async (signInData: ISignInUser) => {
     if (!validate(rut)) {
       throw new ValidationFailedError("El formato del rut es inválido");
     }
-    const userResponse = await User.findByPk(rut);
+    const userResponse = await User.findOne({
+      rut,
+    });
     if (!userResponse) {
       throw new ValidationFailedError(
         "El rut ingresado no se encuentra registrado"

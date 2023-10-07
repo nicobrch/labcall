@@ -1,18 +1,18 @@
 import { CreateOptions, FindOptions, DestroyOptions } from "sequelize";
-import sequelize, { Alternative as Entity } from "../loaders/sequelize";
+import sequelize, { Node as Entity } from "../loaders/sequelize";
 import { NotFoundError, InternalServerError } from "../error/customErrors";
 import {
-  IAlternative as I,
-  ICreateAlternative as ICreate,
-  IUpdateAlternative as IUpdate,
-} from "../interfaces/alternative";
+  INode as I,
+  ICreateNode as ICreate,
+  IUpdateNode as IUpdate,
+} from "../interfaces/node";
 
-export default class AlternativeRepository {
+export default class NodeRep {
+  public Model = Entity;
   async getAll(options?: FindOptions): Promise<I[]> {
     const alternatives = await Entity.findAll(options);
     return alternatives.map((alternative) => alternative.toJSON());
   }
-  public Model = Entity;
 
   async findByPk(id: I["id"], options?: FindOptions): Promise<I> {
     const alternative = await Entity.findByPk(id, options);

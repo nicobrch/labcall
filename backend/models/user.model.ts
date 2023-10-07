@@ -7,10 +7,14 @@ export default function defineUserModel(sequelize: Sequelize) {
   const User = sequelize.define<UserModel, IUser>(
     "user",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       rut: {
         type: DataTypes.STRING(13),
-        primaryKey: true,
-        autoIncrement: false,
+        allowNull: true,
       },
       firstname: {
         // Primer nombre
@@ -42,6 +46,10 @@ export default function defineUserModel(sequelize: Sequelize) {
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      course_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
       },
       createdAt: {
         type: DataTypes.DATE,

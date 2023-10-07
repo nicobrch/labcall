@@ -1,5 +1,16 @@
+import { seedCourses } from "@/backend/loaders/initialValuesDatabase/initialCourse";
+import { seedNodes } from "@/backend/loaders/initialValuesDatabase/initialNodes";
 import { seedQuestions } from "@/backend/loaders/initialValuesDatabase/initialQuestion";
-import sequelize from "@/backend/loaders/sequelize";
+import { seedUsers } from "@/backend/loaders/initialValuesDatabase/initialUser";
+import sequelize, {
+  Alternative,
+  Question,
+  User,
+  Node,
+  UserNode,
+  StudentResponse,
+  Course,
+} from "@/backend/loaders/sequelize";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -9,10 +20,32 @@ export default async function handler(
   try {
     await sequelize.authenticate();
 
-    // Forzar la creación de tablas y bases de datos. Esto borrará todos los datos existentes.
-    await sequelize.sync({ force: true }).then(() => {
-      seedQuestions();
+    await sequelize.query("SET foreign_key_checks = 0");
+
+    await User.sync({ force: true });
+
+    // Primero sincroniza Alternative ya que depende de Question
+    await Alternative.sync({ force: true });
+
+    await StudentResponse.sync({ force: true });
+
+    await Course.sync({ force: true }).then(async () => {
+      await seedCourses();
     });
+
+    await Question.sync({ force: true }).then(() => {});
+
+    await Node.sync({ force: true }).then(async () => {
+      await seedNodes();
+      await seedQuestions();
+    });
+
+    await UserNode.sync({ force: true }).then(async () => {
+      await seedUsers();
+    });
+
+    await sequelize.query("SET foreign_key_checks = 1");
+
     res
       .status(200)
       .json({ message: "Base de datos y tablas creadas con éxito." });

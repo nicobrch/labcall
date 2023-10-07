@@ -1,30 +1,30 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { IQuestion } from "../interfaces/question";
+import { IStudentResponse } from "../interfaces/studentResponse";
 
-export interface QuestionModel extends Model<IQuestion, IQuestion> {}
+export interface StudentResponseModel
+  extends Model<IStudentResponse, IStudentResponse> {}
 
-export default function defineQuestionModel(sequelize: Sequelize) {
-  const Question = sequelize.define<QuestionModel, IQuestion>(
-    "question",
+export default function defineStudentResponseModel(sequelize: Sequelize) {
+  const StudentResponse = sequelize.define<
+    StudentResponseModel,
+    IStudentResponse
+  >(
+    "student_response",
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      questionText: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      imageURL: {
-        type: DataTypes.STRING,
+      student_id: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      figureCaption: {
-        type: DataTypes.STRING(255),
+      question_id: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      node_id: {
+      alternative_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
@@ -43,5 +43,5 @@ export default function defineQuestionModel(sequelize: Sequelize) {
     }
   );
 
-  return Question;
+  return StudentResponse;
 }

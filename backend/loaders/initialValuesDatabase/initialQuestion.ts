@@ -34,6 +34,39 @@ const initialData = [
       },
     ],
   },
+  {
+    questionText:
+      "Se tiene un alambre de 18 cm de longitud el cual se dobla de manera que se forma un circulo. Se requiere ampliar el circulo de alambre de modo que su diámetro sea 2 veces más grande que el inicial, ¿Cuál seria el área final del circulo de alambre? Considere $\\pi$=3",
+    imageURL: undefined,
+    node_id: 9,
+    figureCaption: undefined,
+    alternatives: [
+      {
+        answerText: "$108cm^2$",
+        isCorrect: true,
+        feedback:
+          "Como el perímetro del alambre es 18cm, se obtiene 6cm diámetro mediante la fórmula del perímetro del círculo, por consiguiente, multiplicando por 2 se encuentra el valor pedido del diámetro. Luego se calcula 108$cm^2$ de área elevando el diámetro al cuadrado, divido en 4, y finalmente se multiplica por $\\pi$.",
+      },
+      {
+        answerText: "$27cm^2$",
+        isCorrect: false,
+        feedback:
+          "Resulta de la confusión de aplicar el radio en la formula de Area del circulo con el diametro como variable, obteniendo 27$cm^2$",
+      },
+      {
+        answerText: "$216cm^2$",
+        isCorrect: false,
+        feedback:
+          "Al aplicar la función del Área con respecto al diámetro, este puede fraccionarse en 2 al no ser elevado al cuadrado , en efecto, se obtiene un área de 216$cm^2$",
+      },
+      {
+        answerText: "$432cm^2$",
+        isCorrect: false,
+        feedback:
+          "Resulta de la confusión de entender el diámetro como radio en el proceso de calcular el Área final del circulo, obteniendo 432$cm^2$",
+      },
+    ],
+  },
 ];
 
 // Esta función añade las preguntas y alternativas a la base de datos

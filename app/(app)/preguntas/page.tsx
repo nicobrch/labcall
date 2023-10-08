@@ -1,52 +1,11 @@
 "use client";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import CheckboxFive from "@/components/Checkboxes/CheckboxFive";
-import CheckboxFour from "@/components/Checkboxes/CheckboxFour";
-import CheckboxOne from "@/components/Checkboxes/CheckboxOne";
-import CheckboxThree from "@/components/Checkboxes/CheckboxThree";
-import CheckboxTwo from "@/components/Checkboxes/CheckboxTwo";
-import SwitcherFour from "@/components/Switchers/SwitcherFour";
-import SwitcherOne from "@/components/Switchers/SwitcherOne";
-import SwitcherThree from "@/components/Switchers/SwitcherThree";
-import SwitcherTwo from "@/components/Switchers/SwitcherTwo";
 import { useState, useEffect } from "react";
 var Latex = require("react-latex");
 
 
 const Pregunta = () => {
-    const [apiResponse, setApiResponse] = useState("");
-    const [data, setData] = useState(null); 
+    const [data, setData] = useState(null);
     
-    
-    useEffect(() => {
-    const fetchData = async () => {
-        const student_id = 1;
-        const node_id = 1;
-        try {
-        const response = await fetch(`http://localhost:3000/api/question/student?student_id=${student_id}&node_id=${node_id}`, {
-                method: "GET",
-                headers: {
-                "Content-Type": "application/json",
-            },
-            });
-            if (response.ok) {
-                console.log("API Respondió OK!");
-                const responseData = await response.json();
-                setData(responseData); // Actualiza el estado con los datos de la API
-            } else {
-                console.log("API Respondió mal :(");
-                console.error("API Respondió mal :(");
-            }
-        } catch (error) {
-        console.error("Connection Error:", error);
-        }
-    };
-
-    fetchData(); // Llama a la función para cargar los datos de la API
-
-    }, []); 
-
-
     const [isChecked1, setIsChecked1] = useState<boolean>(false);
     const [isChecked2, setIsChecked2] = useState<boolean>(false);
     const [isChecked3, setIsChecked3] = useState<boolean>(false);
@@ -59,20 +18,76 @@ const Pregunta = () => {
     const [justificacion, setJustificacion] = useState('');
     const [opcionesDeshabilitadas, setOpcionesDeshabilitadas] = useState(false);
     const [esCorrecta, setEsCorrecta] = useState(false);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const student_id = 1;
+            const node_id = 1;
+            try {
+            const response = await fetch(`http://localhost:3000/api/question/student?student_id=${student_id}&node_id=${node_id}`, {
+                    method: "GET",
+                    headers: {
+                    "Content-Type": "application/json",
+                },
+                });
+                if (response.ok) {
+                    console.log("API Respondió OK!");
+                    const responseData = await response.json();
+                    setData(responseData); // Actualiza el estado con los datos de la API
+                } else {
+                    console.error("API Respondió mal :(");
+                }
+            } catch (error) {
+            console.error("Connection Error:", error);
+            }
+        };
+        fetchData(); // Llama a la función para cargar los datos de la API
+    }, []); 
 
+    const fetchRespuesta = async () => {
+        // estos parametros deberian entrar como argumentos de la funcion
+        const student_id = 1;
+        const node_id = 1;
+        try {
+        const response = await fetch('http://localhost:3000/api/question/response', {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+                student_id: student_id,
+                "question_id": data.id,
+                "alternative_id": respuestaUsuario,
+                "is_correct": esCorrecta,
+                "save_response": 1
+            })
+            });
+            if (response.ok) {
+                console.log("Enviada y guardada en DB");
+                // esta respuesta contiene la siguiente pregunta
+                const responseData = await response.json();
+                // se debe actualizar el estado con la siguiente pregunta
+                // recargar la pagina
+                window.location.reload(); // Reload the page
+            } else {
+                console.log("Error al guardar");
+                console.error("API Respondió mal :(");
+            }
+        } catch (error) {
+        console.error("Connection Error:", error);
+        }
+        };
 
     const handleEnviarRespuesta = () => {
         setEnviarRespuestaDeshabilitado(true);
         const respuestaIngresada = respuestaUsuario.trim();
-        console.log(esCorrecta);
         setRespuestaUsuario(respuestaIngresada);
-        // console.log(respuestaUsuario)
+        // se bloquean las opciones para cambiar la respuesta y se activa el boton para mostrar la respuesta
         setMostrarRespuesta(true);
         setOpcionesDeshabilitadas(true);
     };
 
     const handleMostrarRespuesta = () => {
-        // Aquí puedes implementar la lógica para mostrar la respuesta completa o realizar otras acciones.
         setMostrarExplicacion(true); // Mostrar la explicación al hacer clic
     };
 
@@ -83,7 +98,7 @@ const Pregunta = () => {
     {data ? (
         // Renderiza los datos cuando la promesa se completa
         <div>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous"></link>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossOrigin="anonymous"></link>
             <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
             <div className="flex flex-col gap-9">
                 <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
@@ -268,13 +283,13 @@ const Pregunta = () => {
                     <div className="bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                         <h2 className="font-semibold text-black dark:text-white"> Explicacion </h2>
                         <p className="items-center justify-center mt-4.5">
-                            {justificacion}
+                            <Latex>{justificacion}</Latex>
                         </p>
                         
                     </div>
                     <div className="bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                     <button 
-                        // onClick={}
+                        onClick={ fetchRespuesta }
                         className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
                     >
                         Siguiente pregunta</button>                    

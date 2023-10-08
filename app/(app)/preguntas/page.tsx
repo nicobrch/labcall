@@ -135,7 +135,7 @@ const Pregunta = () => {
                             }}
                             disabled={opcionesDeshabilitadas}
                         />
-                        <div className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${isChecked4 && "border-primary"}`}
+                        <div className={`mr-4 flex h-5 w-5 items-center justify-center rounded-full border ${isChecked1 && "border-primary"}`}
                         >
                             <span className={`h-2.5 w-2.5 rounded-full bg-transparent ${
                                 isChecked1 && "!bg-primary"

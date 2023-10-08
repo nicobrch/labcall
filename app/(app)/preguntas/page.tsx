@@ -52,11 +52,11 @@ const Pregunta = () => {
     const [isChecked3, setIsChecked3] = useState<boolean>(false);
     const [isChecked4, setIsChecked4] = useState<boolean>(false);
 
-    const [respuesta, setRespuesta] = useState<string>("");
     const [mostrarRespuesta, setMostrarRespuesta] = useState<boolean>(false);
     const [enviarRespuestaDeshabilitado, setEnviarRespuestaDeshabilitado] = useState(false);
     const [mostrarExplicacion, setMostrarExplicacion] = useState(false);
     const [respuestaUsuario, setRespuestaUsuario] = useState('');
+    const [justificacion, setJustificacion] = useState('');
     const [opcionesDeshabilitadas, setOpcionesDeshabilitadas] = useState(false);
     const [verificarRespuesta, setVerificarRespuesta] = useState(false);
 
@@ -69,9 +69,8 @@ const Pregunta = () => {
         } else {
             setVerificarRespuesta(false);
         }
-        console.log(verificarRespuesta);
-        setRespuesta(respuestaIngresada);
-        console.log(respuesta)
+        setRespuestaUsuario(respuestaIngresada);
+        // console.log(respuestaUsuario)
         setMostrarRespuesta(true);
         setOpcionesDeshabilitadas(true);
     };
@@ -80,17 +79,6 @@ const Pregunta = () => {
         // Aquí puedes implementar la lógica para mostrar la respuesta completa o realizar otras acciones.
         setMostrarExplicacion(true); // Mostrar la explicación al hacer clic
     };
-    // make return wait for api response
-    useEffect(() => {
-        async function fetchData() {
-            const res = await fetch('http://localhost:3000/api/question/student?student_id=1&node_id=1');
-            res
-                .json()
-                .then(res => setApiResponse(res))
-                .catch(err => setApiResponse(err));
-        }
-        fetchData();
-    }, []);
 
   
     return (
@@ -109,7 +97,7 @@ const Pregunta = () => {
                 <div className="bg-white px-7.5 dark:border-strokedark dark:bg-boxdark">
                 <p className="items-center justify-center mt-4.5">
                     {data.questionText}
-                </p>          
+                </p>
 
                 <div className="flex flex-col gap-5.5 p-6.5">
                     {/* respuesta 1 */}
@@ -123,6 +111,7 @@ const Pregunta = () => {
                             onChange={() => {
                                 if (!opcionesDeshabilitadas){
                                     setRespuestaUsuario(''+data.alternatives[0].id);
+                                    setJustificacion(data.alternatives[0].feedback);
                                     setIsChecked1(!isChecked1);
                                     setIsChecked2(false);
                                     setIsChecked3(false);
@@ -156,6 +145,7 @@ const Pregunta = () => {
                             onChange={() => {
                                 if (!opcionesDeshabilitadas) {
                                     setRespuestaUsuario(data.alternatives[1].id+'');
+                                    setJustificacion(data.alternatives[1].feedback);
                                     setIsChecked2(!isChecked2);
                                     setIsChecked1(false);
                                     setIsChecked3(false);
@@ -188,6 +178,7 @@ const Pregunta = () => {
                             onChange={() => {
                                 if (!opcionesDeshabilitadas){
                                     setRespuestaUsuario(data.alternatives[2].id+'');
+                                    setJustificacion(data.alternatives[2].feedback);
                                     setIsChecked3(!isChecked3);
                                     setIsChecked1(false);
                                     setIsChecked2(false);
@@ -220,6 +211,7 @@ const Pregunta = () => {
                             onChange={() => {
                                 if (!opcionesDeshabilitadas){
                                     setRespuestaUsuario(data.alternatives[3].id+'');
+                                    setJustificacion(data.alternatives[3].feedback);
                                     setIsChecked4(!isChecked4);
                                     setIsChecked1(false);
                                     setIsChecked2(false);
@@ -275,7 +267,7 @@ const Pregunta = () => {
                     <div className="bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                         <h2 className="font-semibold text-black dark:text-white"> Explicacion </h2>
                         <p className="items-center justify-center mt-4.5">
-                            {data.explicacion}
+                            {justificacion}
                         </p>
                         
                     </div>

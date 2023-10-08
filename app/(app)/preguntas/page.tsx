@@ -10,7 +10,7 @@ import SwitcherOne from "@/components/Switchers/SwitcherOne";
 import SwitcherThree from "@/components/Switchers/SwitcherThree";
 import SwitcherTwo from "@/components/Switchers/SwitcherTwo";
 import { useState, useEffect } from "react";
-import katex from "katex";
+var Latex = require("react-latex");
 
 
 const Pregunta = () => {
@@ -58,17 +58,13 @@ const Pregunta = () => {
     const [respuestaUsuario, setRespuestaUsuario] = useState('');
     const [justificacion, setJustificacion] = useState('');
     const [opcionesDeshabilitadas, setOpcionesDeshabilitadas] = useState(false);
-    const [verificarRespuesta, setVerificarRespuesta] = useState(false);
+    const [esCorrecta, setEsCorrecta] = useState(false);
 
 
     const handleEnviarRespuesta = () => {
         setEnviarRespuestaDeshabilitado(true);
         const respuestaIngresada = respuestaUsuario.trim();
-        if (respuestaIngresada === data.respuesta_correcta) {
-            setVerificarRespuesta(true);
-        } else {
-            setVerificarRespuesta(false);
-        }
+        console.log(esCorrecta);
         setRespuestaUsuario(respuestaIngresada);
         // console.log(respuestaUsuario)
         setMostrarRespuesta(true);
@@ -87,6 +83,7 @@ const Pregunta = () => {
     {data ? (
         // Renderiza los datos cuando la promesa se completa
         <div>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous"></link>
             <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
             <div className="flex flex-col gap-9">
                 <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
@@ -96,8 +93,10 @@ const Pregunta = () => {
                 </div>
                 <div className="bg-white px-7.5 dark:border-strokedark dark:bg-boxdark">
                 <p className="items-center justify-center mt-4.5">
-                    {data.questionText}
+                    <Latex>{data.questionText}</Latex>
                 </p>
+
+                
 
                 <div className="flex flex-col gap-5.5 p-6.5">
                     {/* respuesta 1 */}
@@ -112,6 +111,7 @@ const Pregunta = () => {
                                 if (!opcionesDeshabilitadas){
                                     setRespuestaUsuario(''+data.alternatives[0].id);
                                     setJustificacion(data.alternatives[0].feedback);
+                                    setEsCorrecta(data.alternatives[0].isCorrect);
                                     setIsChecked1(!isChecked1);
                                     setIsChecked2(false);
                                     setIsChecked3(false);
@@ -129,9 +129,8 @@ const Pregunta = () => {
                             </span>
                         </div>
                         </div>
-                        {/* en caso de que no se quiera usar las $$ */}
-                        {/* {(data.alternatives[0].answerText.slice(1,-1))} */}
-                        {(data.alternatives[0].answerText)}
+
+                        <Latex>{data.alternatives[0].answerText}</Latex>
                     </label>
                     </div>
                     {/* respuesta 2 */}
@@ -146,6 +145,7 @@ const Pregunta = () => {
                                 if (!opcionesDeshabilitadas) {
                                     setRespuestaUsuario(data.alternatives[1].id+'');
                                     setJustificacion(data.alternatives[1].feedback);
+                                    setEsCorrecta(data.alternatives[1].isCorrect);
                                     setIsChecked2(!isChecked2);
                                     setIsChecked1(false);
                                     setIsChecked3(false);
@@ -164,7 +164,7 @@ const Pregunta = () => {
                             </span>
                         </div>
                         </div>
-                        {(data.alternatives[1].answerText)}
+                        <Latex>{(data.alternatives[1].answerText)}</Latex>
                     </label>
                     </div>
                     {/* respuesta 3 */}
@@ -179,6 +179,7 @@ const Pregunta = () => {
                                 if (!opcionesDeshabilitadas){
                                     setRespuestaUsuario(data.alternatives[2].id+'');
                                     setJustificacion(data.alternatives[2].feedback);
+                                    setEsCorrecta(data.alternatives[2].isCorrect);
                                     setIsChecked3(!isChecked3);
                                     setIsChecked1(false);
                                     setIsChecked2(false);
@@ -197,7 +198,7 @@ const Pregunta = () => {
                             </span>
                         </div>
                         </div>
-                        {data.alternatives[2].answerText}
+                        <Latex>{data.alternatives[2].answerText}</Latex>
                     </label>
                     </div>
                     {/* respuesta 4 */}
@@ -212,6 +213,7 @@ const Pregunta = () => {
                                 if (!opcionesDeshabilitadas){
                                     setRespuestaUsuario(data.alternatives[3].id+'');
                                     setJustificacion(data.alternatives[3].feedback);
+                                    setEsCorrecta(data.alternatives[3].isCorrect);
                                     setIsChecked4(!isChecked4);
                                     setIsChecked1(false);
                                     setIsChecked2(false);
@@ -230,7 +232,7 @@ const Pregunta = () => {
                             </span>
                         </div>
                         </div>
-                        {data.alternatives[3].answerText}
+                        <Latex>{data.alternatives[3].answerText}</Latex>
                     </label>
                     </div>
                 </div>
@@ -257,8 +259,7 @@ const Pregunta = () => {
                             Mostrar respuesta</button>
                         </div>
                     )}
-
-                    
+                   
 
                 </div>
             </div>

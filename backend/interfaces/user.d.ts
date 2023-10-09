@@ -20,3 +20,11 @@ export interface ISignInUser {
   rut: string;
   password: string;
 }
+export interface IAddNodesToUser {
+  rut: string;
+  nodes: Node[];
+}
+export interface Node {
+  axis: string;
+  ability: string;
+}

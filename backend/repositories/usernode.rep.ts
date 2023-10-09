@@ -1,9 +1,9 @@
 import { CreateOptions, FindOptions, DestroyOptions } from "sequelize";
-import sequelize, { Node as Entity } from "../loaders/sequelize";
+import sequelize, { UserNode as Entity } from "../loaders/sequelize";
 import { NotFoundError, InternalServerError } from "../error/customErrors";
-import { INode as I, ICreateNode as ICreate, IUpdateNode as IUpdate } from "../interfaces/node";
+import { IUserNode as I, ICreateUserNode as ICreate, IUpdateUserNode as IUpdate } from "../interfaces/UserNode";
 
-export default class NodeRep {
+export default class UserNodeRep {
 	public Model = Entity;
 	async getAll(options?: FindOptions): Promise<I[]> {
 		const alternatives = await Entity.findAll(options);
@@ -47,15 +47,5 @@ export default class NodeRep {
 			throw new InternalServerError("Error actualizando la alternativa");
 		}
 		await transaction.commit();
-	}
-
-	async getNodeByAxisAbility(axis: string, ability: string): Promise<I> {
-		const node = await Entity.findOne({
-			where: { axis, ability }
-		});
-		if (!node) {
-			throw new NotFoundError("Nodo no encontrado");
-		}
-		return node.toJSON();
 	}
 }

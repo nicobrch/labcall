@@ -73,7 +73,7 @@ export const addNodesToUser = async (input: IAddNodesToUser) => {
       const idNode = nodeResponse.id;
       await userNode.create({
         node_id: idNode,
-        user_id: parseInt(idUser || "0"),
+        user_id: Number(idUser) || 0,
       });
     });
   } catch (error) {

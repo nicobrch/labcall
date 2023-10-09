@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import SelectComponent from "./SelectComponent";
 import MultiSelectComponent from "./MultiSelectComponent";
-import { axisOptions } from "./otros/Selects";
 import { buildOptions } from "./page";
 
 const axisInfoApiResponse = ["sumar", "restar", "multiplicar", "dividir"];

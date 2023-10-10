@@ -1,4 +1,5 @@
 "use client";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { useState, useEffect } from "react";
 var Latex = require("react-latex");
 
@@ -113,6 +114,8 @@ const Pregunta = () => {
     setIsChecked4(false);
     setIsChecked3(false);
   };
+  const [userData] = useLocalStorage("user", null);
+  console.log(userData);
 
   return (
     <>

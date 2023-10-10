@@ -5,6 +5,7 @@ var Latex = require("react-latex");
 
 const Pregunta = () => {
   const [data, setData] = useState(null);
+  const [userData] = useLocalStorage("user", null);
 
   const [isChecked1, setIsChecked1] = useState<boolean>(false);
   const [isChecked2, setIsChecked2] = useState<boolean>(false);
@@ -12,8 +13,7 @@ const Pregunta = () => {
   const [isChecked4, setIsChecked4] = useState<boolean>(false);
 
   const [mostrarRespuesta, setMostrarRespuesta] = useState<boolean>(false);
-  const [enviarRespuestaDeshabilitado, setEnviarRespuestaDeshabilitado] =
-    useState(false);
+  const [enviarRespuestaDeshabilitado, setEnviarRespuestaDeshabilitado] = useState(false);
   const [mostrarExplicacion, setMostrarExplicacion] = useState(false);
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [justificacion, setJustificacion] = useState("");
@@ -22,7 +22,7 @@ const Pregunta = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const student_id = 1;
+      const student_id = userData?.id || 1;
       const node_id = 1;
       try {
         const response = await fetch(
@@ -37,8 +37,7 @@ const Pregunta = () => {
         if (response.ok) {
           console.log("API Respondió OK!");
           const responseData = await response.json();
-          console.log(responseData);
-
+        //   console.log(responseData);
           setData(responseData); // Actualiza el estado con los datos de la API
         } else {
           console.error("API Respondió mal :(");
@@ -78,10 +77,7 @@ const Pregunta = () => {
         // esta respuesta contiene la siguiente pregunta
         const responseData = await response.json();
         // se debe actualizar el estado con la siguiente pregunta
-        // recargar la pagina
-        // window.location.reload(); // Reload the page
-        console.log(responseData);
-
+        // console.log(responseData);
         setData(responseData?.next_question);
         isFinish();
       } else {
@@ -113,9 +109,12 @@ const Pregunta = () => {
     setIsChecked2(false);
     setIsChecked4(false);
     setIsChecked3(false);
+    setEnviarRespuestaDeshabilitado(false);    
+    setRespuestaUsuario("");
+    setJustificacion("");
+    setOpcionesDeshabilitadas(false);
+    setEsCorrecta(false);
   };
-  const [userData] = useLocalStorage("user", null);
-  console.log(userData);
 
   return (
     <>

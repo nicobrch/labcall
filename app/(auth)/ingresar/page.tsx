@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const SignUp: React.FC = () => {
     password: ''
   })
   const [apiResponse, setApiResponse] = useState("")
+  const [, setUser] = useLocalStorage("user", null);
   const router = useRouter()
 
   const handleChange = (e: any) => {
@@ -36,13 +38,18 @@ const SignUp: React.FC = () => {
         // Credenciales validas, hacer redirect
         console.log("API Respondió OK!")
         const data = await response.json()
-
-        if (data.user && data.user.type === "student"){
-          router.push("/dashboard/estudiante")
-        } else if (data.user && data.user.type === "teacher"){
-          router.push("/dashboard/profesor")
+        
+        if (data.user){
+          setUser(data.user)
+          if (data.user.type === "student"){
+            router.push("/dashboard/estudiante")
+          } else if (data.user.type === "teacher"){
+            router.push("/dashboard/profesor")
+          } else {
+            router.push("/")
+          }
         } else {
-          router.push("/")
+          console.log("No user data retrieved.")
         }
       } else {
         // Credenciales invalidas, generar advertencias

@@ -1,8 +1,7 @@
 import { validate } from "rut.js";
 import { ValidationFailedError } from "../error/customErrors";
-import { IAddNodesToUser, ISignInUser, IUser } from "../interfaces/user";
+import { IBulkNodesToUser, ISignInUser, IUser } from "../interfaces/user";
 import UserRep from "../repositories/user.rep";
-import QuestionRepository from "../repositories/question.rep";
 import NodeRep from "../repositories/node.rep";
 import UserNodeRep from "../repositories/usernode.rep";
 
@@ -54,26 +53,32 @@ export const signInUser = async (signInData: ISignInUser) => {
   }
 };
 
-export const addNodesToUser = async (input: IAddNodesToUser) => {
+export const addNodesToUser = async (input: IBulkNodesToUser) => {
   try {
-    const { rut, nodes } = input;
-    const user = await User.findByPk(rut);
-    if (!user) {
-      throw new ValidationFailedError(
-        "El rut ingresado no se encuentra registrado"
-      );
-    }
-    const idUser = user.id;
-    nodes.map(async (node) => {
-      const nodeResponse = await nodeRep.getNodeByAxisAbility(
-        node.axis,
-        node.ability
-      );
+    console.log(input);
 
-      const idNode = nodeResponse.id;
-      await userNode.create({
-        node_id: idNode,
-        user_id: Number(idUser) || 0,
+    const { users, nodes } = input;
+    users.forEach(async (id) => {
+      const user = await User.findOne({
+        id,
+      });
+      if (!user) {
+        throw new ValidationFailedError(
+          "El usuario no se encuentra registrado"
+        );
+      }
+      const idUser = user.id;
+      nodes.map(async (node) => {
+        const nodeResponse = await nodeRep.getNodeByAxisAbility(
+          node.axis,
+          node.ability
+        );
+
+        const idNode = nodeResponse.id;
+        await userNode.create({
+          node_id: idNode,
+          user_id: Number(idUser) || 0,
+        });
       });
     });
   } catch (error) {

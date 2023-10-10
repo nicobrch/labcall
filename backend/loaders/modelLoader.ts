@@ -99,7 +99,7 @@ export default function loadModels(sequelize: Sequelize) {
     foreignKey: "course_id",
     as: "curso",
   });
-  Course.belongsTo(User, {
+  Course.hasMany(User, {
     foreignKey: "course_id",
     as: "usuarios",
   });

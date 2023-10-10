@@ -20,8 +20,8 @@ export interface ISignInUser {
   rut: string;
   password: string;
 }
-export interface IAddNodesToUser {
-  rut: string;
+export interface IBulkNodesToUser {
+  users: string[];
   nodes: Node[];
 }
 export interface Node {

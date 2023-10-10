@@ -17,6 +17,7 @@
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
+    "@types/react-latex": "^2.0.1",
     "@types/react-select": "^5.0.1",
     "@types/sequelize": "^4.28.16",
     "apexcharts": "^3.41.1",
@@ -35,6 +36,10 @@
     "react-apexcharts": "^1.4.1",
     "react-dom": "18.2.0",
     "react-jvectormap": "^0.0.16",
+<<<<<<< HEAD
+=======
+    "react-latex": "^2.0.0",
+>>>>>>> upstream/callab-64
     "react-select": "^5.7.5",
     "rut.js": "^2.1.0",
     "sequelize": "^6.33.0",

@@ -1,6 +1,7 @@
 import { signInUser } from "@/backend/services/user.service";
 import { ValidationFailedError } from "@/backend/error/customErrors";
 import { NextApiRequest, NextApiResponse } from "next";
+import { format } from "rut.js"
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,12 +12,28 @@ export default async function handler(
 
   if (req.method === "POST") {
     try {
-      const { rut, password } = await req.body;
+      let { rut, password } = await req.body;
+
+      if (rut === "" || rut === undefined){
+        return res.status(500).json({
+          message: "Campo rut incompleto. Por favor ingrese bien los datos."
+        });
+      }
+
+      if (password === "" || password === undefined){
+        return res.status(500).json({
+          message: "Campo password incompleto. Por favor ingrese bien los datos."
+        });
+      }
+      
+      rut = format(rut)
       const user = await signInUser({ rut, password });
+
       return res.status(200).json({
         message: "Inicio de sesión exitoso.",
         user,
       });
+
     } catch (error: ValidationFailedError | any) {
       if (error.name === "ValidationFailedError") {
         // No se pudo validar el usuario, entregar mensaje de error.
@@ -24,13 +41,15 @@ export default async function handler(
           message: error.message,
           // Error.message contiene ya el error para cada caso
         });
+
       } else {
         // Algún otro error que no es propio de ValidationFailedError
         return res.status(500).json({
           message:
-            "Ocurrió un error al procesar la solicitud. Error: " +
+            "Error:" +
             error.message,
         });
+
       }
     }
   }

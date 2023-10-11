@@ -1,14 +1,11 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useState } from "react";
-
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "LabCal",
   // other metadata
 };
-
-
 
 const Settings = () => {
 
@@ -23,45 +20,54 @@ const Settings = () => {
   const handleDescripcionChange = (event: any) => {
     setDescripcionCurso(event.target.value);
   };
+  const validateForm = () => {
+    // Realiza la validación aquí
+    if (
+      nombreCurso.trim() === ''
+    ) {
+      alert('Por favor, complete el campo "Nombre del Curso" antes de enviar el formulario.');
+      return false;
+    }
+    return true;
+  };
 
   const fetchGuardarCurso = async () => {
-    // estos parametros deberian entrar como argumentos de la funcion
-    console.log('Nombre del curso:', nombreCurso);
-    console.log('Descripción:', descripcionCurso);
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/course/all",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: nombreCurso,
-            description: descripcionCurso,
-            startDate: "2023-12-31",
-            endDate: "2023-12-31",
-          }),
+    if(validateForm()){
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/course/all",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: nombreCurso,
+              description: descripcionCurso,
+              startDate: "2023-12-31",
+              endDate: "2023-12-31",
+            }),
+          }
+        );
+        if (response.ok) {
+          // console.log("Enviada y guardada en DB");
+          // esta respuesta contiene la siguiente pregunta
+          const responseData = await response.json();
+          // se debe actualizar el estado con la siguiente pregunta
+          // console.log(responseData);
+          setNombreCurso("");
+          setDescripcionCurso("");
+          console.log(responseData.message)
+          setApiResponse(responseData.message);
+        } else {
+          console.log("Error al guardar");
+          console.error("API Respondió mal :(");
+          const responseData = await response.json();
+          setApiResponse(responseData.message);
         }
-      );
-      if (response.ok) {
-        // console.log("Enviada y guardada en DB");
-        // esta respuesta contiene la siguiente pregunta
-        const responseData = await response.json();
-        // se debe actualizar el estado con la siguiente pregunta
-        // console.log(responseData);
-        setNombreCurso("");
-        setDescripcionCurso("");
-        console.log(responseData.message)
-        setApiResponse(responseData.message);
-      } else {
-        console.log("Error al guardar");
-        console.error("API Respondió mal :(");
-        const responseData = await response.json();
-        setApiResponse(responseData.message);
+      } catch (error) {
+        console.error("Connection Error:", error);
       }
-    } catch (error) {
-      console.error("Connection Error:", error);
     }
   };
 

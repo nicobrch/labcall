@@ -44,3 +44,20 @@ export const createCourse = async (
     throw error;
   }
 };
+
+
+export const getStudents = async (course_id: number) => {
+  try {
+    const courses = await Course.getAll({
+      include: {
+        model: User.Model,
+        as: "usuarios",
+        required: false,
+      },
+    });
+    const course = courses.find((course) => course.id === course_id)?.usuarios;
+    return course;
+  } catch (error) {
+    throw error;
+  }
+};

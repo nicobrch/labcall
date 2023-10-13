@@ -38,13 +38,12 @@ const SignUp: React.FC = () => {
         // Credenciales validas, hacer redirect
         console.log("API Respondió OK!")
         const data = await response.json()
-        
         if (data.user){
           setUser(data.user)
           if (data.user.type === "student"){
-            router.push("/dashboard/estudiante")
+            router.push("/")
           } else if (data.user.type === "teacher"){
-            router.push("/dashboard/profesor")
+            router.push("/")
           } else {
             router.push("/")
           }

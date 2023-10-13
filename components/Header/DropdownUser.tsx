@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import {useRouter} from "next/navigation";
 // pendiente
 // modificar nombre de usuario de acuerdo al usuario logueado
 // activar boton de cerrar sesion
@@ -12,6 +13,7 @@ const DropdownUser = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  const router = useRouter();
 
   // close on click outside
   useEffect(() => {
@@ -48,7 +50,7 @@ const DropdownUser = () => {
         href="#"
       >
         {user !== null ? (
-          <span className="hidden text-right lg:block">
+          <span className="text-right">
             <span className="block text-sm font-medium text-black dark:text-white">
               {/* Informacion del usuario */}
               {user.firstname} {user.lastname1} {user.lastname2}
@@ -58,18 +60,7 @@ const DropdownUser = () => {
               {user.type}
             </span>
           </span>
-        ) : (
-          // Informacion de placeholder
-          <span className="hidden text-right lg:block">
-            <span className="block text-sm font-medium text-black dark:text-white">
-              Estudiante 01
-            </span>
-            <span className="block text-xs">
-              Aspirante Matemático
-            </span>
-          </span>
-        )}
-
+        ) : null}
         <svg
           className="hidden fill-current sm:block"
           width="12"
@@ -152,9 +143,10 @@ const DropdownUser = () => {
         {/* el boton no esta habilitado, se debe habilitar para desloguear al usuario */}
         {user !== null ? (
           <Link
-            href="#"
+            href="/ingresar"
             onClick={() => {
               // Clear user data and perform logout logic
+              router.push("/ingresar")
               setUser(null);
             }}
             className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"

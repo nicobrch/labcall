@@ -114,3 +114,55 @@ export const addStudent = async (
     throw error;
   }
 }
+
+export const modifyStudent = async (
+  rut: string,
+  firstname: string,
+  lastname1: string,
+  lastname2: string,
+  email: string,
+  password: string,
+  type: string,
+  active: boolean,
+  course_id: number, 
+) => {
+  try {
+    await User.updateByPk({
+      rut,
+      firstname,
+      lastname1,
+      lastname2,
+      email,
+      password,
+      type,
+      active,
+      course_id,
+    }, rut);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const deleteStudent = async (rut: string) => {
+  try {
+    await User.deleteByPk(rut);
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+export const getStudentData = async (id: number) => {
+  // buscar usuario por rut usando findbypk
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      throw new ValidationFailedError(
+        "El rut ingresado no se encuentra registrado"
+      );
+    }
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}

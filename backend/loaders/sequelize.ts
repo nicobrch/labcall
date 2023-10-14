@@ -32,6 +32,8 @@ export const {
   UserNode,
   StudentResponse,
   Course,
+  Axis,
+  Ability,
 } = models;
 
 export default sequelize;

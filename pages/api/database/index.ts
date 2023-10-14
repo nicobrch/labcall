@@ -1,3 +1,5 @@
+import { seedAbilities } from "@/backend/loaders/initialValuesDatabase/initialAbilities";
+import { seedAxis } from "@/backend/loaders/initialValuesDatabase/initialAxis";
 import { seedCourses } from "@/backend/loaders/initialValuesDatabase/initialCourse";
 import { seedNodes } from "@/backend/loaders/initialValuesDatabase/initialNodes";
 import { seedQuestions } from "@/backend/loaders/initialValuesDatabase/initialQuestion";
@@ -10,6 +12,8 @@ import sequelize, {
   UserNode,
   StudentResponse,
   Course,
+  Ability,
+  Axis,
 } from "@/backend/loaders/sequelize";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -34,8 +38,12 @@ export default async function handler(
     });
 
     await Question.sync({ force: true }).then(() => {});
+    await Ability.sync({ force: true }).then(() => {});
+    await Axis.sync({ force: true }).then(() => {});
 
     await Node.sync({ force: true }).then(async () => {
+      await seedAbilities();
+      await seedAxis();
       await seedNodes();
       await seedQuestions();
     });

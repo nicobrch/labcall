@@ -1,5 +1,5 @@
 import { CreateOptions, FindOptions, DestroyOptions } from "sequelize";
-import sequelize, { Node as Entity } from "../loaders/sequelize";
+import sequelize, { Node as Entity, UserNode } from "../loaders/sequelize";
 import { NotFoundError, InternalServerError } from "../error/customErrors";
 import { INode as I, ICreateNode as ICreate, IUpdateNode as IUpdate } from "../interfaces/node";
 

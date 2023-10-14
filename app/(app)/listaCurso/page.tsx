@@ -3,6 +3,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Modal from "@/components/Modal";
 import { useState, useEffect } from "react";
 import { Metadata } from "next";
+import EditStudent from "../editStudent/page";
+import { useRouter } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "",
@@ -18,12 +20,12 @@ export const metadata: Metadata = {
  */
 
 const ListaCurso = () => {
-
   const [opcionesCursos, setOpcionesCursos] = useState([]);
   const [cursoActual, setCursoActual] = useState(0);
   const [apiResponse, setApiResponse] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentRUT, setStudentRUT] = useState("");
+  const [studentID, setStudentID] = useState(0);
   const rol = {teacher: 'Profesor',student:'Estudiante'};
 
   const openModal = () => {
@@ -80,13 +82,11 @@ const ListaCurso = () => {
           }),
         }
       );
-      // console.log(response);
       if (response.ok) {
         const responseData = await response.json();
         setApiResponse(responseData);
         console.log(apiResponse);
       } else {
-        console.log("Error al guardar");
         console.error("API Respondió mal :(");
         const responseData = await response.json();
         setApiResponse(responseData.message);
@@ -110,12 +110,18 @@ const ListaCurso = () => {
 
   const handleCursoActual = (event: any) => {
     setCursoActual(event.target.value);
-    // console.log(apiResponse);
   }
-  
-  const mostrarModal = () => {
-    setIsModalOpen(true);
+
+  const router = useRouter();
+  const handleEditClick = () => {
+    router.push(`/editStudent?id=${studentID}`);
   }
+
+  useEffect(() => {
+    if (studentID !== 0) {
+      handleEditClick();
+    }
+  }, [studentID]);
 
 
   return (
@@ -183,7 +189,7 @@ const ListaCurso = () => {
 
         {apiResponse.map((estudiante: any) => (
             
-            <div key={estudiante.id} className="grid grid-cols-6 sm:grid-cols-6 border-b border-stroke dark:border-strokedark">
+            <div key={estudiante?.id} className="grid grid-cols-6 sm:grid-cols-6 border-b border-stroke dark:border-strokedark">
             
               <div className="flex items-center justify-center p-2.5 xl:p-5">
 							  <p className="text-black dark:text-white">{estudiante?.firstname}</p>
@@ -207,11 +213,21 @@ const ListaCurso = () => {
 
 						  <div className="flex justify-center gap-4.5 py-2">
                 <button
-                  // onClick={fetchReadStudents}
+                  onClick={() => {
+                    const id = estudiante?.id;
+                    setStudentID(id);
+                  }}
                   className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
                   type="submit"
                 >
                   Editar
+                </button>
+                <button
+                  // onClick={}
+                  className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
+                  type="submit"
+                >
+                  Ver nodos
                 </button>
                 <button
                   // onClick={fetchReadStudents}

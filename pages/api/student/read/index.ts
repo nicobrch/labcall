@@ -1,6 +1,6 @@
 import { getStudentData } from "@/backend/services/user.service";
 import { NextApiRequest, NextApiResponse } from "next";
-// pendienteeeee
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

@@ -150,3 +150,19 @@ export const deleteStudent = async (rut: string) => {
     throw error;
   }
 }
+
+
+export const getStudentData = async (id: number) => {
+  // buscar usuario por rut usando findbypk
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      throw new ValidationFailedError(
+        "El rut ingresado no se encuentra registrado"
+      );
+    }
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -9,18 +9,32 @@ import { useCallGetApi } from "@/hooks/useCallApi";
 import { ICourse } from "@/backend/interfaces/course";
 import { IUser } from "@/backend/interfaces/user";
 import { postToApi } from "@/js/requests";
+import { IAxis } from "@/backend/interfaces/axis";
+import { IAbility } from "@/backend/interfaces/ability";
 
-const axisApiResponse = ["Números y operaciones", "Patrones y Álgebra", "Geometría", "Medición", "Datos y probabilidades"];
-const abilityApiResponse = ["Representar", "Resolver problemas", "Argumentar y comunicar", "Modelar"];
-
-type Node = {
-	selectedAxis: string;
-	selectedAbilities: string[];
-};
-interface IOption {
+export interface IOption {
 	label: string;
 	value: string;
 }
+
+export type Node = {
+	selectedAxis: IOption;
+	selectedAbilities: IOption[];
+};
+
+export const ICourseToIOption = (course: ICourse): IOption => {
+	return {
+		label: String(course.name) || "Selecciona un curso",
+		value: String(course.id) || "Selecciona un curso"
+	};
+};
+export const IUserToIOption = (user: IUser): IOption => {
+	return {
+		label: `${user?.firstname} ${user?.lastname1}`,
+		value: String(user.id) || "Error"
+	};
+};
+
 export const buildCourseOptions = (courses: ICourse[]): IOption[] => {
 	return courses?.map((course) => {
 		return {
@@ -29,64 +43,63 @@ export const buildCourseOptions = (courses: ICourse[]): IOption[] => {
 		};
 	});
 };
+
 export const buildUserOptions = (users: IUser[]) => {
 	return users?.map((user) => {
 		return {
-			label: `${user.firstname} ${user.lastname1}`,
-			value: user.id
-		};
-	});
-};
-export const buildOptions = (courses: string[]) => {
-	return courses?.map((course) => {
-		return {
-			label: course,
-			value: course
+			label: `${user?.firstname} ${user?.lastname1}`,
+			value: String(user.id) || "Error"
 		};
 	});
 };
 
 // componente
 const CrearCuestionario = () => {
-	//   const [courses, setCourses] = useState<string[]>([]);
-
-	const [users, setUsers] = useState<IUser[]>([]);
-	const [axis, setAxis] = useState<string[]>([]);
-	const [abilities, setAbilities] = useState<string[]>([]);
-
 	const [courses, callCourses, statusCourses, errorCourses] = useCallGetApi("/course/all");
+	const [abilities, callAbilities, statusAbilities, errorAbilities] = useCallGetApi("/abilities");
+	const [axis, callAxis, statusAxis, errorAxis] = useCallGetApi("/axis");
 
 	useEffect(() => {
 		callCourses();
-	}, [callCourses]);
+		callAbilities();
+		callAxis();
+	}, [callCourses, callAbilities, callAxis]);
 
+	const [selectedCourse, setSelectedCourse] = useState<ICourse>({ id: 0, name: "", usuarios: [] });
+	const [selectedUsers, setSelectedUsers] = useState<IUser[]>([]);
 	const [nodes, setNodes] = useState<Node[]>([
 		{
-			selectedAxis: "",
+			selectedAxis: {
+				label: "",
+				value: ""
+			},
 			selectedAbilities: []
 		}
 	]);
-	const [selectedCourse, setSelectedCourse] = useState<string>("");
-	const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
-	/** Modificar el any */
-	const onChangeSelectedCourse = (courseValue: any) => {
-		setSelectedCourse(courseValue);
-		// console.log(courseValue);
-		const course = courses.find((element: ICourse) => element.id == courseValue);
+	const onChangeSelectedCourse = (courseValue: IOption) => {
+		const course = courses.find((course: ICourse) => course.name == courseValue.label);
 
 		if (course) {
-			setUsers(course.usuarios);
+			setSelectedCourse(course);
 		}
 	};
 
-	const setSelectedAxisForNode = (axis: string, index: number) => (axis: string) => {
+	const onChangeSelectedUser = (userValue: IOption[]) => {
+		const users = selectedCourse?.usuarios?.filter((user: IUser) => userValue.some((u) => u.label == user?.firstname + " " + user?.lastname1));
+
+		if (users) {
+			setSelectedUsers(users);
+		}
+	};
+
+	const setSelectedAxisForNode = (axis: IOption, index: number) => (axis: IOption) => {
 		const newNode = [...nodes];
 		newNode[index].selectedAxis = axis;
 		setNodes(newNode);
 	};
 
-	const setSelectedAbilitiesForNode = (abilities: string[], index: number) => (abilities: string[]) => {
+	const setSelectedAbilitiesForNode = (abilities: IOption[], index: number) => (abilities: IOption[]) => {
 		const newNode = [...nodes];
 		newNode[index].selectedAbilities = abilities;
 		setNodes(newNode);
@@ -99,13 +112,14 @@ const CrearCuestionario = () => {
 		}
 
 		// if there is already an empty node, do nothing
-		if (nodes.some((node) => node.selectedAxis === "")) {
+		if (nodes.some((node) => node.selectedAxis.label === "" && node.selectedAxis.value === "")) {
 			return;
 		}
 
 		// add empty node
-		setNodes([...nodes, { selectedAxis: "", selectedAbilities: [] }]);
+		setNodes([...nodes, { selectedAxis: { label: "", value: "" }, selectedAbilities: [] }]);
 	};
+
 	const deleteNode = (index: number) => () => {
 		const newNode = [...nodes];
 
@@ -114,34 +128,60 @@ const CrearCuestionario = () => {
 		setNodes(newNode);
 	};
 
-	const getAvailableAxisOptions = () => {
-		const selectedAxis = nodes.map((node) => node.selectedAxis);
+	const getAxisOptions = () => {
+		if (!axis) {
+			return [];
+		}
 
-		return axis.filter((axis) => !selectedAxis.includes(axis));
+		return axis?.map((axis: IAxis) => {
+			return {
+				label: axis.name || "",
+				value: axis.id || ""
+			};
+		});
 	};
 
-	useEffect(() => {
-		setSelectedUsers([]);
-	}, [selectedCourse]);
+	const getAbilitiesOptions = () => {
+		if (!abilities) {
+			return [];
+		}
+
+		return abilities?.map((ability: IAbility) => {
+			return {
+				label: ability.name || "",
+				value: ability.id || ""
+			};
+		});
+	};
+
+	const getAvailableAxisOptions = () => {
+		const axisOptions = getAxisOptions();
+		return axisOptions?.filter((axis: IOption) => !nodes.some((node) => node.selectedAxis.value === axis.value));
+	};
 
 	const saveNodes = async () => {
 		let _nodes: {
 			axis: string;
 			ability: string;
 		}[] = [];
+
 		nodes.forEach((node) => {
 			_nodes = node.selectedAbilities.map((ability) => {
 				return {
-					axis: node.selectedAxis,
-					ability: ability
+					axis: node.selectedAxis.label,
+					ability: ability.label
 				};
 			});
 		});
+
 		let payload = {
-			users: selectedUsers,
+			users: selectedUsers.map((user) => user.id),
 			nodes: _nodes
 		};
+
 		const response = await postToApi("/node/student_save", payload);
+
+		console.log(response);
 	};
 
 	return (
@@ -156,7 +196,13 @@ const CrearCuestionario = () => {
 								<label className="mb-3 block text-black dark:text-white">Seleccionar curso</label>
 								<div className="relative bg-white dark:bg-form-input">
 									<div className="p-2 dark:border-strokedark flex">
-										<SelectComponent name="Seleccionar curso" placeholder="Seleccionar curso" options={buildCourseOptions(courses)} setSelected={onChangeSelectedCourse} />
+										<SelectComponent
+											name="Seleccionar curso"
+											placeholder="Seleccionar curso"
+											options={buildCourseOptions(courses)}
+											selected={ICourseToIOption(selectedCourse)}
+											setSelected={onChangeSelectedCourse}
+										/>
 									</div>
 								</div>
 							</div>
@@ -174,9 +220,9 @@ const CrearCuestionario = () => {
 										<MultiSelectComponent
 											name="asignar estudiantes"
 											placeholder="Seleccionar estudiantes"
-											options={buildUserOptions(users)}
-											setSelected={setSelectedUsers}
-											selected={selectedUsers}
+											options={buildUserOptions(selectedCourse?.usuarios || [])}
+											selected={selectedUsers?.map(IUserToIOption) || []}
+											setSelected={onChangeSelectedUser}
 										/>
 									</div>
 								</div>
@@ -191,15 +237,15 @@ const CrearCuestionario = () => {
 					<div className="flex flex-col gap-5.5 p-6.5">
 						<label className="mb-3 block text-black dark:text-white">Seleccionar eje y habilidad</label>
 						<div className="relative bg-white dark:bg-form-input">
-							{nodes.map((eje, index) => (
+							{nodes.map((node, index) => (
 								<EjeHabilidad
 									key={index}
-									axisesOptions={axisApiResponse}
-									abilitiesOptions={abilityApiResponse}
-									selectedAxis={eje.selectedAxis}
-									setSelectedAxis={setSelectedAxisForNode(eje.selectedAxis, index)}
-									setSelectedAbilities={setSelectedAbilitiesForNode(eje.selectedAbilities, index)}
-									selectedAbilities={eje.selectedAbilities}
+									axisesOptions={getAvailableAxisOptions()}
+									abilitiesOptions={getAbilitiesOptions()}
+									selectedAxis={node.selectedAxis}
+									setSelectedAxis={setSelectedAxisForNode(node.selectedAxis, index)}
+									setSelectedAbilities={setSelectedAbilitiesForNode(node.selectedAbilities, index)}
+									selectedAbilities={node.selectedAbilities}
 									deleteNode={deleteNode(index)}
 								/>
 							))}
@@ -212,7 +258,7 @@ const CrearCuestionario = () => {
 							>
 								<label className="pr-2">Agregar eje</label>
 								<svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
 								</svg>
 							</button>
 						</div>

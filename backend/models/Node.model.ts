@@ -12,6 +12,10 @@ export default function defineNodeModel(sequelize: Sequelize) {
         primaryKey: true,
         autoIncrement: true,
       },
+      axis_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       axis: {
         type: DataTypes.STRING(90),
         allowNull: true,
@@ -19,6 +23,10 @@ export default function defineNodeModel(sequelize: Sequelize) {
       ability: {
         type: DataTypes.STRING(90),
         allowNull: true,
+      },
+      ability_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       description: {
         type: DataTypes.STRING,

@@ -6,6 +6,8 @@ import defineNodeModel from "../models/Node.model";
 import defineUserNodeModel from "../models/UserNode.model";
 import defineStudentResponseModel from "../models/StudentResponse.model";
 import defineCourseModel from "../models/course.model";
+import defineAbilityModel from "../models/Ability.model";
+import defineAxisModel from "../models/Axis.model";
 
 export default function loadModels(sequelize: Sequelize) {
   const User = defineUserModel(sequelize);
@@ -15,6 +17,32 @@ export default function loadModels(sequelize: Sequelize) {
   const UserNode = defineUserNodeModel(sequelize);
   const StudentResponse = defineStudentResponseModel(sequelize);
   const Course = defineCourseModel(sequelize);
+
+  const Ability = defineAbilityModel(sequelize);
+  const Axis = defineAxisModel(sequelize);
+  /**
+   * Relación entre Ability y Node
+   */
+  Node.belongsTo(Ability, {
+    foreignKey: "ability_id",
+    as: "ability_data",
+  });
+  Ability.hasMany(Node, {
+    foreignKey: "ability_id",
+    as: "nodes_data",
+  });
+
+  /**
+   * Relación entre Axis y Node
+   */
+  Node.belongsTo(Axis, {
+    foreignKey: "axis_id",
+    as: "axis_data",
+  });
+  Axis.hasMany(Node, {
+    foreignKey: "axis_id",
+    as: "nodes_data",
+  });
 
   /**
    * Relación entre question y alternative
@@ -112,5 +140,7 @@ export default function loadModels(sequelize: Sequelize) {
     UserNode,
     StudentResponse,
     Course,
+    Axis,
+    Ability,
   };
 }

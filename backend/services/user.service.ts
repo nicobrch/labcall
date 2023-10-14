@@ -114,3 +114,39 @@ export const addStudent = async (
     throw error;
   }
 }
+
+export const modifyStudent = async (
+  rut: string,
+  firstname: string,
+  lastname1: string,
+  lastname2: string,
+  email: string,
+  password: string,
+  type: string,
+  active: boolean,
+  course_id: number, 
+) => {
+  try {
+    await User.updateByPk({
+      rut,
+      firstname,
+      lastname1,
+      lastname2,
+      email,
+      password,
+      type,
+      active,
+      course_id,
+    }, rut);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const deleteStudent = async (rut: string) => {
+  try {
+    await User.deleteByPk(rut);
+  } catch (error) {
+    throw error;
+  }
+}

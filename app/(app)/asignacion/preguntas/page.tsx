@@ -11,6 +11,7 @@ import { IUser } from "@/backend/interfaces/user";
 import { postToApi } from "@/js/requests";
 import { IAxis } from "@/backend/interfaces/axis";
 import { IAbility } from "@/backend/interfaces/ability";
+import { useRouter } from "next/navigation";
 
 export interface IOption {
 	label: string;
@@ -20,6 +21,10 @@ export interface IOption {
 export type Node = {
 	selectedAxis: IOption;
 	selectedAbilities: IOption[];
+};
+export type NodeOneAbility = {
+	axis: string;
+	ability: string;
 };
 
 export const ICourseToIOption = (course: ICourse): IOption => {
@@ -55,6 +60,7 @@ export const buildUserOptions = (users: IUser[]) => {
 
 // componente
 const CrearCuestionario = () => {
+	const router = useRouter();
 	const [courses, callCourses, statusCourses, errorCourses] = useCallGetApi("/course/all");
 	const [abilities, callAbilities, statusAbilities, errorAbilities] = useCallGetApi("/abilities");
 	const [axis, callAxis, statusAxis, errorAxis] = useCallGetApi("/axis");
@@ -70,12 +76,16 @@ const CrearCuestionario = () => {
 	const [nodes, setNodes] = useState<Node[]>([
 		{
 			selectedAxis: {
-				label: "",
+				label: "Selecciona un eje",
 				value: ""
 			},
 			selectedAbilities: []
 		}
 	]);
+
+	useEffect(() => {
+		setSelectedUsers([]);
+	}, [selectedCourse]);
 
 	const onChangeSelectedCourse = (courseValue: IOption) => {
 		const course = courses.find((course: ICourse) => course.name == courseValue.label);
@@ -112,12 +122,12 @@ const CrearCuestionario = () => {
 		}
 
 		// if there is already an empty node, do nothing
-		if (nodes.some((node) => node.selectedAxis.label === "" && node.selectedAxis.value === "")) {
+		if (nodes.some((node) => node.selectedAxis.label === "Selecciona un eje" && node.selectedAxis.value === "")) {
 			return;
 		}
 
 		// add empty node
-		setNodes([...nodes, { selectedAxis: { label: "", value: "" }, selectedAbilities: [] }]);
+		setNodes([...nodes, { selectedAxis: { label: "Selecciona un eje", value: "" }, selectedAbilities: [] }]);
 	};
 
 	const deleteNode = (index: number) => () => {
@@ -159,29 +169,42 @@ const CrearCuestionario = () => {
 		return axisOptions?.filter((axis: IOption) => !nodes.some((node) => node.selectedAxis.value === axis.value));
 	};
 
-	const saveNodes = async () => {
-		let _nodes: {
-			axis: string;
-			ability: string;
-		}[] = [];
-
+	const buildNodes = (nodes: Node[]) => {
+		const nodosOneAbility: NodeOneAbility[] = [];
 		nodes.forEach((node) => {
-			_nodes = node.selectedAbilities.map((ability) => {
-				return {
+			node.selectedAbilities.forEach((ability) => {
+				nodosOneAbility.push({
 					axis: node.selectedAxis.label,
 					ability: ability.label
-				};
+				});
 			});
 		});
+		return nodosOneAbility;
+	};
+
+	const saveNodes = async () => {
+		let _nodes = buildNodes(nodes);
 
 		let payload = {
 			users: selectedUsers.map((user) => user.id),
 			nodes: _nodes
 		};
 
-		const response = await postToApi("/node/student_save", payload);
-
-		console.log(response);
+		console.log(payload);
+		const response: any = await postToApi("/node/student_save", payload);
+		if (response.status == 200) {
+			setSelectedCourse({ id: 0, name: "", usuarios: [] });
+			setSelectedUsers([]);
+			setNodes([
+				{
+					selectedAxis: {
+						label: "Selecciona un eje",
+						value: ""
+					},
+					selectedAbilities: []
+				}
+			]);
+		}
 	};
 
 	return (

@@ -64,10 +64,16 @@ const TableThree: React.FC<TableThreeProps> = ({headers, data}) => {
                 </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <Link
-                      href={"/estadisticas/"+curso.id}
-                      className="inline-flex items-center justify-center rounded-md bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+                    href={"/estadisticas/nodos/"+curso.id}
+                    className="inline-flex items-center justify-center rounded-md bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mr-4 mb-4"
                   >
-                    Ver Detalle
+                    Ver Nodo
+                  </Link>
+                  <Link
+                    href={"/estadisticas/items/"+curso.id}
+                    className="inline-flex items-center justify-center rounded-md bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
+                  >
+                    Ver Items
                   </Link>
                 </td>
               </tr>

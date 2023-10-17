@@ -81,8 +81,8 @@ const ChartThree: React.FC<ChartThreeProps> = ({ enlace, nombre, labels, series 
               id=""
               className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
             >
-              <option value="">Dia</option>
-              <option value="">Semana</option>
+              <option value="">Habilidad</option>
+              <option value="">Taxonomia</option>
             </select>
             <span className="absolute top-1/2 right-3 z-10 -translate-y-1/2">
               <svg

@@ -6,6 +6,7 @@ import SidebarTeacher from "@/components/Sidebar-Profesor";
 import Header from "@/components/Header";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import DashEstudiante from "@/components/Dashboard/dashEstudiante";
+import DashProfesor from "@/components/Dashboard/dashProfesor";
 import Loader from "@/components/common/Loader";
 
 export default function Home({ children }: { children: React.ReactNode }) {
@@ -26,7 +27,7 @@ export default function Home({ children }: { children: React.ReactNode }) {
   const SidebarComponent =
     user?.type === "student" ? SidebarStudent : SidebarTeacher;
   const DashboardComponent =
-    user?.type === "student" ? <DashEstudiante></DashEstudiante> : null; //Falta el dashboard profesor
+    user?.type === "student" ? <DashEstudiante></DashEstudiante> : <DashProfesor></DashProfesor>; //Falta el dashboard profesor
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">

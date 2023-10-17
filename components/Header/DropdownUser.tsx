@@ -57,7 +57,7 @@ const DropdownUser = () => {
             </span>
             <span className="block text-xs">
               {/* Rol del usuario */}
-              {user?.type}
+              {user?.type === "student" ? "Estudiante" : "Profesor"}
             </span>
           </span>
         ) : null}

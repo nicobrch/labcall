@@ -1,14 +1,42 @@
 // components/Accordion.tsx
+import { IQuestion } from "@/backend/interfaces/question";
+import { useCallGetApi } from "@/hooks/useCallApi";
 import classNames from "classnames";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
+import MathJax from "react-mathjax";
+
+const MathJaxProvider = MathJax.Provider;
+const MathJaxNode = MathJax.Node;
 
 type AccordionProps = {
 	question: string;
-	answer: ReactNode;
+	node_id: string;
 };
 
-const Accordion = ({ question, answer }: AccordionProps) => {
+const Accordion = ({ question, node_id }: AccordionProps) => {
+	const mathJaxConfig = {
+		TeX: { extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"] }
+	};
 	const [active, setActive] = useState(false);
+	const [questionsByNode, callQuestions, statusQuestions, errorQuestions] = useCallGetApi("/question/by-node_id?node_id=" + node_id);
+	useEffect(() => {
+		callQuestions();
+	}, [callQuestions]);
+	const buildQuestions = (questionsByNode: IQuestion[]) => {
+		return (
+			<MathJax.Context input="tex">
+				<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
+					<ul>
+						{questionsByNode?.map((question, index) => (
+							<li key={index}>
+								<strong>{index + 1}.</strong> {question.questionText}
+							</li>
+						))}
+					</ul>
+				</div>
+			</MathJax.Context>
+		);
+	};
 
 	return (
 		<div className="rounded-md border border-stroke p-4 dark:border-strokedark dark:shadow-none sm:p-6 bg-white dark:bg-transparent gap-9 shadow-9">
@@ -49,7 +77,7 @@ const Accordion = ({ question, answer }: AccordionProps) => {
 					hidden: !active
 				})}
 			>
-				<p className="font-medium">{answer}</p>
+				<p className="font-medium">{buildQuestions(questionsByNode)}</p>
 			</div>
 		</div>
 	);

@@ -8,50 +8,58 @@ const Node = new NodeRep();
 const Alternative = new AlternativeRepository();
 
 export const getNodeQuestions = async (node_id: number) => {
-  try {
-    const node = Node.findByPk(node_id, {
-      include: {
-        model: Question.Model,
-        as: "questions",
-      },
-    });
-    return node;
-  } catch (error) {
-    throw error;
-  }
+	try {
+		const node = Node.findByPk(node_id, {
+			include: {
+				model: Question.Model,
+				as: "questions"
+			}
+		});
+		return node;
+	} catch (error) {
+		throw error;
+	}
 };
 
 export const getNodes = async () => {
-  try {
-    const nodes = Node.getAll({
-      where: {
-        active: true,
-      },
-      include: {
-        model: Question.Model,
-        as: "questions",
-      },
-    });
-    return nodes;
-  } catch (error: any) {
-    throw error;
-  }
+	try {
+		const nodes = Node.getAll({
+			where: {
+				active: true
+			},
+			include: {
+				model: Question.Model,
+				as: "questions"
+			}
+		});
+		return nodes;
+	} catch (error: any) {
+		throw error;
+	}
 };
 
 export const getStudentQuestion = (user_id: number, node_id?: number) => {
-  try {
-    const question = Question.findOne(
-      {},
-      {
-        order: Sequelize.literal("RAND()"),
-        include: {
-          model: Alternative.Model,
-          as: "alternatives",
-        },
-      }
-    );
-    return question;
-  } catch (error) {
-    throw error;
-  }
+	try {
+		const question = Question.findOne(
+			{},
+			{
+				order: Sequelize.literal("RAND()"),
+				include: {
+					model: Alternative.Model,
+					as: "alternatives"
+				}
+			}
+		);
+		return question;
+	} catch (error) {
+		throw error;
+	}
+};
+export const getQuestionsByNodeId = async (node_id: number) => {
+	try {
+		const questions = Question.getQuestionsByNodeId(node_id);
+		return questions;
+	} catch (error) {
+		throw error;
+	}
 };

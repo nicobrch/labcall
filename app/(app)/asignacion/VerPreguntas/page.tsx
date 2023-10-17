@@ -4,35 +4,32 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Accordion from "./Accordion";
 import { useCallGetApi } from "@/hooks/useCallApi";
 import { IAxis } from "@/backend/interfaces/axis";
-
-const preguntas = ["pregunta 1", "pregunta 2", "pregunta 3", "pregunta 4"];
-const buildAnswer = () => {
-	return (
-		<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
-			<ul>
-				{preguntas.map((pregunta, index) => (
-					<li key={index}>{pregunta}</li>
-				))}
-			</ul>
-		</div>
-	);
-};
+import { INode } from "@/backend/interfaces/node";
+import { IQuestion } from "@/backend/interfaces/question";
 
 const CrearCuestionario = () => {
-	const [axis, callAxis, statusAxis, errorAxis] = useCallGetApi("/axis");
+	const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi("/node/all");
 
 	useEffect(() => {
-		callAxis();
-	}, [callAxis]);
+		callNodes();
+	}, [callNodes]);
+
+	const axisWithAbility = (node: INode) => {
+		const axis = node.axis;
+		const ability = node.ability;
+		const axisWithAbility = axis + " - " + ability;
+		return axisWithAbility;
+	};
+
 	return (
 		<div>
 			<Breadcrumb pageName="Items de preguntas" />
 
 			<div className="grid grid-cols-1 ">
 				<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
-					{axis?.map((axis: IAxis, index: number) => (
-						<Accordion key={index} question={axis.name || ""} answer={buildAnswer()} />
-					))}
+					{nodes?.map((node: INode, index: number) => {
+						return <Accordion key={index} question={axisWithAbility(node)} node_id={String(node.id)} />;
+					})}
 				</div>
 			</div>
 		</div>

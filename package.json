@@ -38,6 +38,7 @@
     "react-dom": "18.2.0",
     "react-jvectormap": "^0.0.16",
     "react-latex": "^2.0.0",
+    "react-mathjax2": "^0.0.2",
     "react-select": "^5.7.5",
     "rut.js": "^2.1.0",
     "sequelize": "^6.33.0",

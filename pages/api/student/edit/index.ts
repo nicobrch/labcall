@@ -1,4 +1,4 @@
-import { getStudentData } from "@/backend/services/user.service";
+import { modifyStudent } from "@/backend/services/user.service";
 import { NextApiRequest, NextApiResponse } from "next";
 // pendienteeeee
 export default async function handler(
@@ -9,16 +9,32 @@ export default async function handler(
     if (req.method === "POST") {
       const { body } = req;
       const {
-        id,
+        rut,
+        firstname,
+        lastname1,
+        lastname2,
+        email,
+        password,
+        type,
+        active,
+        course_id,
       } = body;
-      const response = await getStudentData(
-        id
+      await modifyStudent(
+        rut,
+        firstname,
+        lastname1,
+        lastname2,
+        email,
+        password,
+        type,
+        active,
+        course_id,
       );
-      res.status(200).json(response);
+      res.status(200).json({message: "Usuario modificado correctamente."});
     }
   } catch (error: any) {
     res.status(500).json({
-      message: "Error al obtener data del usuario.",
+      message: "Error al modificar data del usuario.",
       error: error.message,
     });
   }

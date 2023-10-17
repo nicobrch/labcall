@@ -1,8 +1,8 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useState, useEffect } from "react";
-import ChartThree from "@/components/Charts/ChartThree";
-import {Pregunta} from "@/pages/api/statistics/[id]";
+import { Pregunta } from "@/pages/api/statistics/[id]";
+import TableThree2 from "@/components/Tables/TableThree2";
 
 const Estadisticas = ({
                         params: {cursoId},
@@ -30,21 +30,13 @@ const Estadisticas = ({
                 console.error(error);
             });
     }, []);
-
-    // Define los valores de labels y series
-    const labels = ["Respuestas Correctas", "Respuestas Incorrectas"];
-    const series = [8, 2];
+    
+    const headers = ["Id", "Pregunta", "Correctas", "Incorrectas", "Total"];
 
     return (
         <>
-            <Breadcrumb pageName={"Estadisticas del curso "+cursoId}/>
-            <div className="grid grid-cols-2 gap-4">
-                {preguntas.map((pregunta, key) => (
-                    <div className="col-span-1">
-                        <ChartThree enlace={"/estadisticas/"+cursoId+"/"+pregunta.type} nombre={pregunta.type} labels={labels} series={[pregunta.success, pregunta.failure]}/>
-                    </div>
-                ))}
-            </div>
+          <Breadcrumb pageName={"Estadisticas del curso "+cursoId}/>
+          <TableThree2 headers={headers} data={preguntas}/>
         </>
     );
 };

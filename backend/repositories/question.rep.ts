@@ -75,4 +75,16 @@ export default class QuestionRepository {
     }
     await transaction.commit();
   }
+  async getQuestionsByNodeId(node_id: number) {
+    const questions = await Entity.findAll({
+      where: { node_id },
+      include: [
+        {
+          model: Alternative,
+          as: "alternatives",
+        },
+      ],
+    });
+    return questions.map((question) => question.toJSON());
+  }
 }

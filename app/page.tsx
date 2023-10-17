@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import SidebarStudent from "@/components/Sidebar-Student";
@@ -8,70 +8,42 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import DashEstudiante from "@/components/Dashboard/dashEstudiante";
 import Loader from "@/components/common/Loader";
 
-// pendiente
-// se debe hacer la separacion de estudiante y profesor, tendran diferentes dashboard y menus de navegacion
+export default function Home({ children }: { children: React.ReactNode }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useLocalStorage("user", null);
+  const router = useRouter();
 
-export default function Home({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [user, setUser] = useLocalStorage("user", null);
+  useEffect(() => {
+    if (!user) {
+      router.push("/ingresar");
+    }
+  }, [user]);
 
-    const router = useRouter();
+  if (!user) {
+    return <Loader />; //Cargador mientras redirigimos
+  }
 
-    useEffect(() => {
-        // Check if the user is not logged in, and if so, redirect to /ingresar
-        if (!user) {
-            router.push("/ingresar");
-        }
-    }, [user]);
+  const SidebarComponent =
+    user?.type === "student" ? SidebarStudent : SidebarTeacher;
+  const DashboardComponent =
+    user?.type === "student" ? <DashEstudiante></DashEstudiante> : null; //Falta el dashboard profesor
 
   return (
-    <>
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
-        <div className="flex h-screen overflow-hidden">
-            { user !== null ? (
-                <>
-                    {user.type === 'student' ? (
-                        <SidebarStudent
-                            sidebarOpen={sidebarOpen}
-                            setSidebarOpen={setSidebarOpen}
-                        />
-                    ) : null}
-                    {user.type === 'teacher' ? (
-                        <SidebarTeacher
-                            sidebarOpen={sidebarOpen}
-                            setSidebarOpen={setSidebarOpen}
-                        />
-                    ) : null}
-                </>
-            ) : null }
-            <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-                { user !== null ? (
-                    <Header
-                        sidebarOpen={sidebarOpen}
-                        setSidebarOpen={setSidebarOpen}
-                    />
-                ) : null }
-                <main>
-                    <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-                        { user !== null ? (
-                            <>
-                                {user.type === 'student' ? (
-                                    <DashEstudiante/>
-                                ) : null}
-                                {user.type === 'teacher' ? (
-                                    <DashEstudiante/>
-                                ) : null}
-                            </>
-                        ) : null }
-                    </div>
-                </main>
+      <div className="flex h-screen overflow-hidden">
+        <SidebarComponent
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <main>
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+              {DashboardComponent}
             </div>
+          </main>
         </div>
+      </div>
     </div>
-    </>
   );
 }

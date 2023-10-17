@@ -8,6 +8,8 @@ export interface INode {
   active?: Boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  axis_id?: number;
+  ability_id?: number;
 }
 
 export interface ICreateNode extends INode {}

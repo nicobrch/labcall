@@ -3,10 +3,8 @@ import { IQuestion } from "@/backend/interfaces/question";
 import { useCallGetApi } from "@/hooks/useCallApi";
 import classNames from "classnames";
 import React, { ReactNode, useEffect, useState } from "react";
-import MathJax from "react-mathjax";
 
-const MathJaxProvider = MathJax.Provider;
-const MathJaxNode = MathJax.Node;
+var Latex = require("react-latex");
 
 type AccordionProps = {
 	question: string;
@@ -24,7 +22,7 @@ const Accordion = ({ question, node_id }: AccordionProps) => {
 	}, [callQuestions]);
 	const buildQuestions = (questionsByNode: IQuestion[]) => {
 		return (
-			<MathJax.Context input="tex">
+			<Latex>
 				<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
 					<ul>
 						{questionsByNode?.map((question, index) => (
@@ -34,7 +32,7 @@ const Accordion = ({ question, node_id }: AccordionProps) => {
 						))}
 					</ul>
 				</div>
-			</MathJax.Context>
+			</Latex>
 		);
 	};
 

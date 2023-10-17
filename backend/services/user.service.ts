@@ -1,10 +1,13 @@
 import { validate } from "rut.js";
 import { ValidationFailedError } from "../error/customErrors";
-import { ISignInUser, IUser } from "../interfaces/user";
+import { IBulkNodesToUser, ISignInUser, IUser } from "../interfaces/user";
 import UserRep from "../repositories/user.rep";
-import QuestionRepository from "../repositories/question.rep";
+import NodeRep from "../repositories/node.rep";
+import UserNodeRep from "../repositories/usernode.rep";
 
 const User = new UserRep();
+const nodeRep = new NodeRep();
+const userNode = new UserNodeRep();
 
 /**
  * Inicia la sesión de un usuario validando su RUT y contraseña.
@@ -49,3 +52,65 @@ export const signInUser = async (signInData: ISignInUser) => {
     throw error;
   }
 };
+
+export const addNodesToUser = async (input: IBulkNodesToUser) => {
+  try {
+    console.log(input);
+
+    const { users, nodes } = input;
+    users.forEach(async (id) => {
+      const user = await User.findOne({
+        id,
+      });
+      if (!user) {
+        throw new ValidationFailedError(
+          "El usuario no se encuentra registrado"
+        );
+      }
+      const idUser = user.id;
+      nodes.map(async (node) => {
+        const nodeResponse = await nodeRep.getNodeByAxisAbility(
+          node.axis,
+          node.ability
+        );
+
+        const idNode = nodeResponse.id;
+        await userNode.create({
+          node_id: idNode,
+          user_id: Number(idUser) || 0,
+        });
+      });
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const addStudent = async (
+  rut: string,
+  firstname: string,
+  lastname1: string,
+  lastname2: string,
+  email: string,
+  password: string,
+  type: string,
+  active: boolean,
+  course_id: number, 
+) => {
+  try {
+    await User.create({
+      rut,
+      firstname,
+      lastname1,
+      lastname2,
+      email,
+      password,
+      type,
+      active,
+      course_id,
+    });
+  } catch (error) {
+    throw error;
+  }
+}

@@ -5,7 +5,7 @@ export const createStudentQuestionResponse = async (
   student_id: number,
   question_id: number,
   alternative_id: number,
-  is_correct: number
+  is_correct: number,
 ) => {
   try {
     await StudentResponse.create({

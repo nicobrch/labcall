@@ -10,6 +10,7 @@ export default function defineUserNodeModel(sequelize: Sequelize) {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
       user_id: {
         type: DataTypes.INTEGER,

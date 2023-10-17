@@ -67,7 +67,7 @@ const DashEstudiante: React.FC = () => {
         <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark items-center justify-center">
           <h3 className="items-center font-semibold text-black dark:text-white justify-center">
               {/* pendiente */}
-            <a href="/Preguntas">Click aqui para responder test</a>
+            <a href="/preguntas">Click aqui para responder test</a>
           </h3>
         </div>
 

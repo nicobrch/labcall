@@ -1,32 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Accordion from "./Accordion";
-
-const ejes = ["Álgebra y funciones", "Geometría", "Probabilidad y estadísticas", "Números"];
-const preguntas = ["pregunta 1", "pregunta 2", "pregunta 3", "pregunta 4"];
-const buildAnswer = () => {
-	return (
-		<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
-			<ul>
-				{preguntas.map((pregunta, index) => (
-					<li key={index}>{pregunta}</li>
-				))}
-			</ul>
-		</div>
-	);
-};
+import { useCallGetApi } from "@/hooks/useCallApi";
+import { IAxis } from "@/backend/interfaces/axis";
+import { INode } from "@/backend/interfaces/node";
+import { IQuestion } from "@/backend/interfaces/question";
 
 const CrearCuestionario = () => {
+	const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi("/node/all");
+
+	useEffect(() => {
+		callNodes();
+	}, [callNodes]);
+
+	const axisWithAbility = (node: INode) => {
+		const axis = node.axis;
+		const ability = node.ability;
+		const axisWithAbility = axis + " - " + ability;
+		return axisWithAbility;
+	};
+
 	return (
 		<div>
 			<Breadcrumb pageName="Items de preguntas" />
 
 			<div className="grid grid-cols-1 ">
 				<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
-					{ejes.map((eje, index) => (
-						<Accordion key={index} question={eje} answer={buildAnswer()} />
-					))}
+					{nodes?.map((node: INode, index: number) => {
+						return <Accordion key={index} question={axisWithAbility(node)} node_id={String(node.id)} />;
+					})}
 				</div>
 			</div>
 		</div>

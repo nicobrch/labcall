@@ -1,25 +1,19 @@
 "use client";
 import React, { useEffect, useState, ReactNode } from "react";
 import Select, { MultiValue, SingleValue } from "react-select";
-
-interface Option {
-	label: string;
-	value: string;
-}
+import { IOption } from "./page";
 
 type SelectProps = {
 	name: string;
 	placeholder: string;
-	options: Option[];
-	setSelected: (options: string) => void;
+	options: IOption[];
+	selected: IOption;
+	setSelected: (option: IOption) => void;
 };
 
-const SelectComponent = ({ name, placeholder, options, setSelected }: SelectProps) => {
-	const [selectedOption, setSelectedOption] = useState<Option>();
-
+const SelectComponent = ({ name, placeholder, options, selected, setSelected }: SelectProps) => {
 	const onChange = (e: any) => {
-		setSelectedOption(e);
-		setSelected(e.value);
+		setSelected(e);
 	};
 
 	return (
@@ -29,7 +23,7 @@ const SelectComponent = ({ name, placeholder, options, setSelected }: SelectProp
 			name={name}
 			options={options}
 			classNamePrefix={name}
-			value={selectedOption}
+			value={selected}
 			onChange={onChange}
 		/>
 	);

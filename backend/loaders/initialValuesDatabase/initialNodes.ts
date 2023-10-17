@@ -4,6 +4,8 @@ const initialData = [
   {
     id: 1,
     axis: "Números y operaciones",
+    axis_id: 1,
+    ability_id: 1,
     ability: "Resolver problemas",
     description:
       "Alumnos resuelven problemas relacionados con cálculos mentales y escritos, operaciones aritméticas y representaciones numéricas, empleando diversas estrategias.",
@@ -11,6 +13,8 @@ const initialData = [
   },
   {
     id: 2,
+    axis_id: 1,
+    ability_id: 2,
     axis: "Números y operaciones",
     ability: "Modelar",
     description:
@@ -19,6 +23,8 @@ const initialData = [
   },
   {
     id: 3,
+    axis_id: 1,
+    ability_id: 3,
     axis: "Números y operaciones",
     ability: "Representar",
     description:
@@ -28,6 +34,8 @@ const initialData = [
   {
     id: 4,
     axis: "Números y operaciones",
+    axis_id: 1,
+    ability_id: 4,
     ability: "Argumentar y comunicar",
     description:
       "Los alumnos argumentan la validez de diferentes métodos aritméticos y comunican sus resultados de manera eficaz.",
@@ -35,6 +43,8 @@ const initialData = [
   },
   {
     id: 5,
+    axis_id: 2,
+    ability_id: 1,
     axis: "Patrones y Álgebra",
     ability: "Resolver problemas",
     description:
@@ -43,6 +53,8 @@ const initialData = [
   },
   {
     id: 6,
+    axis_id: 2,
+    ability_id: 2,
     axis: "Patrones y Álgebra",
     ability: "Modelar",
     description:
@@ -51,6 +63,8 @@ const initialData = [
   },
   {
     id: 7,
+    axis_id: 2,
+    ability_id: 3,
     axis: "Patrones y Álgebra",
     ability: "Representar",
     description:
@@ -59,6 +73,8 @@ const initialData = [
   },
   {
     id: 8,
+    axis_id: 2,
+    ability_id: 4,
     axis: "Patrones y Álgebra",
     ability: "Argumentar y comunicar",
     description:
@@ -67,6 +83,8 @@ const initialData = [
   },
   {
     id: 9,
+    axis_id: 3,
+    ability_id: 1,
     axis: "Geometría",
     ability: "Resolver problemas",
     description:
@@ -75,6 +93,8 @@ const initialData = [
   },
   {
     id: 10,
+    axis_id: 3,
+    ability_id: 2,
     axis: "Geometría",
     ability: "Modelar",
     description:
@@ -83,6 +103,8 @@ const initialData = [
   },
   {
     id: 11,
+    axis_id: 3,
+    ability_id: 3,
     axis: "Geometría",
     ability: "Representar",
     description:
@@ -91,6 +113,8 @@ const initialData = [
   },
   {
     id: 12,
+    axis_id: 3,
+    ability_id: 4,
     axis: "Geometría",
     ability: "Argumentar y comunicar",
     description:
@@ -99,6 +123,8 @@ const initialData = [
   },
   {
     id: 13,
+    axis_id: 4,
+    ability_id: 1,
     axis: "Medición",
     ability: "Resolver problemas",
     description:
@@ -107,6 +133,8 @@ const initialData = [
   },
   {
     id: 14,
+    axis_id: 4,
+    ability_id: 2,
     axis: "Medición",
     ability: "Modelar",
     description:
@@ -115,6 +143,8 @@ const initialData = [
   },
   {
     id: 15,
+    axis_id: 4,
+    ability_id: 3,
     axis: "Medición",
     ability: "Representar",
     description:
@@ -123,6 +153,8 @@ const initialData = [
   },
   {
     id: 16,
+    axis_id: 4,
+    ability_id: 4,
     axis: "Medición",
     ability: "Argumentar y comunicar",
     description:
@@ -131,6 +163,8 @@ const initialData = [
   },
   {
     id: 17,
+    axis_id: 5,
+    ability_id: 1,
     axis: "Datos y probabilidades",
     ability: "Resolver problemas",
     description:
@@ -139,6 +173,8 @@ const initialData = [
   },
   {
     id: 18,
+    axis_id: 5,
+    ability_id: 2,
     axis: "Datos y probabilidades",
     ability: "Modelar",
     description:
@@ -147,6 +183,8 @@ const initialData = [
   },
   {
     id: 19,
+    axis_id: 5,
+    ability_id: 3,
     axis: "Datos y probabilidades",
     ability: "Representar",
     description:
@@ -155,6 +193,8 @@ const initialData = [
   },
   {
     id: 20,
+    axis_id: 5,
+    ability_id: 4,
     axis: "Datos y probabilidades",
     ability: "Argumentar y comunicar",
     description:
@@ -170,6 +210,8 @@ export async function seedNodes() {
       axis: nodeData.axis,
       ability: nodeData.ability,
       description: nodeData.description,
+      ability_id: nodeData.ability_id,
+      axis_id: nodeData.axis_id,
     });
   }
 }

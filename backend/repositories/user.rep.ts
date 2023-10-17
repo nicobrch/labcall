@@ -42,8 +42,8 @@ export default class UserRep {
    * @returns {Promise<I>} Promise que se resuelve con el elemento encontrado.
    * @throws {NotFoundError} Si el elemento no existe en la base de datos.
    */
-  public async findByPk(rut: I["rut"], options?: FindOptions): Promise<I> {
-    const element = await Entity.findByPk(rut, options);
+  public async findByPk(id: I["id"], options?: FindOptions): Promise<I> {
+    const element = await Entity.findByPk(id, options);
     if (!element) {
       throw new NotFoundError("Elemento no encontrado en la base de datos.");
     }

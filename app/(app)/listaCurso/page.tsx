@@ -3,6 +3,9 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Modal from "@/components/Modal";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import EditStudent from "../editStudent/page";
+import ModalNodes from "@/components/ModalNodes";
+import { useCallGetApi } from "@/hooks/useCallApi";
 
 /**
  * This component displays a list of students for a selected course.
@@ -18,9 +21,17 @@ const ListaCurso = () => {
   const [nombreCurso, setNombreCurso] = useState("");
   const [apiResponse, setApiResponse] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenNode, setIsModalOpenNode] = useState(false);
   const [studentRUT, setStudentRUT] = useState("");
   const [studentID, setStudentID] = useState(0);
+  const [userId, setUserId] = useState(0);
   const rol = { teacher: "Profesor", student: "Estudiante" };
+
+  const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi("/node/by-user?user_id=" + userId);
+
+  useEffect(() => {
+		callNodes();
+	}, [callNodes, userId]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -246,12 +257,16 @@ const ListaCurso = () => {
                     Editar
                   </button>
                   <button
-                    // onClick={}
-                    className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
-                    type="submit"
-                  >
-                    Ver nodos
-                  </button>
+										// onClick={}
+										className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
+										type="submit"
+										onClick={() => {
+											setUserId(estudiante?.id);
+											setIsModalOpenNode(true);
+										}}
+									>
+										Ver nodos
+									</button>
                   <button
                     // onClick={fetchReadStudents}
                     className="inline-flex items-center justify-center rounded-md bg-red py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4 color-eliminar"
@@ -283,6 +298,16 @@ const ListaCurso = () => {
                     setShow={setIsModalOpen}
                     onSubmit={handleSubmit}
                   />
+                  <ModalNodes
+										title="Nodos de estudiante"
+										body={"hola"}
+										show={isModalOpenNode}
+										setShow={setIsModalOpenNode}
+										onSubmit={() => {}}
+										nodes={nodes}
+										name={estudiante?.name}
+										callNodes={callNodes}
+									/>
                 </div>
               </div>
             ))}

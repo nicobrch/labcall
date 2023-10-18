@@ -2,22 +2,28 @@
 import { ApexOptions } from "apexcharts";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import Link from "next/link"
-const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import Link from "next/link";
+const ReactApexChart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+});
 
 interface ChartThreeState {
   series: number[];
 }
 
 export interface ChartThreeProps {
-  nombre: string
-  enlace: string,
+  nombre: string;
+  enlace: string;
   labels: string[]; // Nuevas props para labels
   series: number[]; // Nuevas props para series
 }
 
-const ChartThree: React.FC<ChartThreeProps> = ({ enlace, nombre, labels, series }) => {
-
+const ChartThree: React.FC<ChartThreeProps> = ({
+  enlace,
+  nombre,
+  labels,
+  series,
+}) => {
   const options: ApexOptions = {
     chart: {
       type: "donut",
@@ -81,8 +87,8 @@ const ChartThree: React.FC<ChartThreeProps> = ({ enlace, nombre, labels, series 
               id=""
               className="relative z-20 inline-flex appearance-none bg-transparent py-1 pl-3 pr-8 text-sm font-medium outline-none"
             >
-              <option value="">Dia</option>
-              <option value="">Semana</option>
+              <option value="">Habilidad</option>
+              <option value="">Taxonomia</option>
             </select>
             <span className="absolute top-1/2 right-3 z-10 -translate-y-1/2">
               <svg
@@ -120,14 +126,15 @@ const ChartThree: React.FC<ChartThreeProps> = ({ enlace, nombre, labels, series 
 
       <div className="-mx-8 flex flex-wrap items-center justify-center gap-y-3">
         {labels.map((label, index) => (
-            <div className="w-full px-8 sm:w-1/2" key={index}>
-              <div className="flex w-full items-center">
-                <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-                  <span>{label}</span> {/* Usamos el valor del label */}
-                  <span>{series[index]}</span> {/* Usamos el valor de la serie correspondiente */}
-                </p>
-              </div>
+          <div className="w-full px-8 sm:w-1/2" key={index}>
+            <div className="flex w-full items-center">
+              <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
+                <span>{label}</span> {/* Usamos el valor del label */}
+                <span>{series[index]}</span>{" "}
+                {/* Usamos el valor de la serie correspondiente */}
+              </p>
             </div>
+          </div>
         ))}
       </div>
     </div>

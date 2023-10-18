@@ -21,11 +21,6 @@ const initialData = [
     name: "Argumentar y comunicar",
     description: undefined,
   },
-  {
-    id: 5,
-    name: "Resolver problemas",
-    description: undefined,
-  },
 ];
 
 export async function seedAbilities() {

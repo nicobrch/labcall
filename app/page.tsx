@@ -27,7 +27,12 @@ export default function Home({ children }: { children: React.ReactNode }) {
   const SidebarComponent =
     user?.type === "student" ? SidebarStudent : SidebarTeacher;
   const DashboardComponent =
-    user?.type === "student" ? <DashEstudiante></DashEstudiante> : <DashProfesor></DashProfesor>; //Falta el dashboard profesor
+    user?.type === "student" ? (
+      <DashEstudiante></DashEstudiante>
+    ) : (
+      <DashProfesor></DashProfesor>
+    ); //Falta el dashboard profesor
+  console.log("Layout");
 
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">

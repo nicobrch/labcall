@@ -33,15 +33,18 @@ const Estadisticas = ({
 
     // Define los valores de labels y series
     const labels = ["Respuestas Correctas", "Respuestas Incorrectas"];
-    const series = [8, 2];
 
     return (
         <>
-            <Breadcrumb pageName={"Estadisticas del curso "+cursoId}/>
-            <div className="grid grid-cols-2 gap-4">
+            <Breadcrumb pageName={"Nodos del curso " + cursoId}/>
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
                 {preguntas.map((pregunta, key) => (
                     <div className="col-span-1">
-                        <ChartThree enlace={"/estadisticas/"+cursoId+"/"+pregunta.type} nombre={pregunta.type} labels={labels} series={[pregunta.success, pregunta.failure]}/>
+                        <ChartThree
+                          enlace={"/estadisticas/"+cursoId+"/"+pregunta.type}
+                          nombre={pregunta.type}
+                          labels={labels}
+                          series={[pregunta.success, pregunta.failure]}/>
                     </div>
                 ))}
             </div>

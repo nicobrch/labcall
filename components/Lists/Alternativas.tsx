@@ -3,7 +3,7 @@ interface Props {
   data: any[];
 }
 const Alternativas = (props: Props) => {
-  return <div>Alternativas</div>;
+  return <div></div>;
 };
 
 export default Alternativas;

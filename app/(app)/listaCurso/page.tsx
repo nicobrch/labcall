@@ -3,6 +3,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Modal from "@/components/Modal";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import ModalNodes from "@/components/ModalNodes";
+import { useCallGetApi } from "@/hooks/useCallApi";
 
 /**
  * This component displays a list of students for a selected course.
@@ -15,12 +17,22 @@ import { useRouter } from "next/navigation";
 const ListaCurso = () => {
   const [opcionesCursos, setOpcionesCursos] = useState([]);
   const [cursoActual, setCursoActual] = useState(0);
+  const [isModalOpenNode, setIsModalOpenNode] = useState(false);
   const [nombreCurso, setNombreCurso] = useState("");
   const [apiResponse, setApiResponse] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentRUT, setStudentRUT] = useState("");
   const [studentID, setStudentID] = useState(0);
+  const [userId, setUserId] = useState(0);
   const rol = { teacher: "Profesor", student: "Estudiante" };
+
+  const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi(
+    "/node/by-user?user_id=" + userId
+  );
+
+  useEffect(() => {
+    callNodes();
+  }, [callNodes, userId]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -42,7 +54,6 @@ const ListaCurso = () => {
           rut: studentRUT,
         }),
       });
-      console.log(response);
       if (response.ok) {
         setStudentRUT("");
         console.log("Estudiante eliminado correctamente");
@@ -251,11 +262,14 @@ const ListaCurso = () => {
                   </button>
                   <button
                     // onClick={}
-                    className="inline-flex items-center justify-center rounded-md bg-primary py-1 px-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
+                    className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
                     type="submit"
+                    onClick={() => {
+                      setUserId(estudiante?.id);
+                      setIsModalOpenNode(true);
+                    }}
                   >
-                    <span className="hidden md:inline-block mr-2">Ver </span>
-                    Nodos
+                    Ver nodos
                   </button>
                   <button
                     // onClick={fetchReadStudents}
@@ -287,6 +301,16 @@ const ListaCurso = () => {
                     show={isModalOpen}
                     setShow={setIsModalOpen}
                     onSubmit={handleSubmit}
+                  />
+                  <ModalNodes
+                    title="Nodos de estudiante"
+                    body={"hola"}
+                    show={isModalOpenNode}
+                    setShow={setIsModalOpenNode}
+                    onSubmit={() => {}}
+                    nodes={nodes}
+                    name={estudiante?.name}
+                    callNodes={callNodes}
                   />
                 </div>
               </div>

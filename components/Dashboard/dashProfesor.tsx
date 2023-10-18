@@ -14,7 +14,7 @@ const DashEstudiante: React.FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2x2:gap-7.5">
         {/* <CardDataStats title="Mensaje del dia" total="Nunca consideres el estudio como una obligacion" rate="0.43%">
         
         </CardDataStats> */}
@@ -35,7 +35,7 @@ const DashEstudiante: React.FC = () => {
 
         <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h3 className="font-semibold text-black dark:text-white">
-            <a href="/preguntas">Estadísticas</a>
+            <a>Estadísticas</a>
           </h3>
           <p className="items-center justify-center mt-4.5">
             La sección "Estadísticas" proporciona un completo resumen del
@@ -50,17 +50,17 @@ const DashEstudiante: React.FC = () => {
               className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
               type="submit"
               onClick={() => {
-                router.push("/asignacion/VerPreguntas");
+                router.push("/estadisticas");
               }}
             >
-              Ver Estadísticas
+              Ver estadísticas
             </button>
           </div>
         </div>
 
         <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h3 className="font-semibold text-black dark:text-white">
-            <a href="/preguntas">Items de Preguntas</a>
+            <a>Items de Preguntas</a>
           </h3>
           <p className="items-center justify-center mt-4.5">
             La sección "Items de preguntas" es donde encontrarás el banco
@@ -84,7 +84,7 @@ const DashEstudiante: React.FC = () => {
 
         <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h3 className="font-semibold text-black dark:text-white">
-            <a href="/preguntas">Asignar nodos</a>
+            <a>Asignar Nodos</a>
           </h3>
           <p className="items-center justify-center mt-4.5">
             En la sección "Asignar nodos", puedes asignar a cada estudiante ejes
@@ -105,7 +105,56 @@ const DashEstudiante: React.FC = () => {
             </button>
           </div>
         </div>
+
+        <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="font-semibold text-black dark:text-white">
+            <a>Agregar Curso</a>
+          </h3>
+          <p className="items-center justify-center mt-4.5">
+          En la sección "Agregar Curso", puedes crear un nuevo curso de manera simple, 
+          incluyendo unicamente el nombre del curso y una descripción. Una vez creado, 
+          aparecera dentro de los cursos para poder agregar estudiantes.
+          </p>
+          <br></br>
+          <div className="flex justify-center gap-4.5">
+            <button
+              className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+              type="submit"
+              onClick={() => {
+                router.push("/addCourse");
+              }}
+            >
+              Agregar curso
+            </button>
+          </div>
+        </div>
+
+        <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="font-semibold text-black dark:text-white">
+            <a>Agregar Estudiante</a>
+          </h3>
+          <p className="items-center justify-center mt-4.5">
+          La sección "Agregar estudiante" te permite incluir nuevos miembros al curso 
+          de manera sencilla y eficiente. Con esta herramienta, puedes registrar y 
+          asignar estudiantes a tus clases de forma rápida, facilitando la gestión
+           de tu grupo de aprendices.
+          </p>
+          <br></br>
+          <div className="flex justify-center gap-4.5">
+            <button
+              className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+              type="submit"
+              onClick={() => {
+                router.push("/addStudent");
+              }}
+            >
+              Agregar estudiante
+            </button>
+          </div>
+        </div>
       </div>
+              
+      
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         {/* <ChartOne /> */}

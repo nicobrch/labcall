@@ -7,8 +7,7 @@ import CloseIcon from "@/components/icons/CloseIcon";
 import { useCallGetApi } from "@/hooks/useCallApi";
 import classNames from "classnames";
 import React, { ReactNode, useEffect, useState } from "react";
-
-var Latex = require("react-latex");
+const Latex = require("react-latex");
 
 type AccordionProps = {
   question: string;

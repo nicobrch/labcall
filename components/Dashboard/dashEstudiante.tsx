@@ -20,14 +20,16 @@ const DashEstudiante: React.FC = () => {
           </h2>
 
           <p className="items-center justify-center mt-4.5">
-            Bienvenido a la aplicacion de apoyo a la enseñanza de matematicas. Lea atentamente las preguntas
-             que se le presentan para cada ejercicio. No olvide tener lapiz y papel para el desarrollo de los ejercicios. 
-             Las preguntas presentadas tienen una unica respuesta correcta, por favor, revise sus calculos antes de responder.
+            Bienvenido a la aplicacion de apoyo a la enseñanza de matematicas.
+            Lea atentamente las preguntas que se le presentan para cada
+            ejercicio. No olvide tener lapiz y papel para el desarrollo de los
+            ejercicios. Las preguntas presentadas tienen una unica respuesta
+            correcta, por favor, revise sus calculos antes de responder.
           </p>
           <br></br>
           <h3 className="items-center">Exito!</h3>
         </div>
-        
+
         <div className="rounded-sm border border-stroke bg-primary py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark items-center justify-center">
           <h3 className="items-center font-medium text-white dark:text-white justify-center">
             <a href="/preguntas">Click aqui para responder test</a>

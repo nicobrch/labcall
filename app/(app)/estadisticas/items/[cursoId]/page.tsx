@@ -14,7 +14,7 @@ const Estadisticas = ({
   const [preguntas, setPreguntas] = useState<Pregunta[]>([]);
 
   const callApi = useCallback(() => {
-    fetch("/api/statistics/" + cursoId)
+    fetch("/api/statistics/item?course_id=" + cursoId)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de la API");
@@ -23,6 +23,8 @@ const Estadisticas = ({
       })
       .then((data) => {
         // Almacena las preguntas en el estado
+        console.log(data);
+
         setPreguntas(data);
       })
       .catch((error) => {
@@ -34,8 +36,6 @@ const Estadisticas = ({
     callApi();
   }, [callApi]);
 
-  console.log(preguntas);
-
   const headers = [
     {
       colSpan: 1,
@@ -44,23 +44,26 @@ const Estadisticas = ({
     },
     {
       colSpan: 8,
-      key: "text",
+      key: "questionText",
       label: "Pregunta",
       classNames: "text-start",
     },
     {
       colSpan: 1,
-      key: "success",
+      key: "correctas",
       label: "Correctas",
     },
     {
       colSpan: 1,
       key: "failure",
       label: "Incorrectas",
+      render: (pregunta: any) => (
+        <span>{pregunta.total - parseInt(pregunta.correctas)}</span>
+      ),
     },
     {
       colSpan: 1,
-      key: "totalresponses",
+      key: "total",
       label: "Total",
     },
   ];

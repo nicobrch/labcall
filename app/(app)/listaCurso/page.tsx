@@ -3,10 +3,6 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Modal from "@/components/Modal";
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-<<<<<<< HEAD
-import EditStudent from "../editStudent/page";
-=======
->>>>>>> origin/main
 import ModalNodes from "@/components/ModalNodes";
 import { useCallGetApi } from "@/hooks/useCallApi";
 
@@ -25,19 +21,11 @@ const ListaCurso = () => {
   const [nombreCurso, setNombreCurso] = useState("");
   const [apiResponse, setApiResponse] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenNode, setIsModalOpenNode] = useState(false);
   const [studentRUT, setStudentRUT] = useState("");
   const [studentID, setStudentID] = useState(0);
   const [userId, setUserId] = useState(0);
   const rol = { teacher: "Profesor", student: "Estudiante" };
 
-<<<<<<< HEAD
-  const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi("/node/by-user?user_id=" + userId);
-
-  useEffect(() => {
-		callNodes();
-	}, [callNodes, userId]);
-=======
   const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi(
     "/node/by-user?user_id=" + userId
   );
@@ -45,7 +33,6 @@ const ListaCurso = () => {
   useEffect(() => {
     callNodes();
   }, [callNodes, userId]);
->>>>>>> origin/main
 
   const openModal = () => {
     setIsModalOpen(true);

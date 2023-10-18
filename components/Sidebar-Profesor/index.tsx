@@ -183,7 +183,47 @@ const SidebarTeacher = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Estadísticas
                 </Link>
               </li>
-              {/* <!-- Menu Item Estadisticas --> */}
+              {/* <!-- Menu Item Agregar estudiante --> */}
+              <li>
+                <Link
+                  href="/addStudent"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname?.includes("addStudent") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <svg
+                    className="fill-current"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="#000000"
+                      className="w-6 h-6"
+                    >
+                      <g id="Complete">
+                        <g id="user-add">
+                          <g>
+                            <path d="M17,21V19a4,4,0,0,0-4-4H5a4,4,0,0,0-4,4v2" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            <circle cx="9" cy="7" r="4" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            <line x1="17" y1="11" x2="23" y2="11" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                            <line x1="20" y1="8" x2="20" y2="14" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </svg>
+                  Agregar Estudiante
+                </Link>
+              </li>
+              {/* <!-- Menu Item Lista del Curso --> */}
               <li>
                 <Link
                     href="/listaCurso"

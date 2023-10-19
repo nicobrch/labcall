@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import ModalNodes from "@/components/ModalNodes";
 import { useCallGetApi } from "@/hooks/useCallApi";
+import { format } from "rut.js"
 
 /**
  * This component displays a list of students for a selected course.
@@ -128,6 +129,21 @@ const ListaCurso = () => {
     }
   }, [studentID]);
 
+  function capitalizeString(inputString: string) {
+    // Dividir la cadena en palabras
+    const words = inputString.split(' ');
+  
+    // Capitalizar la primera letra de cada palabra y convertirlas a minúsculas el resto de las letras
+    const capitalizedWords = words.map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
+  
+    // Unir las palabras nuevamente en una cadena
+    const capitalizedString = capitalizedWords.join(' ');
+  
+    return capitalizedString;
+  }
+
   return (
     <>
       <Breadcrumb pageName="Lista de curso" />
@@ -211,25 +227,25 @@ const ListaCurso = () => {
               >
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
                   <p className="text-black dark:text-white">
-                    {estudiante?.firstname}
+                    {capitalizeString(String(estudiante?.firstname))}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
                   <p className="text-black dark:text-white">
-                    {estudiante?.lastname1}
+                    {capitalizeString(String(estudiante?.lastname1))}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
                   <p className="text-black dark:text-white">
-                    {estudiante?.lastname2}
+                    {capitalizeString(String(estudiante?.lastname2))}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
                   <p className="text-black dark:text-white">
-                    {estudiante?.rut}
+                    {format(estudiante?.rut)}
                   </p>
                 </div>
 

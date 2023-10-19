@@ -23,11 +23,14 @@ export default async function handler(
         // set rut to a only numeric values, delete dots and hyphen
         var rutFormated = format(rut);
         rutFormated = clean(rut);
+        var lowerName = firstname.toLowerCase();
+        var lowerLastName1 = lastname1.toLowerCase();
+        var lowerLastName2 = lastname2.toLowerCase();
         await addStudent(
             rutFormated,
-            firstname,
-            lastname1,
-            lastname2,
+            lowerName,
+            lowerLastName1,
+            lowerLastName2,
             email,
             password,
             type,

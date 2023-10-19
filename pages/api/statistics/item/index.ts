@@ -5,7 +5,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const items = await getResponseStatistics();
+    const { course_id }: any = req.query;
+    const items = await getResponseStatistics(course_id);
     res.status(200).json(items);
   }
 }

@@ -33,7 +33,7 @@ export const signInUser = async (signInData: ISignInUser) => {
     });
     if (!userResponse) {
       throw new ValidationFailedError(
-        "El rut ingresado no se encuentra registrado"
+        "Credenciales invalidas"
       );
     }
     // const isValidPassword = await compare(password, userResponse.getDataValue('password'));
@@ -41,7 +41,7 @@ export const signInUser = async (signInData: ISignInUser) => {
     const isValidPassword = userResponse.password === password;
 
     if (!isValidPassword) {
-      throw new ValidationFailedError("La contraseña ingresada es incorrecta");
+      throw new ValidationFailedError("Credenciales invalidas");
     }
     const user = userResponse;
     delete user.password;

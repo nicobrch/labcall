@@ -12,6 +12,8 @@ import { postToApi } from "@/js/requests";
 import { IAxis } from "@/backend/interfaces/axis";
 import { IAbility } from "@/backend/interfaces/ability";
 import { useRouter } from "next/navigation";
+import AlertConfirmacion from "@/components/AlertConfirmacion";
+import AlertError from "@/components/AlertError";
 
 export interface IOption {
 	label: string;
@@ -64,6 +66,8 @@ const CrearCuestionario = () => {
 	const [courses, callCourses, statusCourses, errorCourses] = useCallGetApi("/course/all");
 	const [abilities, callAbilities, statusAbilities, errorAbilities] = useCallGetApi("/abilities");
 	const [axis, callAxis, statusAxis, errorAxis] = useCallGetApi("/axis");
+	const [showAlertOK, setShowAlertOK] = useState(false);
+	const [showAlertError, setShowAlertError] = useState(false);
 
 	useEffect(() => {
 		callCourses();
@@ -204,11 +208,18 @@ const CrearCuestionario = () => {
 					selectedAbilities: []
 				}
 			]);
+			setShowAlertOK(true);
+		} else {
+			setShowAlertError(true);
 		}
 	};
 
 	return (
 		<div>
+			<div className="absolute z-9999 top-5 right-5 ">
+				<AlertConfirmacion title={"¡Nodos asignados con éxito!"} body={"Ya puedes ver las preguntas."} show={showAlertOK} setShow={setShowAlertOK}></AlertConfirmacion>
+				<AlertError title={"No se pudo agregar nodos :("} body={"Intente nuevamente."} show={showAlertError} setShow={setShowAlertError}></AlertError>
+			</div>
 			<Breadcrumb pageName="Asignar Nodos" />
 
 			<div className="grid grid-cols-1 gap-9 sm:grid-cols-2">

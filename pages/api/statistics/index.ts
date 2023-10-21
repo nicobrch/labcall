@@ -31,6 +31,6 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     const cursos = await getAllCourse();
-    res.status(200).json(Items);
+    res.status(200).json(cursos);
   }
 }

@@ -7,6 +7,7 @@ interface header {
   key: string;
   label: string;
   classNames?: string;
+  render?: Function;
 }
 
 export interface TableThree2Props {
@@ -27,9 +28,9 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
     // Conditionally sort the Pregunta array based on the selectedOption
     const sorted = [...data];
     if (selectedOption === "desc") {
-      sorted.sort((a, b) => b.success - a.success); // Descending order
+      sorted.sort((a, b) => parseInt(b.correctas) - parseInt(a.correctas)); // Descending order
     } else if (selectedOption === "asc") {
-      sorted.sort((a, b) => a.success - b.success); // Ascending order
+      sorted.sort((a, b) => parseInt(a.correctas) - parseInt(b.correctas)); // Ascending order
     } else if (selectedOption === "id") {
       sorted.sort((a, b) => a.id - b.id); // Sort by ID (original order)
       setSortedPreguntas(sorted);
@@ -50,8 +51,8 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
             value={selectedOption}
           >
             <option value="id">Orden Id</option>
-            <option value="desc">Orden Descendente</option>
-            <option value="asc">Orden Ascendente</option>
+            <option value="desc">Más Fáciles</option>
+            <option value="asc">Más difíciles</option>
           </select>
         </div>
         <table className="w-full table-auto">
@@ -82,7 +83,12 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
                         header?.classNames || ""
                       }`}
                     >
-                      {pregunta[header.key]}
+                      {header.render
+                        ? header.render(
+                            pregunta[header.key] || pregunta,
+                            pregunta
+                          )
+                        : pregunta[header.key]}
                     </p>
                   </td>
                 ))}

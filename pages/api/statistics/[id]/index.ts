@@ -17,7 +17,7 @@ export type CursoPregunta = {
 const Preguntas: Pregunta[] = [
   {
     id: 1,
-    type: "Geometria",
+    type: "Geometria - Representar",
     text: "Nico y Dani están discutiendo sobre la siguiente afirmación 'mientras más alta es una persona, más masa tiene'. Nico cree que la afirmación es verdadera, mientras que Dani cree que es incorrecta. A partir de esto, ¿cuál de las siguientes alternativas es correcta?",
     success: 7,
     failure: 3,
@@ -25,7 +25,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 2,
-    type: "Geometria",
+    type: "Geometria - Resolver problemas",
     text: "A continuación, se muestra el desarrollo de un problema realizado por Martín, el cual contiene un error. A partir de esto, ¿cuál de las siguientes alternativas es correcta?\\\\ 'La siguiente situación corresponde a una relación inversa: En la construcción de un edificio si se trabaja con 200 obreros, la obra tiene fecha para 12 meses, ¿cuántos meses demorará la obra si solo se dispone de 50 obreros?'\\\\ Paso 1: plantear la ecuación $\\\\frac{200}{12}=\\\\frac{50}{x}$\\\\ Paso 2: calcular la incógnita $x=\\\\frac{50 \\\\cdot 12}{200}$\\\\ Paso 3: concluir $x=3$",
     success: 5,
     failure: 5,
@@ -33,7 +33,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 3,
-    type: "Geometria",
+    type: "Geometria - Argumentar y comunicar",
     text: "Para un concierto se dispone de 3 tipos de entradas: 'Cancha general' a 4.500, 'Cancha Vip' a 5.500 y 'Platea' a 3.500. ¿Qué expresión algebraica permite determinar los ingresos totales por la venta de las entradas?",
     success: 8,
     failure: 2,
@@ -41,7 +41,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 4,
-    type: "Geometria",
+    type: "Geometria - Modelar",
     text: "pregunta",
     success: 1,
     failure: 9,
@@ -49,7 +49,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 5,
-    type: "Numeros",
+    type: "Numeros - Representar",
     text: "pregunta",
     success: 8,
     failure: 2,
@@ -57,7 +57,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 6,
-    type: "Numeros",
+    type: "Numeros - Resolver problemas",
     text: "pregunta",
     success: 4,
     failure: 6,
@@ -65,7 +65,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 7,
-    type: "Numeros",
+    type: "Numeros - Argumentar y comunicar",
     text: "pregunta",
     success: 2,
     failure: 8,
@@ -73,7 +73,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 8,
-    type: "Numeros",
+    type: "Numeros - Modelar",
     text: "pregunta",
     success: 3,
     failure: 7,
@@ -81,7 +81,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 9,
-    type: "Algebra",
+    type: "Algebra - Representar",
     text: "pregunta",
     success: 8,
     failure: 2,
@@ -89,7 +89,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 10,
-    type: "Algebra",
+    type: "Algebra - Resolver problemas",
     text: "pregunta",
     success: 1,
     failure: 9,
@@ -97,7 +97,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 11,
-    type: "Algebra",
+    type: "Algebra - Argumentar y comunicar",
     text: "pregunta",
     success: 6,
     failure: 4,
@@ -105,7 +105,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 12,
-    type: "Algebra",
+    type: "Algebra - Modelar",
     text: "pregunta",
     success: 3,
     failure: 7,
@@ -113,7 +113,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 13,
-    type: "Probabilidades",
+    type: "Probabilidades - Representar",
     text: "pregunta",
     success: 8,
     failure: 2,
@@ -121,7 +121,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 14,
-    type: "Probabilidades",
+    type: "Probabilidades - Resolver problemas",
     text: "pregunta",
     success: 4,
     failure: 6,
@@ -129,7 +129,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 15,
-    type: "Probabilidades",
+    type: "Probabilidades - Argumentar y comunicar",
     text: "pregunta",
     success: 2,
     failure: 8,
@@ -137,7 +137,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 16,
-    type: "Probabilidades",
+    type: "Probabilidades - Modelar",
     text: "pregunta",
     success: 3,
     failure: 7,
@@ -145,7 +145,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 17,
-    type: "Medicion",
+    type: "Medicion - Representar",
     text: "pregunta",
     success: 3,
     failure: 7,
@@ -153,7 +153,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 18,
-    type: "Medicion",
+    type: "Medicion - Resolver problemas",
     text: "pregunta",
     success: 8,
     failure: 2,
@@ -161,7 +161,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 19,
-    type: "Medicion",
+    type: "Medicion - Argumentar y comunicar",
     text: "pregunta",
     success: 1,
     failure: 9,
@@ -169,7 +169,7 @@ const Preguntas: Pregunta[] = [
   },
   {
     id: 20,
-    type: "Medicion",
+    type: "Medicion - Modelar",
     text: "pregunta",
     success: 6,
     failure: 4,

@@ -133,7 +133,6 @@ const Pregunta = () => {
     <>
       <div>
         {data ? (
-          // Renderiza los datos cuando la promesa se completa
           <div>
             <link
               rel="stylesheet"
@@ -143,19 +142,20 @@ const Pregunta = () => {
             ></link>
             <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
               <div className="flex flex-col gap-9">
-                <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
+                <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <h2 className="font-medium text-black dark:text-white">
                     Pregunta {data?.id}
                   </h2>
                 </div>
-                <div className="bg-white px-7.5 dark:border-strokedark dark:bg-boxdark">
+                
+                <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <p className="items-center justify-center mt-4.5">
                     <Latex>{data?.questionText}</Latex>
+                    
                   </p>
-                  {/* imagen : pendiente */}
-
-                  <div className="flex flex-col gap-5.5 p-6.5">
-                    {/* respuesta 1 */}
+                  <p className="items-center justify-center mt-4.5"> { data?.imageURL }</p>
+                  </div>
+                  <div className="flex flex-col gap-5.5 p-6.5 col-span-12 rounded-sm border border-stroke bg-white px-5 pt-5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                     <div>
                       <label
                         htmlFor="radioOption1"
@@ -199,7 +199,6 @@ const Pregunta = () => {
                         <Latex>{data.alternatives[0].answerText}</Latex>
                       </label>
                     </div>
-                    {/* respuesta 2 */}
                     <div>
                       <label
                         htmlFor="radioOption2"
@@ -242,7 +241,6 @@ const Pregunta = () => {
                         <Latex>{data.alternatives[1].answerText}</Latex>
                       </label>
                     </div>
-                    {/* respuesta 3 */}
                     <div>
                       <label
                         htmlFor="radioOption3"
@@ -285,7 +283,6 @@ const Pregunta = () => {
                         <Latex>{data.alternatives[2].answerText}</Latex>
                       </label>
                     </div>
-                    {/* respuesta 4 */}
                     <div>
                       <label
                         htmlFor="radioOption4"
@@ -329,7 +326,6 @@ const Pregunta = () => {
                       </label>
                     </div>
                   </div>
-                  {/* pendiente */}
                   <div className="flex justify-center gap-4.5">
                     <button
                       onClick={handleEnviarRespuesta}
@@ -362,10 +358,9 @@ const Pregunta = () => {
                       </div>
                     )}
                   </div>
-                </div>
                 {mostrarExplicacion && (
                   <div>
-                    <div className="bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                       <h2 className="font-semibold text-black dark:text-white">
                         {" "}
                         Explicacion{" "}
@@ -374,7 +369,7 @@ const Pregunta = () => {
                         <Latex>{justificacion}</Latex>
                       </p>
                     </div>
-                    <div className="bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div className="py-6 px-7.5 dark:border-strokedark dark:bg-boxdark flex justify-center gap-4.5">
                       <button
                         onClick={handleSiguientePregunta}
                         className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
@@ -388,7 +383,6 @@ const Pregunta = () => {
             </div>
           </div>
         ) : (
-          // Muestra un mensaje de carga mientras se espera la respuesta de la API
           <p>Cargando pregunta...</p>
         )}
       </div>

@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { ValidationError } from "sequelize";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
 import AlertError from "@/components/AlertError";
+import { clean } from "rut.js";
 // export const metadata: Metadata = {
 //   title: "LabCal",
 //   // other metadata
@@ -77,18 +78,19 @@ const AddStudent = () => {
 	const fetchRegistrarEstudiante = async () => {
 		if (validateForm()) {
 			try {
+				const rutFormateado = clean(studentRUT);
 				const response = await fetch("http://localhost:3000/api/register", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify({
-						rut: studentRUT,
+						rut: rutFormateado,
 						firstname: studentName,
 						lastname1: lastName1,
 						lastname2: lastName2,
 						email: email1,
-						password: studentRUT.slice(0, 4),
+						password: rutFormateado.slice(0, 4),
 						course_id: courseId
 					})
 				});

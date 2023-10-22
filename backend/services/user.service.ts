@@ -179,3 +179,25 @@ export const getStudentData = async (id: number) => {
     throw error;
   }
 };
+
+export const checkExistingStudent = async (rut: string) => {
+  // buscar usuario por rut usando findbypk
+  try {
+    if (!validate(rut)) {
+      throw new ValidationFailedError("El formato del rut es inválido");
+    }
+    const userResponse = await User.findOne({
+      rut,
+    });
+    // si no existe el usuario, se puede continuar
+    if (!userResponse) {
+      return true;
+    }
+    // si existe el usuario, se debe retornar falso
+    if (userResponse) {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};

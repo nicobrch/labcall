@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { ValidationError } from "sequelize";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
 import AlertError from "@/components/AlertError";
-import { clean } from "rut.js";
+import { clean, validate } from "rut.js";
 // export const metadata: Metadata = {
 //   title: "LabCal",
 //   // other metadata
@@ -37,6 +37,9 @@ const AddStudent = () => {
 
 		if (!rutRegex.test(rutValue)) {
 			setRutError("RUT no válido, debe ingresarlo con guion y digito verificador");
+		}
+		else if (!validate(rutValue)) {
+			setRutError("RUT no válido, verifiquelo");
 		} else {
 			setRutError(""); // Borra el mensaje de error
 		}
@@ -89,7 +92,7 @@ const AddStudent = () => {
 						firstname: studentName,
 						lastname1: lastName1,
 						lastname2: lastName2,
-						email: email1,
+						email: email1.toLowerCase(),
 						password: rutFormateado.slice(0, 4),
 						course_id: courseId
 					})

@@ -5,11 +5,11 @@ import Link from "next/link";
 import { NextApiRequest, NextApiResponse } from "next";
 import { useSearchParams, useRouter } from "next/navigation";
 
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "LabCal",
-  // other metadata
-};
+// import { Metadata } from "next";
+// export const metadata: Metadata = {
+//   title: "LabCal",
+//   // other metadata
+// };
 // pendiente
 // se debe cargar la informacion del estudiante en los campos respectivos
 // se debe agregar un modal para cambiar la contraseña

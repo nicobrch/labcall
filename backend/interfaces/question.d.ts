@@ -6,6 +6,7 @@ export interface IQuestion {
   questionText: string;
   imageURL?: string;
   figureCaption?: string;
+  difficulty?: "easy" | "medium" | "hard";
   createdAt?: Date;
   updatedAt?: Date;
   alternatives?: IAlternative[];

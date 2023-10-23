@@ -16,6 +16,10 @@ export default function defineQuestionModel(sequelize: Sequelize) {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      difficulty: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
       imageURL: {
         type: DataTypes.STRING,
         allowNull: true,

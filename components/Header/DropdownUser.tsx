@@ -53,11 +53,11 @@ const DropdownUser = () => {
           <span className="text-right">
             <span className="block text-sm font-medium text-black dark:text-white">
               {/* Informacion del usuario */}
-              {user.firstname} {user.lastname1} {user.lastname2}
+              {user?.firstname} {user?.lastname1} {user?.lastname2}
             </span>
             <span className="block text-xs">
               {/* Rol del usuario */}
-              {user.type}
+              {user?.type === "student" ? "Estudiante" : "Profesor"}
             </span>
           </span>
         ) : null}

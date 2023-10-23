@@ -1,8 +1,10 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import Modal from "@/components/Modal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import ModalNodes from "@/components/ModalNodes";
+import { useCallGetApi } from "@/hooks/useCallApi";
 
 /**
  * This component displays a list of students for a selected course.
@@ -15,12 +17,22 @@ import { useRouter } from "next/navigation";
 const ListaCurso = () => {
   const [opcionesCursos, setOpcionesCursos] = useState([]);
   const [cursoActual, setCursoActual] = useState(0);
+  const [isModalOpenNode, setIsModalOpenNode] = useState(false);
   const [nombreCurso, setNombreCurso] = useState("");
   const [apiResponse, setApiResponse] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [studentRUT, setStudentRUT] = useState("");
   const [studentID, setStudentID] = useState(0);
+  const [userId, setUserId] = useState(0);
   const rol = { teacher: "Profesor", student: "Estudiante" };
+
+  const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi(
+    "/node/by-user?user_id=" + userId
+  );
+
+  useEffect(() => {
+    callNodes();
+  }, [callNodes, userId]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -42,7 +54,6 @@ const ListaCurso = () => {
           rut: studentRUT,
         }),
       });
-      console.log(response);
       if (response.ok) {
         setStudentRUT("");
         console.log("Estudiante eliminado correctamente");
@@ -58,7 +69,7 @@ const ListaCurso = () => {
   };
 
   // llamada a la API para obtener los estudiantes del curso especifico
-  const fetchReadStudents = async () => {
+  const fetchReadStudents = useCallback(async () => {
     try {
       const response = await fetch(
         "http://localhost:3000/api/course/students",
@@ -75,7 +86,6 @@ const ListaCurso = () => {
       if (response.ok) {
         const responseData = await response.json();
         setApiResponse(responseData);
-        console.log(apiResponse);
       } else {
         console.error("API Respondió mal :(");
         const responseData = await response.json();
@@ -84,7 +94,7 @@ const ListaCurso = () => {
     } catch (error) {
       console.error("Connection Error:", error);
     }
-  };
+  }, [cursoActual]);
 
   // llamada a la API para obtener los cursos (dentro estan los estudiantes)
   useEffect(() => {
@@ -92,11 +102,16 @@ const ListaCurso = () => {
       .then((response) => response.json())
       .then((data) => {
         setOpcionesCursos(data);
+        setCursoActual(data[0]?.id);
       })
       .catch((error) => {
         console.error("Error al obtener las opciones desde la API:", error);
       });
   }, []);
+
+  useEffect(() => {
+    fetchReadStudents();
+  }, [fetchReadStudents]);
 
   const handleCursoActual = (event: any) => {
     setCursoActual(event.target.value);
@@ -165,7 +180,7 @@ const ListaCurso = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="grid grid-cols-6 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
+            <div className="grid grid-cols-6 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6 overflow-auto">
               <div className="p-2.5 text-center xl:p-3">
                 <h5 className="text-sm font-medium uppercase xsm:text-base">
                   Nombre
@@ -240,7 +255,7 @@ const ListaCurso = () => {
                       const id = estudiante?.id;
                       setStudentID(id);
                     }}
-                    className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
+                    className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
                     type="submit"
                   >
                     Editar
@@ -249,12 +264,16 @@ const ListaCurso = () => {
                     // onClick={}
                     className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4"
                     type="submit"
+                    onClick={() => {
+                      setUserId(estudiante?.id);
+                      setIsModalOpenNode(true);
+                    }}
                   >
                     Ver nodos
                   </button>
                   <button
                     // onClick={fetchReadStudents}
-                    className="inline-flex items-center justify-center rounded-md bg-red py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4 color-eliminar"
+                    className="inline-flex items-center justify-center rounded-md bg-red py-4 px-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-4 xl:px-4 color-eliminar"
                     onClick={() => {
                       setStudentRUT(estudiante?.rut); // Guarda el RUT del estudiante en el estado
                       openModal();
@@ -282,6 +301,16 @@ const ListaCurso = () => {
                     show={isModalOpen}
                     setShow={setIsModalOpen}
                     onSubmit={handleSubmit}
+                  />
+                  <ModalNodes
+                    title="Nodos de estudiante"
+                    body={"hola"}
+                    show={isModalOpenNode}
+                    setShow={setIsModalOpenNode}
+                    onSubmit={() => {}}
+                    nodes={nodes}
+                    name={estudiante?.name}
+                    callNodes={callNodes}
                   />
                 </div>
               </div>

@@ -1,21 +1,28 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import { Pregunta } from "@/pages/api/statistics/[id]";
+var Latex = require("react-latex");
+interface header {
+  colSpan: number;
+  key: string;
+  label: string;
+  classNames?: string;
+}
 
 export interface TableThree2Props {
-  headers: string[];
+  headers: header[];
   data: Pregunta[];
 }
 
 const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
   const [selectedOption, setSelectedOption] = useState(""); // Set an initial value
   const [sortedPreguntas, setSortedPreguntas] = useState(data);
-  
+
   const handleSelectChange = (event: any) => {
     const newSelectedOption = event.target.value;
     setSelectedOption(newSelectedOption);
   };
-  
+
   useEffect(() => {
     // Conditionally sort the Pregunta array based on the selectedOption
     const sorted = [...data];
@@ -27,10 +34,10 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
       sorted.sort((a, b) => a.id - b.id); // Sort by ID (original order)
       setSortedPreguntas(sorted);
     }
-    
+
     setSortedPreguntas(sorted);
-  }, [selectedOption]);
-  
+  }, [selectedOption, data]);
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -51,42 +58,36 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               {headers.map((header) => (
-                  <th className="min-w-[220px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                    {header}
-                  </th>
+                <th
+                  key={header.key}
+                  colSpan={header.colSpan}
+                  className={`py-4 px-4 font-medium text-black dark:text-white xl:pl-11 `}
+                >
+                  {header.label}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
-          {sortedPreguntas.map((pregunta, key) => (
-              <tr key={key}>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {pregunta.id}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {pregunta.text}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {pregunta.success}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {pregunta.failure}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {pregunta.totalresponses}
-                  </p>
-                </td>
+            {sortedPreguntas.map((pregunta: any, key) => (
+              <tr key={pregunta.id}>
+                {headers.map((header) => (
+                  <td
+                    colSpan={header.colSpan}
+                    key={header.key}
+                    className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}
+                  >
+                    <p
+                      className={`text-black dark:text-white text-center ${
+                        header?.classNames || ""
+                      }`}
+                    >
+                      {pregunta[header.key]}
+                    </p>
+                  </td>
+                ))}
               </tr>
-          ))}
+            ))}
           </tbody>
         </table>
       </div>
@@ -95,3 +96,32 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
 };
 
 export default TableThree;
+
+{
+  /* <td
+                    colSpan={1}
+                    className="border-b border-[#eee] py-5 px-4 dark:border-strokedark"
+                  >
+                    <p className="text-black dark:text-white">{pregunta.id}</p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {pregunta.text}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {pregunta.success}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {pregunta.failure}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {pregunta.totalresponses}
+                    </p>
+                  </td> */
+}

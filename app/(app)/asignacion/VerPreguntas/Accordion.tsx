@@ -7,7 +7,8 @@ import CloseIcon from "@/components/icons/CloseIcon";
 import { useCallGetApi } from "@/hooks/useCallApi";
 import classNames from "classnames";
 import React, { ReactNode, useEffect, useState } from "react";
-var Latex = require("react-latex");
+const Latex = require("react-latex");
+
 type AccordionProps = {
   question: string;
   node_id: string;
@@ -30,29 +31,21 @@ const Accordion = ({ question, node_id }: AccordionProps) => {
   useEffect(() => {
     callQuestions();
   }, [callQuestions]);
-  //   const buildQuestions = (questionsByNode: IQuestion[]) => {
-  //     return (
-  //       <div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
-  //         <ul>
-  //           {questionsByNode?.map((question, index) => (
-  //             <li key={index}>
-  //               <div className=" border-b mb-3 pb-1 flex flex-row">
-  //                 <div>
-  //                   <strong>{index + 1}.</strong>{" "}
-  //                   <Latex>{question.questionText}</Latex>
-  //                 </div>
-  //                 <div className="flex flex-row my-auto ml-3">
-  //                   <div className="flex h-10.5 w-full max-w-10.5 items-center justify-center rounded-md bg-[#F3F5FC] dark:bg-meta-4">
-  //                     <ArrowTop active={active} />
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //             </li>
-  //           ))}
-  //         </ul>
-  //       </div>
-  //     );
-  //   };
+  const buildQuestions = (questionsByNode: IQuestion[]) => {
+    return (
+      <Latex>
+        <div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
+          <ul>
+            {questionsByNode?.map((question, index) => (
+              <li key={index}>
+                <strong>{index + 1}.</strong> {question.questionText}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Latex>
+    );
+  };
 
   if (!questionsByNode) {
     return <Loading />;

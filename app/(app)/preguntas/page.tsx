@@ -18,11 +18,18 @@ const Pregunta = () => {
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [justificacion, setJustificacion] = useState("");
   const [opcionesDeshabilitadas, setOpcionesDeshabilitadas] = useState(false);
+  const [respuestaSeleccionada, setRespuestaSeleccionada] = useState(false);
   const [esCorrecta, setEsCorrecta] = useState(false);
+  const [student_id, setStudent_id] = useState(userData?.id || 1);
+  const [responseData, setResponseData] = useState(null);
+
+  useEffect(() => {
+    const alMenosUnaSeleccionada = isChecked1 || isChecked2 || isChecked3 || isChecked4;
+    setRespuestaSeleccionada(alMenosUnaSeleccionada);
+  }, [isChecked1, isChecked2, isChecked3, isChecked4]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const student_id = userData?.id || 1;
       const node_id = 1;
       try {
         const response = await fetch(
@@ -48,12 +55,13 @@ const Pregunta = () => {
     };
     fetchData(); // Llama a la función para cargar los datos de la API
   }, []);
+
   useEffect(() => {
     console.log(data);
   }, [data]);
+
   const fetchRespuesta = async () => {
     // estos parametros deberian entrar como argumentos de la funcion
-    const student_id = 1;
     const node_id = 1;
     try {
       const response = await fetch(
@@ -65,7 +73,7 @@ const Pregunta = () => {
           },
           body: JSON.stringify({
             student_id: student_id,
-            question_id: data.id,
+            question_id: data?.id,
             alternative_id: respuestaUsuario,
             is_correct: esCorrecta,
             save_response: 1,
@@ -77,9 +85,7 @@ const Pregunta = () => {
         // esta respuesta contiene la siguiente pregunta
         const responseData = await response.json();
         // se debe actualizar el estado con la siguiente pregunta
-        // console.log(responseData);
-        setData(responseData?.next_question);
-        isFinish();
+        setResponseData(responseData);
       } else {
         console.log("Error al guardar");
         console.error("API Respondió mal :(");
@@ -96,6 +102,7 @@ const Pregunta = () => {
     // se bloquean las opciones para cambiar la respuesta y se activa el boton para mostrar la respuesta
     setMostrarRespuesta(true);
     setOpcionesDeshabilitadas(true);
+    fetchRespuesta();
   };
 
   const handleMostrarRespuesta = () => {
@@ -109,12 +116,18 @@ const Pregunta = () => {
     setIsChecked2(false);
     setIsChecked4(false);
     setIsChecked3(false);
-    setEnviarRespuestaDeshabilitado(false);    
+    setEnviarRespuestaDeshabilitado(false);
+    setRespuestaSeleccionada(false); 
     setRespuestaUsuario("");
     setJustificacion("");
     setOpcionesDeshabilitadas(false);
     setEsCorrecta(false);
   };
+
+  const handleSiguientePregunta = () => {
+    setData(responseData?.next_question);
+    isFinish();
+  }
 
   return (
     <>
@@ -132,13 +145,14 @@ const Pregunta = () => {
               <div className="flex flex-col gap-9">
                 <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
                   <h2 className="font-medium text-black dark:text-white">
-                    Pregunta {data.id}
+                    Pregunta {data?.id}
                   </h2>
                 </div>
                 <div className="bg-white px-7.5 dark:border-strokedark dark:bg-boxdark">
                   <p className="items-center justify-center mt-4.5">
-                    <Latex>{data.questionText}</Latex>
+                    <Latex>{data?.questionText}</Latex>
                   </p>
+                  {/* imagen : pendiente */}
 
                   <div className="flex flex-col gap-5.5 p-6.5">
                     {/* respuesta 1 */}
@@ -155,10 +169,10 @@ const Pregunta = () => {
                             onChange={() => {
                               if (!opcionesDeshabilitadas) {
                                 setRespuestaUsuario(
-                                  "" + data.alternatives[0].id
+                                  "" + data?.alternatives[0].id
                                 );
-                                setJustificacion(data.alternatives[0].feedback);
-                                setEsCorrecta(data.alternatives[0].isCorrect);
+                                setJustificacion(data?.alternatives[0].feedback);
+                                setEsCorrecta(data?.alternatives[0].isCorrect);
                                 setIsChecked1(!isChecked1);
                                 setIsChecked2(false);
                                 setIsChecked3(false);
@@ -319,7 +333,7 @@ const Pregunta = () => {
                   <div className="flex justify-center gap-4.5">
                     <button
                       onClick={handleEnviarRespuesta}
-                      disabled={enviarRespuestaDeshabilitado}
+                      disabled={!respuestaSeleccionada}
                       className={`flex justify-center rounded bg-primary py-2 px-6 font-medium   
                             ${
                               enviarRespuestaDeshabilitado === true
@@ -343,7 +357,7 @@ const Pregunta = () => {
                             }
                             `}
                         >
-                          Mostrar respuesta
+                          Mostrar explicación
                         </button>
                       </div>
                     )}
@@ -362,7 +376,7 @@ const Pregunta = () => {
                     </div>
                     <div className="bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
                       <button
-                        onClick={fetchRespuesta}
+                        onClick={handleSiguientePregunta}
                         className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
                       >
                         Siguiente pregunta
@@ -375,7 +389,7 @@ const Pregunta = () => {
           </div>
         ) : (
           // Muestra un mensaje de carga mientras se espera la respuesta de la API
-          <p>Cargando datos...</p>
+          <p>Cargando pregunta...</p>
         )}
       </div>
     </>

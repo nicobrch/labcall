@@ -201,38 +201,3 @@ export const checkExistingStudent = async (rut: string) => {
     throw error;
   }
 };
-
-export const resetPassword = async (
-  rut: string,
-) => {
-  try {
-    const password = rut.slice(0, 4);
-    await User.updateByPk(
-      {
-        rut,
-        password,
-      },
-      rut
-    );
-  } catch (error) {
-    throw error;
-  }
-};
-
-
-export const modPassword = async (
-  rut: string,
-  password: string
-) => {
-  try {
-    await User.updateByPk(
-      {
-        rut,
-        password,
-      },
-      rut
-    );
-  } catch (error) {
-    throw error;
-  }
-};

@@ -1,20 +1,9 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { NextApiRequest, NextApiResponse } from "next";
 import { useSearchParams, useRouter } from "next/navigation";
 import AlertError from "@/components/AlertError";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
-
-// import { Metadata } from "next";
-// export const metadata: Metadata = {
-//   title: "LabCal",
-//   // other metadata
-// };
-// pendiente
-// se debe cargar la informacion del estudiante en los campos respectivos
-// se debe agregar un modal para cambiar la contraseña
 
 const EditStudent = () => {
 	const studentID = useSearchParams()?.get("id");
@@ -33,6 +22,7 @@ const EditStudent = () => {
 	const [active, setActive] = useState("");
 
 	const [showAlertOK, setShowAlertOK] = useState(false);
+  const [showResetOK, setShowResetOK] = useState(false);
 	const [showAlertError, setShowAlertError] = useState(false);
 
 	// funcion para traer la lista de cursos disponibles
@@ -117,11 +107,44 @@ const EditStudent = () => {
 		}
 	};
 
+	const fetchResetPassword = async () => {
+		try {
+			const response = await fetch("http://localhost:3000/api/student/reset", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					rut: rut
+				})
+			});
+			// console.log(response);
+			if (response.ok) {
+				const responseData = await response.json();
+				setApiResponse(responseData);
+				setShowResetOK(true);
+				//esperar unos segundos antes de redirigir
+				setTimeout(() => {
+					router.push("/listaCurso");
+				}, 2000);
+			} else {
+				console.log("Error al restablecer contraseña del usuario");
+				console.error("API Respondió mal :(");
+				const responseData = await response.json();
+				setApiResponse(responseData.message);
+				setShowAlertError(true);
+			}
+		} catch (error) {
+			console.error("Connection Error:", error);
+		}
+	};
+
 	return (
 		<>
 			<div className="absolute z-9999 top-5 right-5 ">
 				<AlertConfirmacion title={"¡Estudiante modifcado con éxito!"} body={"Se redirigira a la lista del curso."} show={showAlertOK} setShow={setShowAlertOK}></AlertConfirmacion>
-				<AlertError title={"No se puedo modificar estudiante :("} body={"Intente nuevamente."} show={showAlertError} setShow={setShowAlertError}></AlertError>
+        <AlertConfirmacion title={"¡Contraseña restablecida con éxito!"} body={"Se redirigira a la lista del curso."} show={showResetOK} setShow={setShowResetOK}></AlertConfirmacion>
+				<AlertError title={"No se pudo modificar estudiante :("} body={"Intente nuevamente."} show={showAlertError} setShow={setShowAlertError}></AlertError>
 			</div>
 			<div className="mx-auto max-w-270">
 				<Breadcrumb pageName="Modificar estudiante" />
@@ -246,7 +269,11 @@ const EditStudent = () => {
                   pendiente: falta un modal que se abra cuando para solicitar confirmacion
                   */}
 								<div className="flex justify-center gap-4.5">
-									<button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95" type="submit" onClick={fetchEditStudentData}>
+                <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95" type="submit" onClick={fetchResetPassword}>
+										Restablecer contraseña
+									</button>
+
+                  <button className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95" type="submit" onClick={fetchEditStudentData}>
 										Confirmar cambios
 									</button>
 

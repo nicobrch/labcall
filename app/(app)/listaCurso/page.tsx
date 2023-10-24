@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import ModalNodes from "@/components/ModalNodes";
 import { useCallGetApi } from "@/hooks/useCallApi";
+import AlertConfirmacion from "@/components/AlertConfirmacion";
+import AlertError from "@/components/AlertError";
 import { format } from "rut.js"
 
 /**
@@ -16,112 +18,111 @@ import { format } from "rut.js"
  */
 
 const ListaCurso = () => {
-  const [opcionesCursos, setOpcionesCursos] = useState([]);
-  const [cursoActual, setCursoActual] = useState(0);
-  const [isModalOpenNode, setIsModalOpenNode] = useState(false);
-  const [nombreCurso, setNombreCurso] = useState("");
-  const [apiResponse, setApiResponse] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [studentRUT, setStudentRUT] = useState("");
-  const [studentID, setStudentID] = useState(0);
-  const [userId, setUserId] = useState(0);
-  const rol = { teacher: "Profesor", student: "Estudiante" };
+	const [opcionesCursos, setOpcionesCursos] = useState([]);
+	const [cursoActual, setCursoActual] = useState(0);
+	const [isModalOpenNode, setIsModalOpenNode] = useState(false);
+	const [nombreCurso, setNombreCurso] = useState("");
+	const [apiResponse, setApiResponse] = useState([]);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [studentRUT, setStudentRUT] = useState("");
+	const [studentID, setStudentID] = useState(0);
+	const [userId, setUserId] = useState(0);
+	const rol = { teacher: "Profesor", student: "Estudiante" };
+	const [showAlertOK, setShowAlertOK] = useState(false);
+	const [showAlertError, setShowAlertError] = useState(false);
 
-  const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi(
-    "/node/by-user?user_id=" + userId
-  );
+	const [nodes, callNodes, statusNodes, errorNodes] = useCallGetApi("/node/by-user?user_id=" + userId);
 
-  useEffect(() => {
-    callNodes();
-  }, [callNodes, userId]);
+	useEffect(() => {
+		callNodes();
+	}, [callNodes, userId]);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+	const closeModal = () => {
+		setIsModalOpen(false);
+	};
 
-  const handleSubmit = async () => {
-    // Lógica de envío de formulario o acciones relacionadas
-    try {
-      const response = await fetch("http://localhost:3000/api/student/delete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          rut: studentRUT,
-        }),
-      });
-      if (response.ok) {
-        setStudentRUT("");
-        console.log("Estudiante eliminado correctamente");
-      } else {
-        console.log("Error al eliminar");
-        console.error("API Respondió mal :(");
-      }
-    } catch (error) {
-      console.error("Connection Error:", error);
-    }
-    fetchReadStudents();
-    closeModal();
-  };
+	const handleSubmit = async () => {
+		// Lógica de envío de formulario o acciones relacionadas
+		try {
+			const response = await fetch("http://localhost:3000/api/student/delete", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					rut: studentRUT
+				})
+			});
+			if (response.ok) {
+				setStudentRUT("");
+				//console.log("Estudiante eliminado correctamente");
+				setShowAlertOK(true);
+			} else {
+				console.log("Error al eliminar");
+				console.error("API Respondió mal :(");
+				setShowAlertError(true);
+			}
+		} catch (error) {
+			console.error("Connection Error:", error);
+		}
+		fetchReadStudents();
+		closeModal();
+	};
 
-  // llamada a la API para obtener los estudiantes del curso especifico
-  const fetchReadStudents = useCallback(async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/course/students",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            course_id: Number(cursoActual),
-          }),
-        }
-      );
-      if (response.ok) {
-        const responseData = await response.json();
-        setApiResponse(responseData);
-      } else {
-        console.error("API Respondió mal :(");
-        const responseData = await response.json();
-        setApiResponse(responseData.message);
-      }
-    } catch (error) {
-      console.error("Connection Error:", error);
-    }
-  }, [cursoActual]);
+	// llamada a la API para obtener los estudiantes del curso especifico
+	const fetchReadStudents = useCallback(async () => {
+		try {
+			const response = await fetch("http://localhost:3000/api/course/students", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					course_id: Number(cursoActual)
+				})
+			});
+			if (response.ok) {
+				const responseData = await response.json();
+				setApiResponse(responseData);
+			} else {
+				console.error("API Respondió mal :(");
+				const responseData = await response.json();
+				setApiResponse(responseData.message);
+			}
+		} catch (error) {
+			console.error("Connection Error:", error);
+		}
+	}, [cursoActual]);
 
-  // llamada a la API para obtener los cursos (dentro estan los estudiantes)
-  useEffect(() => {
-    fetch("http://localhost:3000/api/course/all")
-      .then((response) => response.json())
-      .then((data) => {
-        setOpcionesCursos(data);
-        setCursoActual(data[0]?.id);
-      })
-      .catch((error) => {
-        console.error("Error al obtener las opciones desde la API:", error);
-      });
-  }, []);
+	// llamada a la API para obtener los cursos (dentro estan los estudiantes)
+	useEffect(() => {
+		fetch("http://localhost:3000/api/course/all")
+			.then((response) => response.json())
+			.then((data) => {
+				setOpcionesCursos(data);
+				setCursoActual(data[0]?.id);
+			})
+			.catch((error) => {
+				console.error("Error al obtener las opciones desde la API:", error);
+			});
+	}, []);
 
-  useEffect(() => {
-    fetchReadStudents();
-  }, [fetchReadStudents]);
+	useEffect(() => {
+		fetchReadStudents();
+	}, [fetchReadStudents]);
 
-  const handleCursoActual = (event: any) => {
-    setCursoActual(event.target.value);
-  };
+	const handleCursoActual = (event: any) => {
+		setCursoActual(event.target.value);
+	};
 
-  const router = useRouter();
-  const handleEditClick = () => {
-    router.push(`/editStudent?id=${studentID}&cursoActual=${nombreCurso}`);
-  };
+	const router = useRouter();
+	const handleEditClick = () => {
+		router.push(`/editStudent?id=${studentID}&cursoActual=${nombreCurso}`);
+	};
 
   useEffect(() => {
     if (studentID !== 0) {
@@ -144,24 +145,28 @@ const ListaCurso = () => {
     return capitalizedString;
   }
 
-  return (
-    <>
-      <Breadcrumb pageName="Lista de curso" />
+	return (
+		<>
+			<div className="absolute z-9999 top-5 right-5 ">
+				<AlertConfirmacion title={"Estudiante eliminado con éxito!"} body={"Puedes volver a agregalo si lo deseas."} show={showAlertOK} setShow={setShowAlertOK}></AlertConfirmacion>
+				<AlertError title={"No se puedo eliminar estudiante :("} body={"Intente nuevamente."} show={showAlertError} setShow={setShowAlertError}></AlertError>
+			</div>
+			<Breadcrumb pageName="Lista de curso" />
 
-      <div className="flex flex-col gap-10">
-        <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-          <div className="grid grid-cols-3 sm:grid-cols-3">
-            {/* podria usarse para poner el nombre del curso */}
+			<div className="flex flex-col gap-10">
+				<div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+					<div className="grid grid-cols-3 sm:grid-cols-3">
+						{/* podria usarse para poner el nombre del curso */}
 
-            <div className="mb-6 text-x1 z-20 bg-white dark:bg-form-input">
-              <select
-                className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
-                name="courseid1"
-                id="courseid1"
-                value={cursoActual}
-                onChange={(e) => {
-                  const selectedCursoId = e.target.value;
-                  setCursoActual(Number(selectedCursoId));
+						<div className="mb-6 text-x1 z-20 bg-white dark:bg-form-input">
+							<select
+								className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
+								name="courseid1"
+								id="courseid1"
+								value={cursoActual}
+								onChange={(e) => {
+									const selectedCursoId = e.target.value;
+									setCursoActual(Number(selectedCursoId));
 
                   // Encuentra el nombre del curso seleccionado y actualiza nombreCurso
                   const selectedCurso = opcionesCursos.find(
@@ -307,55 +312,49 @@ const ListaCurso = () => {
                     </svg>
                   </button>
 
-                  {/* boton ELIMINAR ESTUDIANTE */}
-                  <button
-                    className="inline-flex items-center justify-center rounded-md py-4 px-2 hover:bg-opacity-90 lg:px-4 xl:px-4 w-15 color-eliminar"
-                    onClick={() => {
-                      setStudentRUT(estudiante?.rut); // Guarda el RUT del estudiante en el estado
-                      openModal();
-                    }}
-                  >
-                    <svg
-                      width="25"
-                      height="25"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17"
-                        stroke="#FFFFFF"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <Modal
-                    title="ADVERTENCIA"
-                    body="Esta a punto de eliminar un estudiante del curso, ¿Desea continuar? (Escriba 'Eliminar' para confirmar)"
-                    show={isModalOpen}
-                    setShow={setIsModalOpen}
-                    onSubmit={handleSubmit}
-                  />
-                  <ModalNodes
-                    title="Nodos de estudiante"
-                    body={"hola"}
-                    show={isModalOpenNode}
-                    setShow={setIsModalOpenNode}
-                    onSubmit={() => {}}
-                    nodes={nodes}
-                    name={estudiante?.name}
-                    callNodes={callNodes}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  );
+									{/* boton ELIMINAR ESTUDIANTE */}
+									<button
+										className="inline-flex items-center justify-center rounded-md py-4 px-2 hover:bg-opacity-90 lg:px-4 xl:px-4 w-15 bg-[#F3595E]"
+										onClick={() => {
+											setStudentRUT(estudiante?.rut); // Guarda el RUT del estudiante en el estado
+											openModal();
+										}}
+									>
+										<svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path
+												d="M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M14 10V17M10 10V17"
+												stroke="#FFFFFF"
+												strokeWidth="2"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+									</button>
+									<Modal
+										title="ADVERTENCIA"
+										body="Esta a punto de eliminar un estudiante del curso, ¿Desea continuar? (Escriba 'Eliminar' para confirmar)"
+										show={isModalOpen}
+										setShow={setIsModalOpen}
+										onSubmit={handleSubmit}
+									/>
+									<ModalNodes
+										title="Nodos de estudiante"
+										body={"hola"}
+										show={isModalOpenNode}
+										setShow={setIsModalOpenNode}
+										onSubmit={() => {}}
+										nodes={nodes}
+										name={estudiante?.name}
+										callNodes={callNodes}
+									/>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default ListaCurso;

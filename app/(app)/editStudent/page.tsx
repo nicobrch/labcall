@@ -197,7 +197,7 @@ const EditStudent = () => {
 											name="cursoActual"
 											id="cursoActual"
 											value={course_id}
-											onClick={(event) => setCourse_id(event.target?.value)}
+											onClick={(event) => setCourse_id((event.target as any).value)}
 										>
 											<option value={0} disabled>
 												{cursoActual}

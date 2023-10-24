@@ -68,11 +68,11 @@ const DropdownUser = () => {
           <span className="text-right">
             <span className="block text-sm font-medium text-black dark:text-white">
               {/* Informacion del usuario */}
-              {capitalizeString(user?.firstname + " " + user?.lastname1 + " " + user?.lastname2)}
+              {capitalizeString((user as any)?.firstname + " " + (user as any)?.lastname1 + " " + (user as any)?.lastname2)}
             </span>
             <span className="block text-xs">
               {/* Rol del usuario */}
-              {user?.type === "student" ? "Estudiante" : "Profesor"}
+              {(user as any)?.type === "student" ? "Estudiante" : "Profesor"}
             </span>
           </span>
         ) : null}

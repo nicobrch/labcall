@@ -1,6 +1,15 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useState, useEffect } from "react";
+import { Metadata } from "next";
+import { ValidationError } from "sequelize";
+import AlertConfirmacion from "@/components/AlertConfirmacion";
+import AlertError from "@/components/AlertError";
+import { clean, validate, format } from "rut.js";
+// export const metadata: Metadata = {
+//   title: "LabCal",
+//   // other metadata
+// };
 
 const AddStudent = () => {
   const [studentName, setStudentName] = useState("");
@@ -14,6 +23,8 @@ const AddStudent = () => {
   const [rutError, setRutError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [apiResponse, setApiResponse] = useState("");
+  const [showAlertOK, setShowAlertOK] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
 
   const handleStudentNameChange = (event: any) => {
     setStudentName(event.target.value);
@@ -22,12 +33,10 @@ const AddStudent = () => {
   const handleRutChange = (event: any) => {
     const rutValue = event.target.value;
     setStudentRUT(rutValue);
-    const rutRegex = /^(\d{1,3}(\.\d{3})*-\d{1}|[\d]{8}-[\d]{1})$/;
-
-    if (!rutRegex.test(rutValue)) {
-      setRutError(
-        "RUT no válido, debe ingresarlo con guion y digito verificador"
-      );
+    if (rutValue === "") {
+      setRutError("");
+    } else if (!validate(rutValue)) {
+      setRutError("RUT no válido, verifiquelo");
     } else {
       setRutError(""); // Borra el mensaje de error
     }
@@ -78,36 +87,57 @@ const AddStudent = () => {
   const fetchRegistrarEstudiante = async () => {
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:3000/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            rut: studentRUT,
-            firstname: studentName,
-            lastname1: lastName1,
-            lastname2: lastName2,
-            email: email1,
-            password: studentRUT.slice(0, 4),
-            course_id: courseId,
-          }),
-        });
-        console.log(response);
-        if (response.ok) {
-          const responseData = await response.json();
-          setStudentName("");
-          setStudentRUT("");
-          setLastname1("");
-          setLastname2("");
-          setEmail1("");
-          setCourseId(0);
-          setApiResponse(responseData.message);
+        const verificarUsuario = await fetch(
+          "http://localhost:3000/api/student/check",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              rut: studentRUT,
+            }),
+          }
+        );
+        if (verificarUsuario.ok) {
+          const rutFormateado = clean(studentRUT);
+          const response = await fetch("http://localhost:3000/api/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              rut: rutFormateado,
+              firstname: studentName,
+              lastname1: lastName1,
+              lastname2: lastName2,
+              email: email1.toLowerCase(),
+              password: rutFormateado.slice(0, 4),
+              course_id: courseId,
+            }),
+          });
+          console.log(response);
+          if (response.ok) {
+            const responseData = await response.json();
+            setStudentName("");
+            setStudentRUT("");
+            setLastname1("");
+            setLastname2("");
+            setEmail1("");
+            setCourseId(0);
+            setApiResponse(responseData.message);
+            setShowAlertOK(true);
+            setRutError("");
+            setEmailError("");
+          } else {
+            console.log("Error al guardar");
+            console.error("API Respondió mal :(");
+            const responseData = await response.json();
+            setApiResponse(responseData.message);
+            setShowAlertError(true);
+          }
         } else {
-          console.log("Error al guardar");
-          console.error("API Respondió mal :(");
-          const responseData = await response.json();
-          setApiResponse(responseData.message);
+          setRutError("RUT ya ingresado");
         }
       } catch (error) {
         console.error("Connection Error:", error);
@@ -128,6 +158,21 @@ const AddStudent = () => {
 
   return (
     <>
+      <div className="absolute z-9999 top-5 right-5 ">
+        <AlertConfirmacion
+          title={"¡Estudiante agregado con éxito!"}
+          body={"Ya puedes asignarle nodos."}
+          show={showAlertOK}
+          setShow={setShowAlertOK}
+        ></AlertConfirmacion>
+        <AlertError
+          title={"No se puedo agregar estudiante :("}
+          body={"Intente nuevamente."}
+          show={showAlertError}
+          setShow={setShowAlertError}
+        ></AlertError>
+      </div>
+
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Creacion de nuevo estudiante" />
 
@@ -136,7 +181,7 @@ const AddStudent = () => {
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
-                  Creacion de nuevo estudiante
+                  Creación de nuevo estudiante
                 </h3>
               </div>
               <div className="p-7">

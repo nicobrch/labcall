@@ -27,14 +27,14 @@ export default function AppLayout({
         <>
             <div className="dark:bg-boxdark-2 dark:text-bodydark">
                 <div className="flex h-screen overflow-hidden">
-                    {user !== null && user !== undefined && user?.type === 'student' ? (
+                    {user !== null && user !== undefined && (user as any).type === 'student' ? (
                         <SidebarStudent
                             sidebarOpen={sidebarOpen}
                             setSidebarOpen={setSidebarOpen}
                         />
                     ) : null}
 
-                    {user !== null && user !== undefined && user?.type === 'teacher' ? (
+                    {user !== null && user !== undefined && (user as any).type === 'teacher' ? (
                         <SidebarTeacher
                             sidebarOpen={sidebarOpen}
                             setSidebarOpen={setSidebarOpen}

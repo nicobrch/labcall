@@ -1,15 +1,12 @@
 import { addStudent } from "@/backend/services/user.service";
 import { NextApiRequest, NextApiResponse } from "next";
+import { format, clean } from "rut.js";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    if (req.method === "GET") {
-        const courses = "hooooola";
-        res.status(200).json(courses);
-        }
     if (req.method === "POST") {
         const type = "student";
         const active = true;
@@ -23,11 +20,17 @@ export default async function handler(
             password,
             course_id,
         } = body;
+        // set rut to a only numeric values, delete dots and hyphen
+        var rutFormated = format(rut);
+        rutFormated = clean(rut);
+        var lowerName = firstname.toLowerCase();
+        var lowerLastName1 = lastname1.toLowerCase();
+        var lowerLastName2 = lastname2.toLowerCase();
         await addStudent(
-            rut,
-            firstname,
-            lastname1,
-            lastname2,
+            rutFormated,
+            lowerName,
+            lowerLastName1,
+            lowerLastName2,
             email,
             password,
             type,

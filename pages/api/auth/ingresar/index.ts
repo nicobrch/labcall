@@ -1,7 +1,7 @@
 import { signInUser } from "@/backend/services/user.service";
 import { ValidationFailedError } from "@/backend/error/customErrors";
 import { NextApiRequest, NextApiResponse } from "next";
-import { format } from "rut.js"
+import { format, clean } from "rut.js"
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,6 +27,7 @@ export default async function handler(
       }
       
       rut = format(rut)
+      rut = clean(rut)
       const user = await signInUser({ rut, password });
 
       return res.status(200).json({

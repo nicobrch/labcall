@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { format } from "rut.js";
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,13 +15,23 @@ const SignUp: React.FC = () => {
   const [, setUser] = useLocalStorage("user", null);
   const router = useRouter()
 
-  const handleChange = (e: any) => {
+  const handleChangeRut = (e: any) => {
+    const { name, value } = e.target;
+    // Formatear el RUT en el estilo "xx.xxx.xxx-x"
+    const formattedValue = format(value);   
+    setFormData({
+      ...formData,
+      [name]: formattedValue,
+    });
+  };
+
+  const handleChangePass = (e: any) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-  };
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -131,7 +142,7 @@ const SignUp: React.FC = () => {
                       name="rut"
                       placeholder="12.345.678-9"
                       value={formData.rut}
-                      onChange={handleChange}
+                      onChange={handleChangeRut}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -170,7 +181,7 @@ const SignUp: React.FC = () => {
                       name="password"
                       placeholder="Contraseña"
                       value={formData.password}
-                      onChange={handleChange}
+                      onChange={handleChangePass}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 

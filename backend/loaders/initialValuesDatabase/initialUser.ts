@@ -2,7 +2,7 @@ import { User } from "../sequelize";
 
 const initial = [
   {
-    rut: "11.111.111-1",
+    rut: "111111111",
     firstname: "John",
     lastname1: "Doe",
     lastname2: "Smith",
@@ -13,7 +13,7 @@ const initial = [
     course_id: 1,
   },
   {
-    rut: "22.222.222-2",
+    rut: "222222222",
     firstname: "Jane",
     lastname1: "Doe",
     lastname2: "Williams",
@@ -24,7 +24,7 @@ const initial = [
     course_id: 1,
   },
   {
-    rut: "33.333.333-3",
+    rut: "333333333",
     firstname: "Carlos",
     lastname1: "Gonzalez",
     lastname2: "Ramirez",
@@ -35,7 +35,7 @@ const initial = [
     course_id: 2,
   },
   {
-    rut: "44.444.444-4",
+    rut: "444444444",
     firstname: "Maria",
     lastname1: "Martinez",
     lastname2: "Lopez",

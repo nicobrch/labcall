@@ -1,5 +1,6 @@
 "use client"
 import React, {useState} from "react";
+import axios from "axios";
 
 type Props = {};
 
@@ -11,26 +12,33 @@ const Item = (props: Props) => {
     setFile(selectedFile);
   };
   
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!file) return;
+  const fileToBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64Data = reader.result.split(',')[1];
+        resolve(base64Data);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+  
+  const uploadExcel = async () => {
+    const fileField = document.querySelector('input[type="file"]');
+    const base64Data = await fileToBase64(fileField.files[0]);
     
-    try {
-      const formData = new FormData();
-      formData.set('file', file);
-      const res = await fetch('/api/upload/file/', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: formData,
-      })
-      // error handler
-      if (!res.ok) throw new Error(await res.text())
-    } catch (e: any) {
-      console.error(e)
-    }
-  }
+    const response = await fetch('/api/uploadExcel', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ excelFile: base64Data }),
+    });
+    
+    const result = await response.json();
+    console.log('Respuesta del servidor:', result);
+  };
   
   return (
     <div>
@@ -38,7 +46,7 @@ const Item = (props: Props) => {
         <h3 className=" font-bold text-lg">Descargar formato de planilla excel</h3>
       </div>
       <div className="bg-white p-4 my-4">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={uploadExcel}>
           <h3 className="font-bold text-lg mb-4">Subir planilla de excel</h3>
           <input
             type="file"

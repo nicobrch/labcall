@@ -1,5 +1,6 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { ReactNode, useState } from "react";
 import { clean } from "rut.js";
+import { useRouter } from "next/navigation";
 
 interface ModalProps {
 	title: string;
@@ -12,6 +13,7 @@ interface ModalProps {
 }
 
 export default function ModalPassword({ title, body, show, setShow, setShowAlertOK, rut }: ModalProps) {
+	const router = useRouter();
 	const [inputValue, setInputValue] = useState("");
 	const [secondInputValue, setSecondInputValue] = useState("");
   	const isInputValid = (inputValue === secondInputValue && inputValue.length >= 6 && inputValue.match(/^[a-zA-Z0-9]+$/));
@@ -80,7 +82,7 @@ export default function ModalPassword({ title, body, show, setShow, setShowAlert
 						{/*footer*/}
 						<div className="flex items-center justify-end p-6 border-solid border-slate-200 rounded-b">
 						<button
-							className={`inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 m-1 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 color-eliminar ${
+							className={`inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 m-1 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 color-boton ${
 							isInputValid ? "" : "opacity-50 cursor-not-allowed"
 							}`}
 							type="button"
@@ -88,6 +90,11 @@ export default function ModalPassword({ title, body, show, setShow, setShowAlert
 								fetchModPass();
 								setShow(false);
 								setShowAlertOK(true);
+								setInputValue("");
+								setSecondInputValue("");
+								setTimeout(() => {
+									router.push("/");
+								}, 2000);
 							}}
 							disabled={!isInputValid}
 						>

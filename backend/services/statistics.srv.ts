@@ -13,12 +13,12 @@ const Course = new CourseRep();
 
 export const getResponseStatistics = async (course_id?: string) => {
   try {
-    const responseStatistic = await Question.getAll({
+    return await Question.getAll({
       attributes: [
         "id",
         "questionText",
         [
-          sequelize.fn("SUM", sequelize.col("responses.alternativa.isCorrect")),
+          sequelize.fn("COALESCE", sequelize.fn("SUM", sequelize.col("responses.alternativa.isCorrect")), 0),
           "correctas",
         ],
         [
@@ -58,7 +58,6 @@ export const getResponseStatistics = async (course_id?: string) => {
       group: ["question.id"],
       order: [[sequelize.literal('"correctas"'), "DESC"]],
     });
-    return responseStatistic;
   } catch (error) {
     throw error;
   }

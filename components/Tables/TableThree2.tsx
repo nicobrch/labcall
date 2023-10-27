@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Pregunta } from "@/pages/api/statistics/[id]";
+import {IQuestion} from "@/backend/interfaces/question";
 var Latex = require("react-latex");
 interface header {
   colSpan: number;
@@ -12,7 +12,7 @@ interface header {
 
 export interface TableThree2Props {
   headers: header[];
-  data: Pregunta[];
+  data: IQuestion[];
 }
 
 const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {

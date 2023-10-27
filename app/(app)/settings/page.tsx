@@ -5,9 +5,10 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { format, clean } from "rut.js";
 import ModalPassword from "@/components/ModalPassword";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
+import { API_PATH } from "@/config";
 
 const Settings = () => {
-  const [user, ] = useLocalStorage("user", null);
+  const [user] = useLocalStorage("user", null);
   const [rut, setRut] = useState("");
   const [firtsName, setFirstname] = useState("");
   const [lastName1, setLastname1] = useState("");
@@ -18,51 +19,56 @@ const Settings = () => {
   const [showAlertOK, setShowAlertOK] = useState(false);
 
   const openModal = () => {
-		setIsModalOpen(true);
-	};
+    setIsModalOpen(true);
+  };
 
-	const closeModal = () => {
-		setIsModalOpen(false);
-	};
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
-		fetch("http://localhost:3000/api/student/read", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				id: studentId
-			})
-		})
-			.then((response) => response.json())
-			.then((data) => {
+    fetch(`${API_PATH}/student/read`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: studentId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
         setRut(format(data.rut));
         console.log(rut);
-				setFirstname(capitalizeString(data.firstname));
-				setLastname1(capitalizeString(data.lastname1));
-				setLastname2(capitalizeString(data.lastname2));
-				setEmail(data.email);
-			})
-			.catch((error) => {
-				console.error("Error al obtener la data desde la API: ", error);
-			});
-	}, []);
+        setFirstname(capitalizeString(data.firstname));
+        setLastname1(capitalizeString(data.lastname1));
+        setLastname2(capitalizeString(data.lastname2));
+        setEmail(data.email);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la data desde la API: ", error);
+      });
+  }, []);
 
   function capitalizeString(inputString: string) {
-    const words = inputString.split(' ');
-    const capitalizedWords = words.map(word => {
+    const words = inputString.split(" ");
+    const capitalizedWords = words.map((word) => {
       return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
     });
-    const capitalizedString = capitalizedWords.join(' ');
+    const capitalizedString = capitalizedWords.join(" ");
     return capitalizedString;
   }
 
   return (
     <>
-    <div className="absolute z-9999 top-5 right-5 ">
-				<AlertConfirmacion title={"¡Contraseña modificada con éxito!"} body={"Se redigira a la pagina de inicio."} show={showAlertOK} setShow={setShowAlertOK}></AlertConfirmacion>
-			</div>
+      <div className="absolute z-9999 top-5 right-5 ">
+        <AlertConfirmacion
+          title={"¡Contraseña modificada con éxito!"}
+          body={"Se redigira a la pagina de inicio."}
+          show={showAlertOK}
+          setShow={setShowAlertOK}
+        ></AlertConfirmacion>
+      </div>
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Perfil" />
 
@@ -75,84 +81,82 @@ const Settings = () => {
                 </h3>
               </div>
               <div className="p-7">
-                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
-                    
-                    <div className="w-full sm:w-1/3">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="fullName"
-                      >
-                        Nombre
-                      </label>
-                      <div className="relative">
-                        <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                          type="text"
-                          name="fullName"
-                          id="fullName"
-                          defaultValue={firtsName}
-                          readOnly
-                        />
-                      </div>
-                    </div>
-
-                    <div className="w-full sm:w-1/3">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="fullName"
-                      >
-                        Primer Apellido
-                      </label>
-                      <div className="relative">
-                        <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                          type="text"
-                          name="lastname1"
-                          id="lastname1"
-                          defaultValue={lastName1}
-                          readOnly
-                        />
-                      </div>
-                    </div>
-
-                    <div className="w-full sm:w-1/3">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="fullName"
-                      >
-                        Segundo Apellido
-                      </label>
-                      <div className="relative">
-                        <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                          type="text"
-                          name="lastname2"
-                          id="lastname2"
-                          defaultValue={lastName2}
-                          readOnly
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
-                    <div className="w-full sm:w-1/2">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="text"
-                      >
-                        RUT
-                      </label>
+                <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                  <div className="w-full sm:w-1/3">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName"
+                    >
+                      Nombre
+                    </label>
+                    <div className="relative">
                       <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="rut"
-                        id="rut"
-                        defaultValue={rut}
+                        name="fullName"
+                        id="fullName"
+                        defaultValue={firtsName}
                         readOnly
                       />
                     </div>
-                  
+                  </div>
+
+                  <div className="w-full sm:w-1/3">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName"
+                    >
+                      Primer Apellido
+                    </label>
+                    <div className="relative">
+                      <input
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        type="text"
+                        name="lastname1"
+                        id="lastname1"
+                        defaultValue={lastName1}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+
+                  <div className="w-full sm:w-1/3">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName"
+                    >
+                      Segundo Apellido
+                    </label>
+                    <div className="relative">
+                      <input
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        type="text"
+                        name="lastname2"
+                        id="lastname2"
+                        defaultValue={lastName2}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                  <div className="w-full sm:w-1/2">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="text"
+                    >
+                      RUT
+                    </label>
+                    <input
+                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                      type="text"
+                      name="rut"
+                      id="rut"
+                      defaultValue={rut}
+                      readOnly
+                    />
+                  </div>
 
                   {/* correo: pendiente, no se sabe si sera incluido */}
                   <div className="w-full sm:w-1/2">
@@ -197,27 +201,27 @@ const Settings = () => {
                         readOnly
                       />
                     </div>
-                    </div>
                   </div>
+                </div>
 
-                  <div className="flex justify-end gap-4.5">
-                    <button
-                      className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
-                      type="submit"
-                      onClick={openModal}
-                    >
-                      Modificar contraseña
-                    </button>
-                  </div>
+                <div className="flex justify-end gap-4.5">
+                  <button
+                    className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+                    type="submit"
+                    onClick={openModal}
+                  >
+                    Modificar contraseña
+                  </button>
+                </div>
 
-                  <ModalPassword
-										title="AVISO!"
-										body=""
-										show={isModalOpen}
-										setShow={setIsModalOpen}
-                    setShowAlertOK={setShowAlertOK}
-                    rut={rut}
-									/>
+                <ModalPassword
+                  title="AVISO!"
+                  body=""
+                  show={isModalOpen}
+                  setShow={setIsModalOpen}
+                  setShowAlertOK={setShowAlertOK}
+                  rut={rut}
+                />
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { ValidationError } from "sequelize";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
 import AlertError from "@/components/AlertError";
 import { clean, validate, format } from "rut.js";
+import { API_PATH } from "@/config";
 // export const metadata: Metadata = {
 //   title: "LabCal",
 //   // other metadata
@@ -87,21 +88,18 @@ const AddStudent = () => {
   const fetchRegistrarEstudiante = async () => {
     if (validateForm()) {
       try {
-        const verificarUsuario = await fetch(
-          "http://localhost:3000/api/student/check",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              rut: studentRUT,
-            }),
-          }
-        );
+        const verificarUsuario = await fetch(`${API_PATH}/student/check`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            rut: studentRUT,
+          }),
+        });
         if (verificarUsuario.ok) {
           const rutFormateado = clean(studentRUT);
-          const response = await fetch("http://localhost:3000/api/register", {
+          const response = await fetch(`${API_PATH}/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -146,7 +144,7 @@ const AddStudent = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/course/all")
+    fetch(`${API_PATH}/course/all`)
       .then((response) => response.json())
       .then((data) => {
         setOpcionesCursos(data);

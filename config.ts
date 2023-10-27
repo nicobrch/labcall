@@ -1,4 +1,4 @@
-export const API_PATH = "http://localhost:3000/api";
+export const API_PATH = "http://172.16.31.35/api";
 export const DATABASE_CREDENTIALS = {
   host: process.env.BD_HOST || "127.0.0.1",
   user: process.env.BD_USER || "root",

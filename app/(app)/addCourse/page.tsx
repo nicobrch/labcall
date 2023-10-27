@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Metadata } from "next";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
 import AlertError from "@/components/AlertError";
+import { API_PATH } from "@/config";
 // export const metadata: Metadata = {
 //   title: "LabCal",
 //   // other metadata
@@ -38,7 +39,7 @@ const Settings = () => {
   const fetchGuardarCurso = async () => {
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:3000/api/course/all", {
+        const response = await fetch(`${API_PATH}/course/all`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

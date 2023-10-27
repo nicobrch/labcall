@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import AlertError from "@/components/AlertError";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
+import { API_PATH } from "@/config";
 
 const EditStudent = () => {
   const studentID = useSearchParams()?.get("id");
@@ -28,7 +29,7 @@ const EditStudent = () => {
   // funcion para traer la lista de cursos disponibles
   // llamada a la API para obtener los cursos
   useEffect(() => {
-    fetch("http://localhost:3000/api/course/all")
+    fetch(`${API_PATH}/course/all`)
       .then((response) => response.json())
       .then((data) => {
         setOpcionesCursos(data);
@@ -40,7 +41,7 @@ const EditStudent = () => {
 
   // funcion para obtener los datos del estudiante mediante llamada a API
   useEffect(() => {
-    fetch("http://localhost:3000/api/student/read", {
+    fetch(`${API_PATH}/student/read`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +70,7 @@ const EditStudent = () => {
 
   const fetchEditStudentData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/student/edit", {
+      const response = await fetch(`${API_PATH}/student/edit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +110,7 @@ const EditStudent = () => {
 
   const fetchResetPassword = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/student/reset", {
+      const response = await fetch(`${API_PATH}/student/reset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

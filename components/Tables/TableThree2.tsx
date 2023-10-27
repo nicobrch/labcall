@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Pregunta } from "@/pages/api/statistics/[id]";
-var Latex = require("react-latex");
+
 interface header {
 	colSpan: number;
 	key: string;
@@ -65,16 +65,7 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
 								{headers.map((header) => (
 									<td colSpan={header.colSpan} key={header.key} className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}>
 										<p className={`text-black dark:text-white text-center ${header?.classNames || ""}`}>
-											{/* <Latex
-												delimiters={[
-													{ left: "$", right: "$", display: false },
-													{ left: "\\[", right: "\\]", display: true },
-													{ left: "\\", right: "\\", display: true }
-												]}
-											> */}
-
 											{header.render ? header.render(pregunta[header.key] || pregunta, pregunta) : pregunta[header.key]}
-											{/* </Latex> */}
 										</p>
 									</td>
 								))}

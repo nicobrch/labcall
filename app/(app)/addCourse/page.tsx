@@ -14,7 +14,7 @@ const Settings = () => {
 	const [descripcionCurso, setDescripcionCurso] = useState("");
 	const [apiResponse, setApiResponse] = useState("");
 
-	const [showAlertOK, setShowAlertOK] = useState(true);
+	const [showAlertOK, setShowAlertOK] = useState(false);
 	const [showAlertError, setShowAlertError] = useState(false);
 
 	const handleCursoChange = (event: any) => {

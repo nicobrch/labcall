@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ArrowTop from "../icons/ArrowTop";
 import Alternativas from "./Alternativas";
-import { MathJax } from "better-react-mathjax";
 import Latex from "react-latex-next";
 import "katex/dist/katex.min.css";
 

@@ -1,5 +1,4 @@
-// pages/api/tu_funcion_api.ts
-
+import { DATABASE_CREDENTIALS } from "@/config";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {

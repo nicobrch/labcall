@@ -4,7 +4,7 @@ const Axis = new axisRep();
 
 export const getAllAxis = async () => {
 	try {
-		const axis = Axis.getAll();
+		const axis = await Axis.getAll();
 		return axis;
 	} catch (error) {
 		throw error;

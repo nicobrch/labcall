@@ -16,10 +16,6 @@ export default function defineQuestionModel(sequelize: Sequelize) {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      difficulty: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
       imageURL: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -30,6 +26,10 @@ export default function defineQuestionModel(sequelize: Sequelize) {
       },
       node_id: {
         type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      dificulty: {
+        type: DataTypes.STRING(20),
         allowNull: true,
       },
       createdAt: {

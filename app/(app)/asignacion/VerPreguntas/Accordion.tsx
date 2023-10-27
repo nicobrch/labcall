@@ -27,17 +27,15 @@ const Accordion = ({ question, node_id }: AccordionProps) => {
 	}, [callQuestions]);
 	const buildQuestions = (questionsByNode: IQuestion[]) => {
 		return (
-			<Latex>
-				<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
-					<ul>
-						{questionsByNode?.map((question, index) => (
-							<li key={index}>
-								<strong>{index + 1}.</strong> {question.questionText}
-							</li>
-						))}
-					</ul>
-				</div>
-			</Latex>
+			<div className="flex flex-col gap-9 dark:border-strokedark dark:shadow-none">
+				<ul>
+					{questionsByNode?.map((question, index) => (
+						<li key={index}>
+							<strong>{index + 1}.</strong> <Latex>{question.questionText}</Latex>
+						</li>
+					))}
+				</ul>
+			</div>
 		);
 	};
 

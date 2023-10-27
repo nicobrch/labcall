@@ -182,7 +182,7 @@ const ListaCurso = () => {
                 <option value={0} disabled>
                   Selecciona un Curso
                 </option>
-                {opcionesCursos.map((opcion: any) => (
+                {Array.isArray(opcionesCursos) && opcionesCursos.map((opcion: any) => (
                   <option key={opcion?.id} value={Number(opcion?.id)}>
                     {opcion?.name}
                   </option>
@@ -225,7 +225,7 @@ const ListaCurso = () => {
               </div>
             </div>
 
-            {apiResponse.map((estudiante: any) => (
+            {Array.isArray(apiResponse) && apiResponse.map((estudiante: any) => (
               <div
                 key={estudiante?.id}
                 className="grid grid-cols-6 sm:grid-cols-6 border-b border-stroke dark:border-strokedark"

@@ -41,8 +41,8 @@ export const getNodes = async () => {
 
 export const getStudentQuestion = (user_id: number, node_id?: number) => {
   try {
-    const response = axios.get("http://localhost:8000/api/enviar_pregunta");
-    console.log(response);
+    // const response = axios.get("http://localhost:8000/api/enviar_pregunta");
+    // console.log(response);
 
     const question = Question.findOne(
       {},

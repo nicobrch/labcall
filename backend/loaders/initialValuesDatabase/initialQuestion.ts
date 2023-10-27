@@ -34,7 +34,7 @@ const initialData = [
 	},
 	{
 		questionText:
-			'\nA continuaci\u00f3n, se muestra el desarrollo de un problema realizado por Mart\u00edn, el cual contiene un error. A partir de esto, \u00bfcu\u00e1l de las siguientes alternativas es correcta?\\\\\n    "La siguiente situaci\u00f3n corresponde a una relaci\u00f3n inversa: En la construcci\u00f3n de un edificio si se trabaja con 200 obreros, la obra tiene fecha para 12 meses, \u00bfcu\u00e1ntos\nmeses demorar\u00e1 la obra si solo se dispone de 50 obreros?"\\\\\n\nPaso 1: plantear la ecuaci\u00f3n $\\frac{200}{12}=\\frac{50}{x}$\\\\\nPaso 2: calcular la inc\u00f3gnita $x=\\frac{50 \\cdot 12}{200}$\\\\\nPaso 3: concluir $x=3$\n',
+			'\nA continuaci\u00f3n, se muestra el desarrollo de un problema realizado por Mart\u00edn, el cual contiene un error. A partir de esto, \u00bfCu\u00e1l de las siguientes alternativas es correcta?\\\\\n    "La siguiente situaci\u00f3n corresponde a una relaci\u00f3n inversa: En la construcci\u00f3n de un edificio si se trabaja con 200 obreros, la obra tiene fecha para 12 meses, \u00bfcu\u00e1ntos\nmeses demorar\u00e1 la obra si solo se dispone de 50 obreros?"\\\\\n\nPaso 1: plantear la ecuaci\u00f3n $\\frac{200}{12}=\\frac{50}{x}$\\\\\nPaso 2: calcular la inc\u00f3gnita $x=\\frac{50 \\cdot 12}{200}$\\\\\nPaso 3: concluir $x=3$\n',
 		imageURL: "null",
 		figureCaption: "null",
 		node_id: 8,
@@ -65,7 +65,7 @@ const initialData = [
 	},
 	{
 		questionText:
-			'\nNico y Dani est\u00e1n discutiendo sobre la siguiente afirmaci\u00f3n "mientras m\u00e1s alta es una persona, m\u00e1s masa tiene". Nico cree que la afirmaci\u00f3n es verdadera, mientras que Dani cree que es incorrecta. A partir de esto, \u00bfcu\u00e1l de las siguientes alternativas es correcta?\n',
+			'\nNico y Dani est\u00e1n discutiendo sobre la siguiente afirmaci\u00f3n "mientras m\u00e1s alta es una persona, m\u00e1s masa tiene". Nico cree que la afirmaci\u00f3n es verdadera, mientras que Dani cree que es incorrecta. A partir de esto, \u00bfCu\u00e1l de las siguientes alternativas es correcta?\n',
 		imageURL: "null",
 		figureCaption: "null",
 		node_id: 8,
@@ -95,7 +95,7 @@ const initialData = [
 	},
 	{
 		questionText:
-			'\nEn el 7\u00b0A est\u00e1n estudiando los monumentos de Chile y su profesora les muestra una imagen de la "Mano del Desierto", la cual mide 11m y las personas miden 1,6m. En base a la imagen, \u00bfqu\u00e9 expresi\u00f3n permite calcular la altura de la mano medida en personas?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n',
+			'\nEn el 7\u00b0A est\u00e1n estudiando los monumentos de Chile y su profesora les muestra una imagen de la "Mano del Desierto", la cual mide 11 metros y las personas miden 1,6 metros. En base a la imagen, \u00bfqu\u00e9 expresi\u00f3n permite calcular la altura de la mano medida en personas?\n\t\t\t\t\t\t\n\n\n\n',
 		imageURL: "C:\\Users\\paula\\Desktop\\im\u00e1genes_labcat\\mano.svg",
 		figureCaption: "Figura 1",
 		node_id: 6,
@@ -125,7 +125,7 @@ const initialData = [
 	},
 	{
 		questionText:
-			"\nA continuaci\u00f3n, se presenta una imagen donde se indican 3 ecuaciones. A partir de esto, escoge la alternativa que exprese en lenguaje algebraico lo descrito en la imagen. Para esto, utiliza las uvas como u, sand\u00edas como s y pl\u00e1tanos como p.\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+			"\nA continuaci\u00f3n, se presenta una imagen donde se indican 3 ecuaciones. A partir de esto, escoge la alternativa que exprese en lenguaje algebraico lo descrito en la imagen. Para esto, utiliza las uvas como u, sand\u00edas como s y pl\u00e1tanos como p.",
 		imageURL: "C:\\Users\\paula\\Desktop\\im\u00e1genes_labcat\\frutas.svg",
 		figureCaption: "Figura 1",
 		node_id: 6,

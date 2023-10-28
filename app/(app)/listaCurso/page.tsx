@@ -11,11 +11,11 @@ import { format } from "rut.js";
 import { API_PATH } from "@/config";
 
 /**
- * This component displays a list of students for a selected course.
- * It fetches the list of courses and students from an API and allows the user to select a course
- * and display the list of students for that course.
+ * This component displays a list of estudiantes for a selected course.
+ * It fetches the list of courses and estudiantes from an API and allows the user to select a course
+ * and display the list of estudiantes for that course.
  *
- * @returns A React component that displays a list of students for a selected course.
+ * @returns A React component that displays a list of estudiantes for a selected course.
  */
 
 const ListaCurso = () => {

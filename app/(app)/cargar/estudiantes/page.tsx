@@ -12,32 +12,30 @@ const Item = (props: Props) => {
     setFile(selectedFile);
   };
   
-  const fileToBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const base64Data = reader.result.split(',')[1];
-        resolve(base64Data);
-      };
-      reader.onerror = (error) => reject(error);
-    });
-  };
-  
-  const uploadExcel = async () => {
-    const fileField = document.querySelector('input[type="file"]');
-    const base64Data = await fileToBase64(fileField.files[0]);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
     
-    const response = await fetch('/api/uploadExcel', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ excelFile: base64Data }),
-    });
-    
-    const result = await response.json();
-    console.log('Respuesta del servidor:', result);
+    if (file) {
+      const formData = new FormData();
+      formData.append('excelFile', file);
+      
+      try {
+        const response = await fetch('/api/uploadExcel', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        if (response.ok) {
+          // Handle success, show a notification or redirect the user.
+          console.log(response.body)
+        } else {
+          // Handle failure, display an error message.
+          console.log("else: ", response)
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
   
   return (
@@ -46,7 +44,7 @@ const Item = (props: Props) => {
         <h3 className=" font-bold text-lg">Descargar formato de planilla excel</h3>
       </div>
       <div className="bg-white p-4 my-4">
-        <form onSubmit={uploadExcel}>
+        <form onSubmit={handleSubmit}>
           <h3 className="font-bold text-lg mb-4">Subir planilla de excel</h3>
           <input
             type="file"

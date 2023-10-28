@@ -15,6 +15,18 @@ export interface TableThree2Props {
   data: IQuestion[];
 }
 
+function renderContent(content: string) {
+  if (content.includes("$")) {
+    // Contiene símbolos '$', renderizar con Latex
+    return <Latex>{content}</Latex>;
+  } else if (content.includes("<")) {
+    // Contiene símbolos '<', renderizar con dangerouslySetInnerHTML
+    return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  } else {
+    return content;
+  }
+}
+
 const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
   const [selectedOption, setSelectedOption] = useState(""); // Set an initial value
   const [sortedPreguntas, setSortedPreguntas] = useState(data);
@@ -70,30 +82,30 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedPreguntas.map((pregunta: any, key) => (
-              <tr key={pregunta.id}>
-                {headers.map((header) => (
-                  <td
-                    colSpan={header.colSpan}
-                    key={header.key}
-                    className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}
+          {sortedPreguntas.map((pregunta: any, key) => (
+            <tr key={pregunta.id}>
+              {headers.map((header) => (
+                <td
+                  colSpan={header.colSpan}
+                  key={header.key}
+                  className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}
+                >
+                  <p
+                    className={`text-black dark:text-white text-center ${
+                      header?.classNames || ""
+                    }`}
                   >
-                    <p
-                      className={`text-black dark:text-white text-center ${
-                        header?.classNames || ""
-                      }`}
-                    >
-                      {header.render
-                        ? header.render(
-                            pregunta[header.key] || pregunta,
-                            pregunta
-                          )
-                        : pregunta[header.key]}
-                    </p>
-                  </td>
-                ))}
-              </tr>
-            ))}
+                    {header.render
+                      ? header.render(
+                        pregunta[header.key] || pregunta,
+                        pregunta
+                      )
+                      : renderContent(String(pregunta[header.key]))}
+                  </p>
+                </td>
+              ))}
+            </tr>
+          ))}
           </tbody>
         </table>
       </div>

@@ -281,7 +281,7 @@ const SidebarTeacher = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
               {/* <!-- Menu Item Ui Elements --> */}
               <SidebarLinkGroup
-                activeCondition={pathname === "/ui" || pathname.includes("ui")}
+                activeCondition={pathname === "/ui" || (pathname as any).includes("ui")}
               >
                 {(handleClick, open) => {
                   return (

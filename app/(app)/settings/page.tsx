@@ -1,128 +1,170 @@
+"use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import Image from "next/image";
-
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "LabCal",
-  // other metadata
-};
-// pendiente
-// se debe cargar la informacion del estudiante en los campos respectivos
-// se debe agregar un modal para cambiar la contraseña
+import { useEffect, useState } from "react";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { format, clean } from "rut.js";
+import ModalPassword from "@/components/ModalPassword";
+import AlertConfirmacion from "@/components/AlertConfirmacion";
+import { API_PATH } from "@/config";
 
 const Settings = () => {
+  const [user] = useLocalStorage("user", null);
+  const [rut, setRut] = useState("");
+  const [firtsName, setFirstname] = useState("");
+  const [lastName1, setLastname1] = useState("");
+  const [lastName2, setLastname2] = useState("");
+  const [email, setEmail] = useState("");
+  const studentId = (user as any)?.id;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showAlertOK, setShowAlertOK] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    fetch(`${API_PATH}/student/read`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: studentId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRut(format(data.rut));
+        console.log(rut);
+        setFirstname(capitalizeString(data.firstname));
+        setLastname1(capitalizeString(data.lastname1));
+        setLastname2(capitalizeString(data.lastname2));
+        setEmail(data.email);
+      })
+      .catch((error) => {
+        console.error("Error al obtener la data desde la API: ", error);
+      });
+  }, []);
+
+  function capitalizeString(inputString: string) {
+    const words = inputString.split(" ");
+    const capitalizedWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
+    const capitalizedString = capitalizedWords.join(" ");
+    return capitalizedString;
+  }
+
   return (
     <>
+      <div className="absolute z-9999 top-5 right-5 ">
+        <AlertConfirmacion
+          title={"¡Contraseña modificada con éxito!"}
+          body={"Se redigira a la pagina de inicio."}
+          show={showAlertOK}
+          setShow={setShowAlertOK}
+        ></AlertConfirmacion>
+      </div>
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Perfil" />
 
         <div className="grid grid-cols-5 gap-8">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
+              <div className="border-b border-stroke py-4 px-15 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
-                  Informacion Personal
+                  Información Personal
                 </h3>
               </div>
               <div className="p-7">
-                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
-                    
-                    {/* Nombre: pendiente */}
-                    <div className="w-full sm:w-1/2">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="fullName"
-                      >
-                        Nombre
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-4.5 top-4">
-                          <svg
-                            className="fill-current"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g opacity="0.8">
-                              <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M3.72039 12.887C4.50179 12.1056 5.5616 11.6666 6.66667 11.6666H13.3333C14.4384 11.6666 15.4982 12.1056 16.2796 12.887C17.061 13.6684 17.5 14.7282 17.5 15.8333V17.5C17.5 17.9602 17.1269 18.3333 16.6667 18.3333C16.2064 18.3333 15.8333 17.9602 15.8333 17.5V15.8333C15.8333 15.1703 15.5699 14.5344 15.1011 14.0655C14.6323 13.5967 13.9964 13.3333 13.3333 13.3333H6.66667C6.00363 13.3333 5.36774 13.5967 4.8989 14.0655C4.43006 14.5344 4.16667 15.1703 4.16667 15.8333V17.5C4.16667 17.9602 3.79357 18.3333 3.33333 18.3333C2.8731 18.3333 2.5 17.9602 2.5 17.5V15.8333C2.5 14.7282 2.93899 13.6684 3.72039 12.887Z"
-                                fill=""
-                              />
-                              <path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M9.99967 3.33329C8.61896 3.33329 7.49967 4.45258 7.49967 5.83329C7.49967 7.214 8.61896 8.33329 9.99967 8.33329C11.3804 8.33329 12.4997 7.214 12.4997 5.83329C12.4997 4.45258 11.3804 3.33329 9.99967 3.33329ZM5.83301 5.83329C5.83301 3.53211 7.69849 1.66663 9.99967 1.66663C12.3009 1.66663 14.1663 3.53211 14.1663 5.83329C14.1663 8.13448 12.3009 9.99996 9.99967 9.99996C7.69849 9.99996 5.83301 8.13448 5.83301 5.83329Z"
-                                fill=""
-                              />
-                            </g>
-                          </svg>
-                        </span>
-
-                        {/* pendiente: cambiar nombre por el nombre del estudiante */}
-                        <input
-                          className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                          type="text"
-                          name="fullName"
-                          id="fullName"
-                          placeholder="Jhon Doe"
-                          defaultValue="Jhon Doe"
-                          readOnly
-                        />
-                      </div>
-                    </div>
-
-                    {/* Curso: pendiente */}
-                    <div className="w-full sm:w-1/2">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="text"
-                      >
-                        Curso
-                      </label>
+                <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                  <div className="w-full sm:w-1/3">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName"
+                    >
+                      Nombre
+                    </label>
+                    <div className="relative">
                       <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="curso"
-                        id="curso"
-                        placeholder="Curso A"
-                        defaultValue="Curso A"
+                        name="fullName"
+                        id="fullName"
+                        defaultValue={firtsName}
                         readOnly
                       />
                     </div>
                   </div>
-                  
-                  {/* RUT: pendiente */}
-                  <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
-                    <div className="w-full sm:w-1/2">
-                      <label
-                        className="mb-3 block text-sm font-medium text-black dark:text-white"
-                        htmlFor="text"
-                      >
-                        RUT
-                      </label>
+
+                  <div className="w-full sm:w-1/3">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName"
+                    >
+                      Primer Apellido
+                    </label>
+                    <div className="relative">
                       <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="rut"
-                        id="rut"
-                        placeholder="XX.XXX.XXX-X"
-                        defaultValue="XX.XXX.XXX-X"
+                        name="lastname1"
+                        id="lastname1"
+                        defaultValue={lastName1}
                         readOnly
                       />
                     </div>
+                  </div>
+
+                  <div className="w-full sm:w-1/3">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="fullName"
+                    >
+                      Segundo Apellido
+                    </label>
+                    <div className="relative">
+                      <input
+                        className="w-full rounded border border-stroke bg-gray py-3 pl-5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        type="text"
+                        name="lastname2"
+                        id="lastname2"
+                        defaultValue={lastName2}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                  <div className="w-full sm:w-1/2">
+                    <label
+                      className="mb-3 block text-sm font-medium text-black dark:text-white"
+                      htmlFor="text"
+                    >
+                      RUT
+                    </label>
+                    <input
+                      className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                      type="text"
+                      name="rut"
+                      id="rut"
+                      defaultValue={rut}
+                      readOnly
+                    />
                   </div>
 
                   {/* correo: pendiente, no se sabe si sera incluido */}
-                  <div className="mb-5.5">
+                  <div className="w-full sm:w-1/2">
                     <label
                       className="mb-3 block text-sm font-medium text-black dark:text-white"
                       htmlFor="emailAddress"
                     >
-                      Correo Electronico
+                      Correo Electrónico
                     </label>
                     <div className="relative">
                       <span className="absolute left-4.5 top-4">
@@ -155,26 +197,31 @@ const Settings = () => {
                         type="email"
                         name="emailAddress"
                         id="emailAddress"
-                        placeholder="correo_prueba@gmail.com"
-                        defaultValue="correo_prueba@gmail.com"
+                        defaultValue={email}
                         readOnly
                       />
                     </div>
                   </div>
-                
-                  {/* 
-                  pendiente: falta un modal que se abra cuando se desee modificar la contrasena
-                  se debe pedir la contrasena actual y la repeticion de la nueva contrasena
-                  */}
-                  <div className="flex justify-end gap-4.5">
-                    
-                    {/* <button
-                      className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
-                      type="submit"
-                    >
-                      Modificar contraseña
-                    </button> */}
-                  </div>
+                </div>
+
+                <div className="flex justify-end gap-4.5">
+                  <button
+                    className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+                    type="submit"
+                    onClick={openModal}
+                  >
+                    Modificar contraseña
+                  </button>
+                </div>
+
+                <ModalPassword
+                  title="AVISO!"
+                  body=""
+                  show={isModalOpen}
+                  setShow={setIsModalOpen}
+                  setShowAlertOK={setShowAlertOK}
+                  rut={rut}
+                />
               </div>
             </div>
           </div>

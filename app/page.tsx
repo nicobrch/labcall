@@ -24,8 +24,8 @@ export default function Home({ children }: { children: React.ReactNode }) {
 		return <Loader />; //Cargador mientras redirigimos
 	}
 
-	const SidebarComponent = user?.type === "student" ? SidebarStudent : SidebarTeacher;
-	const DashboardComponent = user?.type === "student" ? <DashEstudiante></DashEstudiante> : <DashProfesor></DashProfesor>; //Falta el dashboard profesor
+	const SidebarComponent = (user as any).type === "student" ? SidebarStudent : SidebarTeacher;
+	const DashboardComponent = (user as any).type === "student" ? <DashEstudiante></DashEstudiante> : <DashProfesor></DashProfesor>; //Falta el dashboard profesor
 	console.log("Layout");
 
 	return (

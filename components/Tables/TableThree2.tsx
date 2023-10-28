@@ -28,9 +28,9 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
 		// Conditionally sort the Pregunta array based on the selectedOption
 		const sorted = [...data];
 		if (selectedOption === "desc") {
-			sorted.sort((a, b) => parseInt(b.correctas) - parseInt(a.correctas)); // Descending order
+			sorted.sort((a, b) => parseInt((b as any).correctas) - parseInt((a as any).correctas)); // Descending order
 		} else if (selectedOption === "asc") {
-			sorted.sort((a, b) => parseInt(a.correctas) - parseInt(b.correctas)); // Ascending order
+			sorted.sort((a, b) => parseInt((a as any).correctas) - parseInt((b as any).correctas)); // Ascending order
 		} else if (selectedOption === "id") {
 			sorted.sort((a, b) => a.id - b.id); // Sort by ID (original order)
 			setSortedPreguntas(sorted);

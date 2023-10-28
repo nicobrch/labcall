@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
@@ -111,9 +112,10 @@ const DashEstudiante: React.FC = () => {
             <a>Agregar Curso</a>
           </h3>
           <p className="items-center justify-center mt-4.5">
-          En la sección "Agregar Curso", puedes crear un nuevo curso de manera simple, 
-          incluyendo unicamente el nombre del curso y una descripción. Una vez creado, 
-          aparecera dentro de los cursos para poder agregar estudiantes.
+            En la sección "Agregar Curso", puedes crear un nuevo curso de manera
+            simple, incluyendo unicamente el nombre del curso y una descripción.
+            Una vez creado, aparecera dentro de los cursos para poder agregar
+            estudiantes.
           </p>
           <br></br>
           <div className="flex justify-center gap-4.5">
@@ -134,10 +136,10 @@ const DashEstudiante: React.FC = () => {
             <a>Agregar Estudiante</a>
           </h3>
           <p className="items-center justify-center mt-4.5">
-          La sección "Agregar estudiante" te permite incluir nuevos miembros al curso 
-          de manera sencilla y eficiente. Con esta herramienta, puedes registrar y 
-          asignar estudiantes a tus clases de forma rápida, facilitando la gestión
-           de tu grupo de aprendices.
+            La sección "Agregar estudiante" te permite incluir nuevos miembros
+            al curso de manera sencilla y eficiente. Con esta herramienta,
+            puedes registrar y asignar estudiantes a tus clases de forma rápida,
+            facilitando la gestión de tu grupo de aprendices.
           </p>
           <br></br>
           <div className="flex justify-center gap-4.5">
@@ -153,8 +155,6 @@ const DashEstudiante: React.FC = () => {
           </div>
         </div>
       </div>
-              
-      
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         {/* <ChartOne /> */}

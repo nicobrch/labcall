@@ -21,18 +21,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 	}, [user]);
 
 	return (
-		<div className="dark:bg-boxdark-2 dark:text-bodydark">
-			<div className="flex h-screen overflow-hidden">
-				{user !== null && user !== undefined && user?.type === "student" ? <SidebarStudent sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> : null}
+		<>
+			<div className="dark:bg-boxdark-2 dark:text-bodydark">
+				<div className="flex h-screen overflow-hidden">
+					{user !== null && user !== undefined && (user as any).type === "student" ? <SidebarStudent sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> : null}
 
-				{user !== null && user !== undefined && user?.type === "teacher" ? <SidebarTeacher sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> : null}
-				<div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-					{user !== null ? <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> : null}
-					<main>
-						<div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">{children}</div>
-					</main>
+					{user !== null && user !== undefined && (user as any).type === "teacher" ? <SidebarTeacher sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> : null}
+					<div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+						{user !== null ? <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} /> : null}
+						<main>
+							<div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">{children}</div>
+						</main>
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }

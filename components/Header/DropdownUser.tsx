@@ -41,6 +41,21 @@ const DropdownUser = () => {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
+  function capitalizeString(inputString: string) {
+    // Dividir la cadena en palabras
+    const words = inputString.split(' ');
+  
+    // Capitalizar la primera letra de cada palabra y convertirlas a minúsculas el resto de las letras
+    const capitalizedWords = words.map(word => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
+  
+    // Unir las palabras nuevamente en una cadena
+    const capitalizedString = capitalizedWords.join(' ');
+  
+    return capitalizedString;
+  }
+
   return (
     <div className="relative">
       <Link
@@ -53,11 +68,11 @@ const DropdownUser = () => {
           <span className="text-right">
             <span className="block text-sm font-medium text-black dark:text-white">
               {/* Informacion del usuario */}
-              {user?.firstname} {user?.lastname1} {user?.lastname2}
+              {capitalizeString((user as any)?.firstname + " " + (user as any)?.lastname1 + " " + (user as any)?.lastname2)}
             </span>
             <span className="block text-xs">
               {/* Rol del usuario */}
-              {user?.type === "student" ? "Estudiante" : "Profesor"}
+              {(user as any)?.type === "student" ? "Estudiante" : "Profesor"}
             </span>
           </span>
         ) : null}

@@ -33,7 +33,7 @@ export const signInUser = async (signInData: ISignInUser) => {
     });
     if (!userResponse) {
       throw new ValidationFailedError(
-        "El rut ingresado no se encuentra registrado"
+        "Credenciales invalidas"
       );
     }
     // const isValidPassword = await compare(password, userResponse.getDataValue('password'));
@@ -41,7 +41,7 @@ export const signInUser = async (signInData: ISignInUser) => {
     const isValidPassword = userResponse.password === password;
 
     if (!isValidPassword) {
-      throw new ValidationFailedError("La contraseña ingresada es incorrecta");
+      throw new ValidationFailedError("Credenciales invalidas");
     }
     const user = userResponse;
     delete user.password;
@@ -175,6 +175,63 @@ export const getStudentData = async (id: number) => {
       );
     }
     return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const checkExistingStudent = async (rut: string) => {
+  // buscar usuario por rut usando findbypk
+  try {
+    if (!validate(rut)) {
+      throw new ValidationFailedError("El formato del rut es inválido");
+    }
+    const userResponse = await User.findOne({
+      rut,
+    });
+    // si no existe el usuario, se puede continuar
+    if (!userResponse) {
+      return true;
+    }
+    // si existe el usuario, se debe retornar falso
+    if (userResponse) {
+      return false;
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const resetPassword = async (
+  rut: string,
+) => {
+  try {
+    const password = rut.slice(0, 4);
+    await User.updateByPk(
+      {
+        rut,
+        password,
+      },
+      rut
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+export const modPassword = async (
+  rut: string,
+  password: string
+) => {
+  try {
+    await User.updateByPk(
+      {
+        rut,
+        password,
+      },
+      rut
+    );
   } catch (error) {
     throw error;
   }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Metadata } from "next";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
 import AlertError from "@/components/AlertError";
+import { API_PATH } from "@/config";
 // export const metadata: Metadata = {
 //   title: "LabCal",
 //   // other metadata
@@ -36,7 +37,7 @@ const Settings = () => {
 	const fetchGuardarCurso = async () => {
 		if (validateForm()) {
 			try {
-				const response = await fetch("http://localhost:3000/api/course/all", {
+				const response = await fetch(`${API_PATH}/course/all`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
@@ -85,7 +86,7 @@ const Settings = () => {
 					<div className="col-span-5 xl:col-span-3">
 						<div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
 							<div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
-								<h3 className="font-medium text-black dark:text-white">Informacion del curso</h3>
+								<h3 className="font-medium text-black dark:text-white">Información del curso</h3>
 							</div>
 							<div className="p-7">
 								<div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">

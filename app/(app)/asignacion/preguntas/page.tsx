@@ -194,7 +194,7 @@ const CrearCuestionario = () => {
 			nodes: _nodes
 		};
 
-		console.log(payload);
+		// console.log(payload);
 		const response: any = await postToApi("/node/student_save", payload);
 		if (response.status == 200) {
 			setSelectedCourse({ id: 0, name: "", usuarios: [] });

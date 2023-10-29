@@ -75,6 +75,7 @@ export default class QuestionRepository {
     }
     await transaction.commit();
   }
+
   async getQuestionsByNodeId(node_id: number) {
     const questions = await Entity.findAll({
       where: { node_id },

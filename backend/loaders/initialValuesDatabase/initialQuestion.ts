@@ -729,7 +729,7 @@ const initialData = [
 	},
 	{
 		questionText:
-			"\n\n\t\t\t\t\t\tLa siguiente tabla de frecuencias registra las frecuencias absolutas, $n_1$, $n_2$ y $n_3$, asociadas a cada una de las categor\u00edas de la variable cuantitativa en estudio,\n\t\t\t\t\t\t$C_1$, $C_2$ y $C_3$, respectivamente. $\\\\$ $\\begin{array}{|c|c|} \\hline\\textbf{Variable} & \\textbf{f} \\\\ \\hline C_1 & n_1 \\\\ \\hline C_2 & n_2 \\\\ \\hline C_3 & n_3 \\\\ \\hline\n\t\t\t\t\t\t\\end{array} $  $\\\\$ A partir de la tabla de frecuencias, \u00bfCu\u00e1l de las siguientes expresiones permite determinar la frecuencia relativa, expresada como fracci\u00f3n, para la categor\u00eda C2?\n\t\t\t\t\t\n",
+			"\nLa siguiente tabla de frecuencias registra las frecuencias absolutas, $n_1$, $n_2$ y $n_3$, asociadas a cada una de las categor\u00edas de la variable cuantitativa en estudio, $C_1$, $C_2$ y $C_3$, respectivamente.\n\n\t\t\t\t\t\\begin{tabular}[|c|c|]\n\t\t\t\t\t\\hline\n\t\t\t\t\t\\textbf{Variable} & \\textbf{f} \\\\ \\hline\n\t\t\t\t\t$C_1$ & $n_1$ \\\\\n\t\t\t\t\t$C_2$ & $n_2$ \\\\\n\t\t\t\t\t$C_3$ & $n_3$ \\\\ \\hline\n\t\t\t\t\t\\end{tabular}\n\nA partir de la tabla de frecuencias, \u00bfcu\u00e1l de las siguientes expresiones permite determinar la frecuencia relativa, expresada como fracci\u00f3n, para la categor\u00eda C2?\n\n",
 		imageURL: "null",
 		figureCaption: "null",
 		node_id: 18,
@@ -759,7 +759,7 @@ const initialData = [
 	},
 	{
 		questionText:
-			"\n\n\t\t\t\t\t\tUnos de sus compa\u00f1eros de curso le propone realizar un estudio de con respecto a las notas generales de sus compa\u00f1eros. Saben que tard\u00edo realizar una encuesta a todos los\n\t\t\t\t\t\tparticipantes del curso, por lo que deciden expresar de manera general la tabla de frecuencias que obtendr\u00e1n al realizar el estudio y quedar\u00eda de la siguiente forma: $\\\\$ \n\t\t\t\t\t\t$\\begin{array}{|c|c|} \\hline \\textbf{Nota} & \\textbf{frecuencia absoluta} \\\\ \\hline [1 - 2 [& f_1 \\\\ \\hline [2 - 3[ & f_2 \\\\ \\hline [3 - 4[ & f_3 \\\\ \\hline [4 - 5[ & f_4 \\\\\n\t\t\t\t\t\t\\hline [5 - 6] & f_5 \\\\ \\hline \\end{array}$ $\\\\$ Si el plan de ustedes es hacer distintos an\u00e1lisis con la informaci\u00f3n, \u00bfCu\u00e1l/es de la/s siguiente/es afirmaciones es correcta?\n\t\t\t\t\t\n",
+			"\nUnos de sus compa\u00f1eros de curso le propone realizar un estudio de con respecto a las notas generales de sus compa\u00f1eros. Saben que tard\u00edo realizar una encuesta a todos los participantes del curso, por lo que deciden expresar de manera general la tabla de frecuencias que obtendr\u00e1n al realizar el estudio y quedar\u00eda de la siguiente forma:\n\t\t\t\t\t\n\\begin{table}[h]\n    \\centering\n    \\begin{tabular}{|c|c|}\n    \\hline\n    \\textbf{Nota} & \\textbf{frecuencia absoluta} \\\\ \\hline\n    $\\left[ 1 - 2 \\right[$ & $f_1$ \\\\\n    $\\left[2 - 3\\right[$ & $f_2$ \\\\\n    $\\left[3 - 4\\right[$ & $f_3$ \\\\\n    $\\left[4 - 5\\right[$ & $f_4$ \\\\\n    $\\left[5 - 6\\right[$ & $f_5$ \\\\\n    $\\left[6 - 7\\right]$ & $f_6$ \\\\\n      \\hline\n    \\end{tabular}\n\\end{table}\n\nSi el plan de ustedes es hacer distintos an\u00e1lisis con la informaci\u00f3n, \u00bfCu\u00e1l/es de la/s siguiente/es afirmaciones es correcta?\n\t\t\t\t\t\n\t\t\t\t\t\n",
 		imageURL: "null",
 		figureCaption: "null",
 		node_id: 18,

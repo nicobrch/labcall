@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Pregunta } from "@/pages/api/statistics/[id]";
-
+import { IQuestion } from "@/backend/interfaces/question";
+var Latex = require("react-latex");
 interface header {
 	colSpan: number;
 	key: string;
@@ -12,7 +12,19 @@ interface header {
 
 export interface TableThree2Props {
 	headers: header[];
-	data: Pregunta[];
+	data: IQuestion[];
+}
+
+function renderContent(content: string) {
+	if (content.includes("$")) {
+		// Contiene símbolos '$', renderizar con Latex
+		return <Latex>{content}</Latex>;
+	} else if (content.includes("<")) {
+		// Contiene símbolos '<', renderizar con dangerouslySetInnerHTML
+		return <div dangerouslySetInnerHTML={{ __html: content }} />;
+	} else {
+		return content;
+	}
 }
 
 const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
@@ -32,6 +44,7 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
 		} else if (selectedOption === "asc") {
 			sorted.sort((a, b) => parseInt((a as any).correctas) - parseInt((b as any).correctas)); // Ascending order
 		} else if (selectedOption === "id") {
+			//@ts-ignore
 			sorted.sort((a, b) => a.id - b.id); // Sort by ID (original order)
 			setSortedPreguntas(sorted);
 		}
@@ -65,7 +78,7 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
 								{headers.map((header) => (
 									<td colSpan={header.colSpan} key={header.key} className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}>
 										<p className={`text-black dark:text-white text-center ${header?.classNames || ""}`}>
-											{header.render ? header.render(pregunta[header.key] || pregunta, pregunta) : pregunta[header.key]}
+											{header.render ? header.render(pregunta[header.key] || pregunta, pregunta) : renderContent(String(pregunta[header.key]))}
 										</p>
 									</td>
 								))}

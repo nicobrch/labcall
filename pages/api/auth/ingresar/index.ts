@@ -16,16 +16,9 @@ export default async function handler(
 
       if (!validate(rut)) {
         return res.status(500).json({
-          message: "Campo rut incompleto. Por favor ingrese bien los datos.",
+          message: "El rut ingresado no es válido.",
         });
       }
-
-      // if (password === "" || password === undefined){
-      //   return res.status(500).json({
-      //     message: "Campo password incompleto. Por favor ingrese bien los datos."
-      //   });
-      // }
-
       rut = format(rut);
       rut = clean(rut);
       const user = await signInUser({ rut, password });

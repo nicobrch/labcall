@@ -11,11 +11,11 @@ import { format } from "rut.js";
 import { API_PATH } from "@/config";
 
 /**
- * This component displays a list of students for a selected course.
- * It fetches the list of courses and students from an API and allows the user to select a course
- * and display the list of students for that course.
+ * This component displays a list of estudiantes for a selected course.
+ * It fetches the list of courses and estudiantes from an API and allows the user to select a course
+ * and display the list of estudiantes for that course.
  *
- * @returns A React component that displays a list of students for a selected course.
+ * @returns A React component that displays a list of estudiantes for a selected course.
  */
 
 const ListaCurso = () => {
@@ -164,7 +164,7 @@ const ListaCurso = () => {
           setShow={setShowAlertError}
         ></AlertError>
       </div>
-      <Breadcrumb pageName="Lista de curso" />
+      <Breadcrumb pageName="Lista de Estudiantes" />
 
       <div className="flex flex-col gap-10">
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">

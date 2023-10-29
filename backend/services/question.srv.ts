@@ -2,11 +2,13 @@ import { Sequelize } from "sequelize";
 import NodeRep from "../repositories/node.rep";
 import QuestionRepository from "../repositories/question.rep";
 import AlternativeRepository from "../repositories/alternative.rep";
+import UserNodeRep from "../repositories/usernode.rep";
 import axios from "axios";
 
 const Question = new QuestionRepository();
 const Node = new NodeRep();
 const Alternative = new AlternativeRepository();
+const UserNode = new UserNodeRep();
 
 export const getNodeQuestions = async (node_id: number) => {
   try {
@@ -39,31 +41,54 @@ export const getNodes = async () => {
   }
 };
 
-export const getStudentQuestion = (user_id: number, node_id?: number) => {
+export const getStudentQuestion = async (user_id: number) => {
   try {
-    // const response = axios.get("http://localhost:8000/api/enviar_pregunta");
-    // console.log(response);
-
-    const question = Question.findOne(
-      {},
-      {
-        order: Sequelize.literal("RAND()"),
-        include: {
-          model: Alternative.Model,
-          as: "alternatives",
-        },
-      }
+    const nodes = await UserNode.getAll({
+      where: {
+        user_id: user_id,
+      },
+      include: {
+        model: Node.Model,
+        as: "node",
+      },
+    });
+    const questionArray = await Promise.all(
+      nodes.map(async (node) => {
+        const idNode = node.node_id;
+        const questions = await Node.findByPk(idNode, {
+          include: {
+            model: Question.Model,
+            as: "questions",
+          },
+        });
+        return (questions as any)?.questions || [];
+      })
     );
-    return question;
+    const allQuestions = questionArray.flat();
+    return allQuestions;
   } catch (error) {
     throw error;
   }
 };
+
 export const getQuestionsByNodeId = async (node_id: number) => {
   try {
     const questions = Question.getQuestionsByNodeId(node_id);
     return questions;
   } catch (error) {
+    throw error;
+  }
+};
+
+export const getAlternatives = async (question_id: number) => {
+  try {
+    const alternatives = Alternative.getAll({
+      where: {
+        questionId: question_id,
+      },
+    });
+    return alternatives;
+  } catch (error: any) {
     throw error;
   }
 };

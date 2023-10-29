@@ -69,6 +69,7 @@ const CargarExcelEstudiantes = () => {
         } else {
           console.error("API Error: ", response)
           setShowAlertError(true);
+          setFile(undefined)
           const responseData = await response.json()
           setApiResponse(responseData.error)
         }
@@ -157,11 +158,15 @@ const CargarExcelEstudiantes = () => {
                 className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
               >
                 <option value="">Seleccionar un curso</option>
-                {courseOptions.map((curso) => (
-                  <option key={curso.id} value={curso.id}>
-                    {curso.name}
-                  </option>
-                ))}
+                {courseOptions ? (
+                  <>
+                    {courseOptions.map((curso) => (
+                      <option key={curso.id} value={curso.id}>
+                        {curso.name}
+                      </option>
+                    ))}
+                  </>
+                ) : null}
               </select>
               <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

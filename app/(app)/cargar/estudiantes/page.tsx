@@ -67,11 +67,13 @@ const CargarExcelEstudiantes = () => {
           const responseData = await response.json()
           setApiResponse(responseData.message)
         } else {
-          console.log("API Error: ", response)
+          console.error("API Error: ", response)
           setShowAlertError(true);
+          const responseData = await response.json()
+          setApiResponse(responseData.error)
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error: ", error);
       }
     }
   };
@@ -99,7 +101,7 @@ const CargarExcelEstudiantes = () => {
             setShow={setShowAlertOK}
           ></AlertConfirmacion>
           <AlertError
-            title={"No se pudieron cargar los estudiantes :("}
+            title={"Falló la carga de estudiantes."}
             body={apiResponse}
             show={showAlertError}
             setShow={setShowAlertError}

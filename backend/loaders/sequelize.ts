@@ -12,7 +12,7 @@ const sequelizeOptions: Options = {
     idle: 10000,
   },
   logging: false,
-  port: Number.apply(DATABASE_CREDENTIALS.port),
+  port: 3309,
 };
 
 const sequelize = new Sequelize(

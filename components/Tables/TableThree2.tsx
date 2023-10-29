@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {IQuestion} from "@/backend/interfaces/question";
+import { IQuestion } from "@/backend/interfaces/question";
 var Latex = require("react-latex");
 interface header {
   colSpan: number;
@@ -40,10 +40,17 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
     // Conditionally sort the Pregunta array based on the selectedOption
     const sorted = [...data];
     if (selectedOption === "desc") {
-      sorted.sort((a, b) => parseInt((b as any).correctas) - parseInt((a as any).correctas)); // Descending order
+      sorted.sort(
+        (a, b) =>
+          parseInt((b as any).correctas) - parseInt((a as any).correctas)
+      ); // Descending order
     } else if (selectedOption === "asc") {
-      sorted.sort((a, b) => parseInt((a as any).correctas) - parseInt((b as any).correctas)); // Ascending order
+      sorted.sort(
+        (a, b) =>
+          parseInt((a as any).correctas) - parseInt((b as any).correctas)
+      ); // Ascending order
     } else if (selectedOption === "id") {
+      //@ts-ignore
       sorted.sort((a, b) => a.id - b.id); // Sort by ID (original order)
       setSortedPreguntas(sorted);
     }
@@ -82,30 +89,30 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
             </tr>
           </thead>
           <tbody>
-          {sortedPreguntas.map((pregunta: any, key) => (
-            <tr key={pregunta.id}>
-              {headers.map((header) => (
-                <td
-                  colSpan={header.colSpan}
-                  key={header.key}
-                  className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}
-                >
-                  <p
-                    className={`text-black dark:text-white text-center ${
-                      header?.classNames || ""
-                    }`}
+            {sortedPreguntas.map((pregunta: any, key) => (
+              <tr key={pregunta.id}>
+                {headers.map((header) => (
+                  <td
+                    colSpan={header.colSpan}
+                    key={header.key}
+                    className={`border-b border-[#eee] py-5 px-4 dark:border-strokedark`}
                   >
-                    {header.render
-                      ? header.render(
-                        pregunta[header.key] || pregunta,
-                        pregunta
-                      )
-                      : renderContent(String(pregunta[header.key]))}
-                  </p>
-                </td>
-              ))}
-            </tr>
-          ))}
+                    <p
+                      className={`text-black dark:text-white text-center ${
+                        header?.classNames || ""
+                      }`}
+                    >
+                      {header.render
+                        ? header.render(
+                            pregunta[header.key] || pregunta,
+                            pregunta
+                          )
+                        : renderContent(String(pregunta[header.key]))}
+                    </p>
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

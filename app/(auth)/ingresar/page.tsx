@@ -1,24 +1,24 @@
-"use client"
-import React, {useState} from "react";
+"use client";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { format } from "rut.js";
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
-    rut: '',
-    password: ''
-  })
-  const [apiResponse, setApiResponse] = useState("")
+    rut: "",
+    password: "",
+  });
+  const [apiResponse, setApiResponse] = useState("");
   const [, setUser] = useLocalStorage("user", null);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleChangeRut = (e: any) => {
     const { name, value } = e.target;
     // Formatear el RUT en el estilo "xx.xxx.xxx-x"
-    const formattedValue = format(value);   
+    const formattedValue = format(value);
     setFormData({
       ...formData,
       [name]: formattedValue,
@@ -31,7 +31,7 @@ const SignUp: React.FC = () => {
       ...formData,
       [name]: value,
     });
-  }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,33 +42,33 @@ const SignUp: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
-      })
+        body: JSON.stringify(formData),
+      });
 
       if (response.ok) {
         // Credenciales validas, hacer redirect
-        console.log("API Respondió OK!")
-        const data = await response.json()
-        if (data.user){
-          setUser(data.user)
-          if (data.user.type === "student"){
-            router.push("/")
-          } else if (data.user.type === "teacher"){
-            router.push("/")
+        console.log("API Respondió OK!");
+        const data = await response.json();
+        if (data.user) {
+          setUser(data.user);
+          if (data.user.type === "student") {
+            router.push("/");
+          } else if (data.user.type === "teacher") {
+            router.push("/");
           } else {
-            router.push("/")
+            router.push("/");
           }
         } else {
-          console.log("No user data retrieved.")
+          console.log("No user data retrieved.");
         }
       } else {
         // Credenciales invalidas, generar advertencias
-        const data = await response.json()
-        setApiResponse(data.message)
+        const data = await response.json();
+        setApiResponse(data.message);
         console.error("API Respondió mal :(");
       }
     } catch (error) {
-      console.error("Error de conexion:", error)
+      console.error("Error de conexion:", error);
     }
   };
 
@@ -80,15 +80,15 @@ const SignUp: React.FC = () => {
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" href="/">
                 <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                  LabCall
+                  LABCAL
                 </h2>
               </Link>
               <span className="mt-15">
                 <Image
-                    src={"/images/login/clase.jpg"}
-                    width={600}
-                    height={600}
-                    alt="Imagen de portada"
+                  src={"/images/login/clase.jpg"}
+                  width={600}
+                  height={600}
+                  alt="Imagen de portada"
                 />
               </span>
             </div>
@@ -102,8 +102,8 @@ const SignUp: React.FC = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  { apiResponse != "" ? (
-                      <div className="flex w-full border-l-6 border-[#F87171] bg-[#F87171] bg-opacity-[15%] px-5 py-5 shadow-md dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-5">
+                  {apiResponse != "" ? (
+                    <div className="flex w-full border-l-6 border-[#F87171] bg-[#F87171] bg-opacity-[15%] px-5 py-5 shadow-md dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-5">
                       <div className="mr-5 flex h-9 w-full max-w-[36px] items-center justify-center rounded-lg bg-[#F87171]">
                         <svg
                           width="13"
@@ -130,8 +130,9 @@ const SignUp: React.FC = () => {
                         </ul>
                       </div>
                     </div>
-                  ) : <></>
-                  }
+                  ) : (
+                    <></>
+                  )}
                   <label className="mb-2.5 block font-medium text-black dark:text-white pt-7">
                     RUT
                   </label>

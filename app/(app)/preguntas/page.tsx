@@ -2,10 +2,12 @@
 import { API_PATH } from "@/config";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 var Latex = require("react-latex");
 
 const Pregunta = () => {
-  const [data, setData] = useState(null);
+  const [alternatives, setAlternatives] = useState([]);
+
   const [userData] = useLocalStorage("user", null);
 
   const [isChecked1, setIsChecked1] = useState<boolean>(false);
@@ -23,7 +25,10 @@ const Pregunta = () => {
   const [respuestaSeleccionada, setRespuestaSeleccionada] = useState(false);
   const [esCorrecta, setEsCorrecta] = useState(false);
   const [student_id, setStudent_id] = useState((userData as any)?.id || 1);
-  const [responseData, setResponseData] = useState(null);
+  const [preguntas, setPreguntas] = useState([]);
+  const [indicePreguntaActual, setIndicePreguntaActual] = useState(0);
+  const [idPreguntaActual, setIdPreguntaActual] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const alMenosUnaSeleccionada =
@@ -31,41 +36,67 @@ const Pregunta = () => {
     setRespuestaSeleccionada(alMenosUnaSeleccionada);
   }, [isChecked1, isChecked2, isChecked3, isChecked4]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const node_id = 1;
-      try {
-        const response = await fetch(
-          `${API_PATH}/question/student?student_id=${student_id}&node_id=${node_id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (response.ok) {
-          console.log("API Respondió OK!");
-          const responseData = await response.json();
-          //   console.log(responseData);
-          setData(responseData); // Actualiza el estado con los datos de la API
-        } else {
-          console.error("API Respondió mal :(");
+  const fetchAlternatives = async () => {
+    try {
+      const response = await fetch(
+        `${API_PATH}/question/alternative?question_id=${(idPreguntaActual as any)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      } catch (error) {
-        console.error("Connection Error:", error);
+      );
+      if (response.ok) {
+        console.log("API alternativas Respondió OK!");
+        const responseData = await response.json();
+        setAlternatives(responseData);
+      } else {
+        console.error("API Respondió mal :(");
       }
-    };
-    fetchData(); // Llama a la función para cargar los datos de la API
+    } catch (error) {
+      console.error("Connection Error:", error);
+    }
+  }
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${API_PATH}/question/student?student_id=${student_id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        console.log("API Respondió OK!");
+        const responseData = await response.json();
+        setPreguntas(responseData);
+        setIdPreguntaActual((responseData as any)[0]?.id);
+        // manejar la no existencia de preguntas pendientes
+        if (responseData.length === 0) {
+          router.push("/");
+        }
+      } else {
+        console.error("API Respondió mal :(");
+      }
+    } catch (error) {
+      console.error("Connection Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    
   }, []);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    fetchAlternatives();
+  }, [idPreguntaActual]);
 
   const fetchRespuesta = async () => {
-    // estos parametros deberian entrar como argumentos de la funcion
-    const node_id = 1;
     try {
       const response = await fetch(`${API_PATH}/question/response`, {
         method: "POST",
@@ -74,7 +105,7 @@ const Pregunta = () => {
         },
         body: JSON.stringify({
           student_id: student_id,
-          question_id: (data as any).id,
+          question_id: idPreguntaActual,
           alternative_id: respuestaUsuario,
           is_correct: esCorrecta,
           save_response: 1,
@@ -82,10 +113,6 @@ const Pregunta = () => {
       });
       if (response.ok) {
         console.log("Enviada y guardada en DB");
-        // esta respuesta contiene la siguiente pregunta
-        const responseData = await response.json();
-        // se debe actualizar el estado con la siguiente pregunta
-        setResponseData(responseData);
       } else {
         console.log("Error al guardar");
         console.error("API Respondió mal :(");
@@ -99,7 +126,6 @@ const Pregunta = () => {
     setEnviarRespuestaDeshabilitado(true);
     const respuestaIngresada = respuestaUsuario.trim();
     setRespuestaUsuario(respuestaIngresada);
-    // se bloquean las opciones para cambiar la respuesta y se activa el boton para mostrar la respuesta
     setMostrarRespuesta(true);
     setOpcionesDeshabilitadas(true);
     fetchRespuesta();
@@ -125,14 +151,22 @@ const Pregunta = () => {
   };
 
   const handleSiguientePregunta = () => {
-    setData((responseData as any).next_question);
-    isFinish();
+    if (indicePreguntaActual < preguntas.length - 1) {
+      // Si hay más preguntas disponibles, incrementa el índice
+      setIndicePreguntaActual(indicePreguntaActual + 1);
+      isFinish();
+    } else {
+      console.log("No quedan más preguntas.");
+      router.push("/");
+      // se puede mostrar un mensaje de que no quedan preguntas por responder
+      // se debe bloquear el nodo que fue respondido para que no se pueda volver a responder
+    }
   };
 
   return (
     <>
       <div>
-        {data ? (
+        {preguntas.length > 0 ? (
           <div>
             <link
               rel="stylesheet"
@@ -144,12 +178,12 @@ const Pregunta = () => {
               <div className="flex flex-col gap-9">
                 <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <h2 className="font-medium text-black dark:text-white">
-                    Pregunta {(data as any).id}
+                    Pregunta {(preguntas[indicePreguntaActual] as any).id}
                   </h2>
                 </div>
                 <div className="col-span-12 rounded-sm border border-stroke bg-white px-7 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <p className="items-center justify-center ">
-                    <Latex>{(data as any).questionText}</Latex>
+                    <Latex>{(preguntas[indicePreguntaActual] as any).questionText}</Latex>
                   </p>
                 </div>
 
@@ -167,13 +201,13 @@ const Pregunta = () => {
                           onChange={() => {
                             if (!opcionesDeshabilitadas) {
                               setRespuestaUsuario(
-                                "" + (data as any).alternatives[0].id
+                                "" + (alternatives[0] as any)?.id
                               );
                               setJustificacion(
-                                (data as any).alternatives[0].feedback
+                                (alternatives[0] as any)?.feedback
                               );
                               setEsCorrecta(
-                                (data as any).alternatives[0].isCorrect
+                                (alternatives[0] as any)?.isCorrect
                               );
                               setIsChecked1(!isChecked1);
                               setIsChecked2(false);
@@ -198,7 +232,7 @@ const Pregunta = () => {
                         </div>
                       </div>
 
-                      <Latex>{(data as any).alternatives[0].answerText}</Latex>
+                      <Latex>{(alternatives[0] as any)?.answerText}</Latex>
                     </label>
                   </div>
 
@@ -215,13 +249,13 @@ const Pregunta = () => {
                           onChange={() => {
                             if (!opcionesDeshabilitadas) {
                               setRespuestaUsuario(
-                                (data as any).alternatives[1].id + ""
+                                (alternatives[1] as any)?.id + ""
                               );
                               setJustificacion(
-                                (data as any).alternatives[1].feedback
+                                (alternatives[1] as any)?.feedback
                               );
                               setEsCorrecta(
-                                (data as any).alternatives[1].isCorrect
+                                (alternatives[1] as any)?.isCorrect
                               );
                               setIsChecked2(!isChecked2);
                               setIsChecked1(false);
@@ -245,7 +279,7 @@ const Pregunta = () => {
                           </span>
                         </div>
                       </div>
-                      <Latex>{(data as any).alternatives[1].answerText}</Latex>
+                      <Latex>{(alternatives[1] as any)?.answerText}</Latex>
                     </label>
                   </div>
 
@@ -262,13 +296,13 @@ const Pregunta = () => {
                           onChange={() => {
                             if (!opcionesDeshabilitadas) {
                               setRespuestaUsuario(
-                                (data as any).alternatives[2].id + ""
+                                (alternatives[2] as any)?.id + ""
                               );
                               setJustificacion(
-                                (data as any).alternatives[2].feedback
+                                 (alternatives[2] as any)?.feedback
                               );
                               setEsCorrecta(
-                                (data as any).alternatives[2].isCorrect
+                                 (alternatives[2] as any)?.isCorrect
                               );
                               setIsChecked3(!isChecked3);
                               setIsChecked1(false);
@@ -292,7 +326,7 @@ const Pregunta = () => {
                           </span>
                         </div>
                       </div>
-                      <Latex>{(data as any).alternatives[2].answerText}</Latex>
+                      <Latex>{(alternatives[2] as any)?.answerText}</Latex>
                     </label>
                   </div>
                   <div>
@@ -308,13 +342,13 @@ const Pregunta = () => {
                           onChange={() => {
                             if (!opcionesDeshabilitadas) {
                               setRespuestaUsuario(
-                                (data as any).alternatives[3].id + ""
+                                (alternatives[3] as any)?.id + ""
                               );
                               setJustificacion(
-                                (data as any).alternatives[3].feedback
+                                 (alternatives[3] as any)?.feedback
                               );
                               setEsCorrecta(
-                                (data as any).alternatives[3].isCorrect
+                                 (alternatives[3] as any)?.isCorrect
                               );
                               setIsChecked4(!isChecked4);
                               setIsChecked1(false);
@@ -338,26 +372,26 @@ const Pregunta = () => {
                           </span>
                         </div>
                       </div>
-                      <Latex>{(data as any).alternatives[3].answerText}</Latex>
+                      <Latex>{ (alternatives[3] as any)?.answerText}</Latex>
                     </label>
                   </div>
                 </div>
 
                 <div className="flex justify-center gap-4.5 py-6">
-                  <button
-                    onClick={handleEnviarRespuesta}
-                    disabled={!respuestaSeleccionada}
-                    className={`flex justify-center rounded bg-primary py-2 px-6 font-medium   
-                            ${
-                              enviarRespuestaDeshabilitado === true
-                                ? "border-stroke bg-transparent outline-none focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
-                                : "text-gray hover:bg-opacity-95"
-                            }
-                            `}
-                    id="enviarRespuesta"
-                  >
-                    Enviar respuesta
-                  </button>
+                <button
+              onClick={handleEnviarRespuesta}
+              disabled={!respuestaUsuario || enviarRespuestaDeshabilitado}
+              className={`flex justify-center rounded bg-primary py-2 px-6 font-medium 
+                ${
+                  enviarRespuestaDeshabilitado === true
+                    ? "border-stroke bg-transparent outline-none focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
+                    : "text-gray hover:bg-opacity-95"
+                }
+              `}
+              id="enviarRespuesta"
+            >
+              Enviar respuesta
+            </button>
                   {mostrarRespuesta && (
                     <div>
                       <button

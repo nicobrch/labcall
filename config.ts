@@ -7,5 +7,6 @@ export const DATABASE_CREDENTIALS = {
   password: process.env.BD_PASSWORD || "root",
   database: process.env.BD_DATABASE || "labcal",
   port: process.env.BD_PORT || 3309,
+  logging: process.env.BD_LOGGING === "true" ? true : false,
 };
 export const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;

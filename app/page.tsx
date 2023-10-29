@@ -25,9 +25,9 @@ export default function Home({ children }: { children: React.ReactNode }) {
   }
 
   const SidebarComponent =
-  (user as any).type === "student" ? SidebarStudent : SidebarTeacher;
+    (user as any).type === "student" ? SidebarStudent : SidebarTeacher;
   const DashboardComponent =
-  (user as any).type === "student" ? (
+    (user as any).type === "student" ? (
       <DashEstudiante></DashEstudiante>
     ) : (
       <DashProfesor></DashProfesor>

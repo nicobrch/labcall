@@ -1,7 +1,7 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useState, useEffect, useCallback } from "react";
-import { Pregunta } from "@/pages/api/statistics/[id]";
+import {IQuestion} from "@/backend/interfaces/question";
 import TableThree2 from "@/components/Tables/TableThree2";
 
 const Estadisticas = ({
@@ -11,7 +11,7 @@ const Estadisticas = ({
     cursoId: string;
   };
 }) => {
-  const [preguntas, setPreguntas] = useState<Pregunta[]>([]);
+  const [preguntas, setPreguntas] = useState<IQuestion[]>([]);
 
   const callApi = useCallback(() => {
     fetch("/api/statistics/item?course_id=" + cursoId)
@@ -24,7 +24,7 @@ const Estadisticas = ({
       .then((data) => {
         // Almacena las preguntas en el estado
         console.log(data);
-
+        
         setPreguntas(data);
       })
       .catch((error) => {

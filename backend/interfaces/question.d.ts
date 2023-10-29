@@ -10,6 +10,8 @@ export interface IQuestion {
   createdAt?: Date;
   updatedAt?: Date;
   alternatives?: IAlternative[];
+  correctas?: number,
+  total?: number,
 }
 
 export interface ICreateQuestion extends IQuestion {}

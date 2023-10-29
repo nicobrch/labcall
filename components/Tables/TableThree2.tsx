@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Pregunta } from "@/pages/api/statistics/[id]";
+import { IQuestion } from "@/backend/interfaces/question";
 var Latex = require("react-latex");
 interface header {
   colSpan: number;
@@ -12,7 +12,19 @@ interface header {
 
 export interface TableThree2Props {
   headers: header[];
-  data: Pregunta[];
+  data: IQuestion[];
+}
+
+function renderContent(content: string) {
+  if (content.includes("$")) {
+    // Contiene símbolos '$', renderizar con Latex
+    return <Latex>{content}</Latex>;
+  } else if (content.includes("<")) {
+    // Contiene símbolos '<', renderizar con dangerouslySetInnerHTML
+    return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  } else {
+    return content;
+  }
 }
 
 const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
@@ -38,6 +50,7 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
           parseInt((a as any).correctas) - parseInt((b as any).correctas)
       ); // Ascending order
     } else if (selectedOption === "id") {
+      //@ts-ignore
       sorted.sort((a, b) => a.id - b.id); // Sort by ID (original order)
       setSortedPreguntas(sorted);
     }
@@ -89,21 +102,12 @@ const TableThree: React.FC<TableThree2Props> = ({ headers, data }) => {
                         header?.classNames || ""
                       }`}
                     >
-                      {/* <Latex
-												delimiters={[
-													{ left: "$", right: "$", display: false },
-													{ left: "\\[", right: "\\]", display: true },
-													{ left: "\\", right: "\\", display: true }
-												]}
-											> */}
-
                       {header.render
                         ? header.render(
                             pregunta[header.key] || pregunta,
                             pregunta
                           )
-                        : pregunta[header.key]}
-                      {/* </Latex> */}
+                        : renderContent(String(pregunta[header.key]))}
                     </p>
                   </td>
                 ))}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import ModalPassword from "@/components/ModalPassword";
 import { format } from "rut.js";
 
 const SignUp: React.FC = () => {
@@ -13,6 +14,11 @@ const SignUp: React.FC = () => {
   });
   const [apiResponse, setApiResponse] = useState("");
   const [, setUser] = useLocalStorage("user", null);
+  const [tooShort, setTooShort] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showAlertOK, setShowAlertOK] = useState(false);
+  const [rut, setRut] = useState("");
   const router = useRouter();
 
   const handleChangeRut = (e: any) => {
@@ -51,7 +57,11 @@ const SignUp: React.FC = () => {
         const data = await response.json();
         if (data.user) {
           setUser(data.user);
-          if (data.user.type === "student") {
+          setRut(format(data.user.rut));
+          if (data.user.tooShort===true) {
+            // insertar modal para cambiar la contrasena
+            router.push("/modify");
+          } else if (data.user.type === "student") {
             router.push("/");
           } else if (data.user.type === "teacher") {
             router.push("/");
@@ -70,6 +80,10 @@ const SignUp: React.FC = () => {
     } catch (error) {
       console.error("Error de conexion:", error);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -228,8 +242,8 @@ const SignUp: React.FC = () => {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
+          </div>        
+        </div>        
       </div>
     </>
   );

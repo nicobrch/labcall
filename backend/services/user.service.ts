@@ -37,7 +37,7 @@ export const signInUser = async (signInData: ISignInUser) => {
     // const isValidPassword = await compare(password, userResponse.getDataValue('password'));
 
     const isValidPassword = userResponse.password === password;
-
+    const tooShort = password.length < 6;
     if (!isValidPassword) {
       throw new ValidationFailedError("Credenciales invalidas");
     }
@@ -45,6 +45,7 @@ export const signInUser = async (signInData: ISignInUser) => {
     delete user.password;
     return {
       ...userResponse,
+      tooShort,
     };
   } catch (error) {
     throw error;

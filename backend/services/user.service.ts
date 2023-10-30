@@ -90,6 +90,8 @@ export const addNodesToUser = async (input: IBulkNodesToUser) => {
         await userNode.create({
           node_id: idNode,
           user_id: Number(idUser) || 0,
+          active: true,
+          count: 3,
         });
       });
     });

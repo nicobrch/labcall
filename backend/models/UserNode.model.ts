@@ -20,6 +20,16 @@ export default function defineUserNodeModel(sequelize: Sequelize) {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true,
+      },
+      count: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 3,
+      },
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

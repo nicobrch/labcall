@@ -3,7 +3,9 @@ import { API_PATH } from "@/config";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { literal } from "sequelize";
 var Latex = require("react-latex");
+
 
 const Pregunta = () => {
   const [alternatives, setAlternatives] = useState([]);
@@ -27,7 +29,8 @@ const Pregunta = () => {
   const [student_id, setStudent_id] = useState((userData as any)?.id || 1);
   const [preguntas, setPreguntas] = useState([]);
   const [indicePreguntaActual, setIndicePreguntaActual] = useState(0);
-  const [idPreguntaActual, setIdPreguntaActual] = useState(0);
+  const [idPregunta, setIdPregunta] = useState(0);
+  const [nextQuestion, setNextQuestion] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,10 +39,10 @@ const Pregunta = () => {
     setRespuestaSeleccionada(alMenosUnaSeleccionada);
   }, [isChecked1, isChecked2, isChecked3, isChecked4]);
 
-  const fetchAlternatives = async () => {
+  const fetchAlternatives = async (idPreguntaActual: number) => {
     try {
       const response = await fetch(
-        `${API_PATH}/question/alternative?question_id=${(idPreguntaActual as any)}`,
+        `${API_PATH}/question/alternative?question_id=${(idPreguntaActual)}`,
         {
           method: "GET",
           headers: {
@@ -55,7 +58,7 @@ const Pregunta = () => {
         console.error("API Respondió mal :(");
       }
     } catch (error) {
-      console.error("Connection Error:", error);
+      console.error("Connection Error Alternative:", error);
     }
   }
 
@@ -73,28 +76,37 @@ const Pregunta = () => {
       if (response.ok) {
         console.log("API Respondió OK!");
         const responseData = await response.json();
-        setPreguntas(responseData);
-        setIdPreguntaActual((responseData as any)[0]?.id);
-        // manejar la no existencia de preguntas pendientes
-        if (responseData.length === 0) {
+        console.log(responseData)
+        // no quedan nodos ni preguntas por responder
+        if (responseData === 0) {
           router.push("/");
         }
+        let indiceAleatorio = Math.floor(Math.random() * responseData?.questions.length);
+        // manejar la no existencia de preguntas pendientes
+        if (responseData?.questions.length === 0) {
+          router.push("/");
+        }
+        else{
+          indiceAleatorio = Math.floor(Math.random() * responseData?.questions.length);
+        }        
+        setPreguntas(responseData.questions[indiceAleatorio]);
+        setIdPregunta(responseData.questions[indiceAleatorio].id);
+        // manejar la no existencia de nodos pendientes
+        
       } else {
         console.error("API Respondió mal :(");
       }
     } catch (error) {
-      console.error("Connection Error:", error);
+      console.error("Connection Error Question:", error);
     }
   };
-
   useEffect(() => {
-    fetchData();
-    
-  }, []);
-
-  useEffect(() => {
-    fetchAlternatives();
-  }, [idPreguntaActual]);
+    fetchData().then(() => {
+      if (idPregunta !== 0){
+        fetchAlternatives(idPregunta);
+      }
+    });
+  }, [idPregunta]);
 
   const fetchRespuesta = async () => {
     try {
@@ -105,13 +117,15 @@ const Pregunta = () => {
         },
         body: JSON.stringify({
           student_id: student_id,
-          question_id: idPreguntaActual,
+          question_id: idPregunta,
+          node_id: (preguntas as any)?.node_id,
           alternative_id: respuestaUsuario,
           is_correct: esCorrecta,
           save_response: 1,
         }),
       });
       if (response.ok) {
+        setNextQuestion((response as any).json());
         console.log("Enviada y guardada en DB");
       } else {
         console.log("Error al guardar");
@@ -151,22 +165,14 @@ const Pregunta = () => {
   };
 
   const handleSiguientePregunta = () => {
-    if (indicePreguntaActual < preguntas.length - 1) {
-      // Si hay más preguntas disponibles, incrementa el índice
-      setIndicePreguntaActual(indicePreguntaActual + 1);
       isFinish();
-    } else {
-      console.log("No quedan más preguntas.");
-      router.push("/");
-      // se puede mostrar un mensaje de que no quedan preguntas por responder
-      // se debe bloquear el nodo que fue respondido para que no se pueda volver a responder
-    }
+      fetchData();
   };
 
   return (
     <>
       <div>
-        {preguntas.length > 0 ? (
+        {preguntas && alternatives.length > 0 ? (
           <div>
             <link
               rel="stylesheet"
@@ -178,12 +184,12 @@ const Pregunta = () => {
               <div className="flex flex-col gap-9">
                 <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <h2 className="font-medium text-black dark:text-white">
-                    Pregunta {(preguntas[indicePreguntaActual] as any).id}
+                    Pregunta {(preguntas as any).id}
                   </h2>
                 </div>
                 <div className="col-span-12 rounded-sm border border-stroke bg-white px-7 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <p className="items-center justify-center ">
-                    <Latex>{(preguntas[indicePreguntaActual] as any).questionText}</Latex>
+                    <Latex>{(preguntas as any).questionText}</Latex>
                   </p>
                 </div>
 

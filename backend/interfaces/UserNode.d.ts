@@ -2,6 +2,8 @@ export interface IUserNode {
   id?: number;
   user_id?: number;
   node_id?: number;
+  active?: boolean;
+  count?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -76,7 +76,7 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tA continuaci\u00f3n, se presenta el desarrollo de un estudiante al pedirle que resuelva la operaci\u00f3n $-2-(-4)$, pero ha cometido un error, \u00bfcu\u00e1l de las siguientes alternativas lo explica?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tA continuaci\u00f3n, se presenta el desarrollo de un estudiante al pedirle que resuelva la operaci\u00f3n $-2-(-4)$, pero ha cometido un error, \u00bfcu\u00e1l de las siguientes alternativas lo explica?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/p5.svg`,
     figureCaption: "Figura 1",
     node_id: 4,
@@ -148,7 +148,7 @@ const initialData = [
     ],
   },
   {
-    questionText: "\nPara calcular el 40\\% de un n\u00famero se debe:\n",
+    questionText: "\nPara calcular el 40% de un n\u00famero se debe:\n",
     imageURL: "null",
     figureCaption: "null",
     node_id: 4,
@@ -217,7 +217,7 @@ const initialData = [
   },
   {
     questionText:
-      "\nC\u00faal de las siguientes expreciones nos dan como resultado el valor final de agregar el k% a un n\u00famero X cualquiera.\n",
+      "\n¿C\u00faal de las siguientes expreciones nos dan como resultado el valor final de agregar el k% a un n\u00famero X cualquiera?\n",
     imageURL: "null",
     figureCaption: "null",
     node_id: 2,
@@ -252,7 +252,7 @@ const initialData = [
   },
   {
     questionText:
-      "\nUn term\u00f3metro marca una temperatura inicial de -8\u00b0C y al finalizar el d\u00eda registra -2\u00b0C, \u00bfcu\u00e1l es la variaci\u00f3n de la temperatura?\n",
+      "\nUn term\u00f3metro marca una temperatura inicial de -8\u00b0C y al finalizar el d\u00eda registra -2\u00b0C, \u00bfCu\u00e1l es la variaci\u00f3n de la temperatura?\n",
     imageURL: "null",
     figureCaption: "null",
     node_id: 2,
@@ -286,7 +286,7 @@ const initialData = [
   },
   {
     questionText:
-      "\nSi en Isla de Pascua son las 11:00 hrs, \u00bfqu\u00e9 hora es en Italia? Husos horarios: Isla de Pascua: -7 e Italia: +1\n",
+      "\nSi en Isla de Pascua son las 11:00 hrs, \u00bfQu\u00e9 hora es en Italia? Si el Huso horario de cada pais es: Isla de Pascua: -7 e Italia: +1\n",
     imageURL: "null",
     figureCaption: "null",
     node_id: 2,
@@ -357,7 +357,7 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\t\u00bfCu\u00e1l de las siguientes alternativas representa en porcentaje a la cantidad de cuadrados pintados de la imagen\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\t\u00bfCu\u00e1l de las siguientes alternativas representa en porcentaje a la cantidad de cuadrados pintados de la imagen?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/porcentajes.svg`,
     figureCaption: "Figura 1",
     node_id: 3,
@@ -392,7 +392,7 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tEn la imagen se muestran distintas barras que indican la carga de un tel\u00e9fono, \u00bfqu\u00e9 porcentaje representa a la cuarta barra?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tEn la imagen se muestran distintas barras que indican la carga de un tel\u00e9fono, \u00bfQu\u00e9 porcentaje representa a la cuarta barra?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/barras.svg`,
     figureCaption: "Figura 1",
     node_id: 3,
@@ -429,7 +429,7 @@ const initialData = [
       '\nPara un concierto se dispone de 3 tipos de entradas: "Cancha general" a 4.500, "Cancha Vip" a 5.500 y "Platea" a 3.500. \u00bfQu\u00e9 expresi\u00f3n algebraica permite determinar los ingresos totales por la venta de las entradas?\n',
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 5,
     dificulty: "Alta",
     alternatives: [
       {
@@ -463,7 +463,7 @@ const initialData = [
       "\nJuan tiene $3a+9$ juguetes y reparte la tercera parte a sus 2 amigos por igual. \u00bfCuantos juguetes reparte a cada amigo?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 5,
     dificulty: "Dificil",
     alternatives: [
       {
@@ -496,7 +496,7 @@ const initialData = [
       '\n\n\t\t\t\t\t\tA continuaci\u00f3n, se muestra el desarrollo de un problema realizado por Mart\u00edn, el cual contiene un error. A partir de esto, \u00bfcu\u00e1l de las siguientes alternativas es correcta?\\\\\n\t\t\t\t\t\t"La siguiente situaci\u00f3n corresponde a una relaci\u00f3n inversa: En la construcci\u00f3n de un edificio si se trabaja con 200 obreros, la obra tiene fecha para 12 meses, \u00bfcu\u00e1ntos meses\n\t\t\t\t\t\tdemorar\u00e1 la obra si solo se dispone de 50 obreros?"\\\\ \n\t\t\t\t\t\tPaso 1: plantear la ecuaci\u00f3n $\\frac{200}{12}=\\frac{50}{x}$\\\\ \n\t\t\t\t\t\tPaso 2: calcular la inc\u00f3gnita $x=\\frac{50 \\cdot 12}{200}$\\\\\n\t\t\t\t\t\tPaso 3: concluir $x=3$\n\t\t\t\t\t\n',
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 8,
     dificulty: "Media",
     alternatives: [
       {
@@ -533,7 +533,7 @@ const initialData = [
       "\n Ana est\u00e1 comprando frutas para su canasta. Por cada naranja que compra, Ana adquiere el doble de manzanas y por cada manzana que compra, Ana adquiere el doble de pl\u00e1tanos. Si Ana compra N naranjas, M manzanas y P pl\u00e1tanos, \u00bfC\u00f3mo se relacionan estas cantidades en funcion de las naranjas?.\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 8,
     dificulty: "Dificil",
     alternatives: [
       {
@@ -562,31 +562,31 @@ const initialData = [
   },
   {
     questionText:
-      "\nEn la g\u00f3ndola de un supermercado se encuentran ubicadas manzanas, naranjas y peras. Si la cantidad de manzanas y la cantidad de peras est\u00e1n en la raz\u00f3n 2 es a 3 mientras que la cantidad de peras y la cantidad de naranjas est\u00e1n en la raz\u00f3n 4 es a 5. \u00bfCu\u00e1l de las siguientes afirmaciones es verdadera? \n",
+      "\n\n\t\t\t\t\t\tEn la g\u00f3ndola de un supermercado se encuentran ubicadas manzanas, naranjas y peras. Si la cantidad de manzanas y la cantidad de peras est\u00e1n en la raz\u00f3n 2 es a 3 mientras que la\n\t\t\t\t\t\tcantidad de peras y la cantidad de naranjas est\u00e1n en la raz\u00f3n 4 es a 5. \u00bfCu\u00e1l de las siguientes afirmaciones es verdadera?\n\t\t\t\t\t\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 8,
     dificulty: "Alta",
     alternatives: [
       {
-        answerText: "Si hay 24 manzanas, entonces hay 45 naranjas.",
+        answerText: "Si hay \\(24\\) manzanas, entonces hay \\(45\\) naranjas.",
         isCorrect: true,
         feedback:
-          "Si hay 24 manzanas y la raz\u00f3n entre la cantidad de manzanas y la cantidad de peras es de 2:3, entonces hay 36 peras, ya que 24:36=2:3. Como hay 36 peras y la raz\u00f3n entre la cantidad de peras y la cantidad de naranjas es de 4:5, entonces hay 45 naranjas, ya que 36:45=4:5.",
+          "Si hay \\(24\\) manzanas y la raz\u00f3n entre la cantidad de manzanas y la cantidad de peras es de \\(2:3\\), entonces hay 36 peras, ya que \\(24:36=2:3\\). Como hay \\(36\\) peras\n\t\t\t\t\t\t\t\ty la raz\u00f3n entre la cantidad de peras y la cantidad de naranjas es de \\(4:5\\), entonces hay \\(45\\) naranjas, ya que \\(36:45=4:5\\).",
       },
       {
-        answerText: "Si hay 18 manzanas, entonces hay 12 peras.",
+        answerText: "Si hay \\(18\\) manzanas, entonces hay \\(12\\) peras.",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "Si hay 20 manzanas, entonces hay 50 naranjas.",
+        answerText: "Si hay \\(20\\) manzanas, entonces hay \\(50\\) naranjas.",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
         answerText:
-          "Si hay 10 manzanas, entonces hay m\u00e1s peras que naranjas.",
+          "Si hay \\(10\\) manzanas, entonces hay m\u00e1s peras que naranjas.",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
@@ -597,7 +597,7 @@ const initialData = [
       '\nNico y Dani est\u00e1n discutiendo sobre la siguiente afirmaci\u00f3n "mientras m\u00e1s alta es una persona, m\u00e1s masa tiene". Nico cree que la afirmaci\u00f3n es verdadera, mientras que Dani cree que es incorrecta. A partir de esto, \u00bfcu\u00e1l de las siguientes alternativas es correcta?\n',
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 8,
     dificulty: "Media",
     alternatives: [
       {
@@ -635,7 +635,7 @@ const initialData = [
       "\nUsted tiene una serie de datos que muestran una relaci\u00f3n proporcional inversa. Realice un an\u00e1lisis asociado a los datos que puedan existir en la tabla y mencione cual/es de la/s siguiente/s afirmaciones es falta en relaci\u00f3n a c\u00f3mo se relacionan las dos cantidades.\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 8,
     dificulty: "Alta",
     alternatives: [
       {
@@ -669,7 +669,7 @@ const initialData = [
       "\nConsidera la siguiente situaci\u00f3n:\n\u201cEn la casa de Andrea, hay un estante que solamente tiene libros de Matem\u00e1ticas. La relaci\u00f3n entre los libros de Matem\u00e1ticas que tienen m\u00e1s de 100 hojas y los libros de Matem\u00e1ticas que tienen menos de 100 hojas es de 3:5\u201d\n\u00bfA qu\u00e9 concepto matem\u00e1tico corresponde la expresi\u00f3n 3:5?\n\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 6,
     dificulty: "Baja",
     alternatives: [
       {
@@ -697,10 +697,10 @@ const initialData = [
   },
   {
     questionText:
-      '\nEn el 7\u00b0A est\u00e1n estudiando los monumentos de Chile y su profesora les muestra una imagen de la "Mano del Desierto", la cual mide 11m y las personas miden 1,6m. En base a la imagen, \u00bfqu\u00e9 expresi\u00f3n permite calcular la altura de la mano medida en personas?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n',
+      '\nEn el 7\u00b0A est\u00e1n estudiando los monumentos de Chile y su profesora les muestra una imagen de la "Mano del Desierto", la cual mide 11m y las personas miden 1,6m. En base a la imagen, \u00bfqu\u00e9 expresi\u00f3n permite calcular la altura de la mano medida en personas?\n\t\t\t\t\t\t\n\n\n\n\n',
     imageURL: `${BASE_PATH}/images/paula/mano.svg`,
     figureCaption: "Figura 1",
-    node_id: null,
+    node_id: 6,
     dificulty: "Media",
     alternatives: [
       {
@@ -734,7 +734,7 @@ const initialData = [
       "\n\u00bfCu\u00e1l o cu\u00e1les de las siguientes afirmaciones es verdadera?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: null,
+    node_id: 6,
     dificulty: "Media",
     alternatives: [
       {
@@ -769,10 +769,10 @@ const initialData = [
   },
   {
     questionText:
-      "\nA continuaci\u00f3n, se presenta una imagen donde se indican 3 ecuaciones. A partir de esto, escoge la alternativa que exprese en lenguaje algebraico lo descrito en la imagen. Para esto, utiliza las uvas como u, sand\u00edas como s y pl\u00e1tanos como p.\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\nA continuaci\u00f3n, se presenta una imagen donde se indican 3 ecuaciones. A partir de esto, escoge la alternativa que exprese en lenguaje algebraico lo descrito en la imagen. Para esto, utiliza las uvas como u, sand\u00edas como s y pl\u00e1tanos como p.\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/frutas.svg`,
     figureCaption: "Figura 1",
-    node_id: null,
+    node_id: 6,
     dificulty: "Media",
     alternatives: [
       {
@@ -804,10 +804,10 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tMariana represent\u00f3 la raz\u00f3n entre las personas que asistieron con su mascota a una caminata y el total de asistentes, como se muestra a continuaci\u00f3n. Al respecto, \u00bfcu\u00e1l es la raz\u00f3n entre la cantidad de personas que asistieron con sus mascotas respecto al total de asistentes?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tMariana represent\u00f3 la raz\u00f3n entre las personas que asistieron con su mascota a una caminata y el total de asistentes, como se muestra a continuaci\u00f3n. Al respecto, \u00bfcu\u00e1l es la raz\u00f3n entre la cantidad de personas que asistieron con sus mascotas respecto al total de asistentes?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/camilo/30_3_Imagen.svg`,
     figureCaption: "Figura 1",
-    node_id: null,
+    node_id: 7,
     dificulty: "Baja",
     alternatives: [
       {
@@ -936,7 +936,7 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tResuelve el siguiente problema considerando $\\pi = 3$. En la figura se tienen 4 circunferencias tangentes, todas del mismo tama\u00f1o y su radio mide 3 cm. \u00bfCu\u00e1l es el \u00e1rea de la\n\t\t\t\t\t\tparte ennegrecida? Considera que el lado del cuadrado mide 12 cm.\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tResuelve el siguiente problema considerando $\\pi = 3$. En la figura se tienen 4 circunferencias tangentes, todas del mismo tama\u00f1o y su radio mide 3 cm. \u00bfCu\u00e1l es el \u00e1rea de la\n\t\t\t\t\t\tparte ennegrecida? Considera que el lado del cuadrado mide 12 cm.\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/circunferencias.svg`,
     figureCaption: "Figura 1",
     node_id: 9,
@@ -968,40 +968,40 @@ const initialData = [
       },
     ],
   },
-  //   {
-  //     questionText:
-  //       "\n\n\t\t\t\t\t\tObtenga el area sombreada de la circunferencia inscrita en el cuadrado cuyo lado mide 4 cm ($\\pi = 3$).\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
-  //     imageURL: "./36_2.svg",
-  //     figureCaption: "Figura 1",
-  //     node_id: 9,
-  //     dificulty: "alta",
-  //     alternatives: [
-  //       {
-  //         answerText: "$4 \\ cm^2$",
-  //         isCorrect: true,
-  //         feedback:
-  //           "El estudiante reconoce la formula del \u00e1rea y la aplica con los datos entregados.",
-  //       },
-  //       {
-  //         answerText: "$6 \\ cm^2$",
-  //         isCorrect: false,
-  //         feedback:
-  //           "El estudiante no logra reconocer la formula del \u00e1rea y aplica la del permimetro con los datos entregados.",
-  //       },
-  //       {
-  //         answerText: "Falta Informac\u00f3n.",
-  //         isCorrect: false,
-  //         feedback:
-  //           "El estudiante no reconoce los datos entregados para responder la pregunta.",
-  //       },
-  //       {
-  //         answerText: "No sabe.",
-  //         isCorrect: false,
-  //         feedback:
-  //           "El estudiante no sabe como calcular el \u00e1rea del circulo descrito.",
-  //       },
-  //     ],
-  //   },
+  // {
+  //   questionText:
+  //     "\n\n\t\t\t\t\t\tObtenga el area sombreada de la circunferencia inscrita en el cuadrado cuyo lado mide 4 cm ($\\pi = 3$).\n\t\t\t\t\t\t\n\n\n\n\n",
+  //   imageURL: "./36_2.svg",
+  //   figureCaption: "Figura 1",
+  //   node_id: 9,
+  //   dificulty: "alta",
+  //   alternatives: [
+  //     {
+  //       answerText: "$4 \\ cm^2$",
+  //       isCorrect: true,
+  //       feedback:
+  //         "El estudiante reconoce la formula del \u00e1rea y la aplica con los datos entregados.",
+  //     },
+  //     {
+  //       answerText: "$6 \\ cm^2$",
+  //       isCorrect: false,
+  //       feedback:
+  //         "El estudiante no logra reconocer la formula del \u00e1rea y aplica la del permimetro con los datos entregados.",
+  //     },
+  //     {
+  //       answerText: "Falta Informac\u00f3n.",
+  //       isCorrect: false,
+  //       feedback:
+  //         "El estudiante no reconoce los datos entregados para responder la pregunta.",
+  //     },
+  //     {
+  //       answerText: "No sabe.",
+  //       isCorrect: false,
+  //       feedback:
+  //         "El estudiante no sabe como calcular el \u00e1rea del circulo descrito.",
+  //     },
+  //   ],
+  // },
   {
     questionText:
       "\n\u00bfCu\u00e1l de las siguientes opciones describe mejor el procedimiento para calcular el \u00e1rea de un tri\u00e1ngulo?\n",
@@ -1142,7 +1142,7 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tCamila vive en el punto verde de la ciudad y su amiga Fernanda en el punto azul. A partir de esto, \u00bfcu\u00e1l de las siguientes opciones es correcta respecto a la imagen?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tCamila vive en el punto verde de la ciudad y su amiga Fernanda en el punto azul. A partir de esto, \u00bfcu\u00e1l de las siguientes opciones es correcta respecto a la imagen?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/ciudad.svg`,
     figureCaption: "Figura 1",
     node_id: 12,
@@ -1221,23 +1221,23 @@ const initialData = [
     dificulty: "Baja",
     alternatives: [
       {
-        answerText: "\\(\\pi\\left(\\frac{d}{2}\\right)^2\\)",
+        answerText: "$\\pi\\left(\\frac{d}{2}\\right)^2$",
         isCorrect: true,
         feedback:
-          "Para calcular la cantidad de tela necesaria para cubrir una superficie circular, se debe calcular el \u00e1rea de dicha superficie. Dado que el di\u00e1metro de la piscina es de \\(d\\) metros, su radio \\(r\\) es de \\(\\frac{d}{2}\\) metros. As\u00ed, el \u00e1rea que se necesita cubrir es de \\(\\pi r^2 = \\pi \\left(\\frac{d}{2}\\right)^2\\)",
+          "Para calcular la cantidad de tela necesaria para cubrir una superficie circular, se debe calcular el \u00e1rea de dicha superficie. Dado que el di\u00e1metro de la piscina es de $d$ metros, su radio $r$ es de $\\frac{d}{2}$ metros. As\u00ed, el \u00e1rea que se necesita cubrir es de $\\pi r^2 = \\pi \\left(\\frac{d}{2}\\right)^2$",
       },
       {
-        answerText: "\\(\\pi d^2\\)",
+        answerText: "$\\pi d^2$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(2\\pi d\\)",
+        answerText: "$2\\pi d$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(2\\pi\\cdot\\frac{d}{2}\\)",
+        answerText: "$2\\pi\\cdot\\frac{d}{2}$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
@@ -1345,7 +1345,7 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tNico desea cambiar la pantalla de su l\u00e1mpara y cuando va a comprarla se da cuenta que estas se miden seg\u00fan los per\u00edmetros de las bases. Por lo que, volvi\u00f3 a su casa a medir su\n\t\t\t\t\t\tl\u00e1mpara y anot\u00f3 las siguientes medidas de la imagen.\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tNico desea cambiar la pantalla de su l\u00e1mpara y cuando va a comprarla se da cuenta que estas se miden seg\u00fan los per\u00edmetros de las bases. Por lo que, volvi\u00f3 a su casa a medir su\n\t\t\t\t\t\tl\u00e1mpara y anot\u00f3 las siguientes medidas de la imagen.\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/l\u00e1mpara.svg`,
     figureCaption: "Figura 1",
     node_id: 11,
@@ -1383,30 +1383,30 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\t\u00bfCu\u00e1les de los siguientes pares de puntos est\u00e1n ubicados a $5$ unidades de distancia uno del otro y est\u00e1n contenidos en una recta paralela al eje $Y$\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\t\u00bfCu\u00e1les de los siguientes pares de puntos est\u00e1n ubicados a $5$ unidades de distancia uno del otro y est\u00e1n contenidos en una recta paralela al eje $Y$\n\t\t\t\t\t\t\n\n\n\n",
     imageURL: `${BASE_PATH}/images/camilo/48_1_puntos.svg`,
     figureCaption: "Figura 1",
     node_id: 11,
     dificulty: "Baja",
     alternatives: [
       {
-        answerText: "\\(A(2, -3)\\) y \\(B(2, 2)\\)",
+        answerText: "$A(2, -3)$ y $B(2, 2)$",
         isCorrect: true,
         feedback:
           "Al ubicar los puntos en un plano cartesiano, se obtiene lo siguiente:",
       },
       {
-        answerText: "\\(C(2, 5)\\) y \\(D(7, 5)\\)",
+        answerText: "$C(2, 5)$ y $D(7, 5)$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(E(0, 5)\\) y \\(F(0, -5)\\)",
+        answerText: "$E(0, 5)$ y $F(0, -5)$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(G(0, 0)\\) y \\(H(5, 5)\\)",
+        answerText: "$G(0, 0)$ y $H(5, 5)$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
@@ -1450,7 +1450,7 @@ const initialData = [
       "\nA un grupo de estudiantes de s\u00e9ptimo b\u00e1sico de un colegio de la zona austral se les pregunt\u00f3 por la cantidad de horas que utilizaron su celular durante la \u00faltima semana, obteniendo las siguientes respuestas: 10, 11, 10, 15, 12, 18, 10, 14, 16, 11 y 15. \u00bfCu\u00e1l es la frecuencia absoluta de la cantidad de horas que m\u00e1s se repite?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Baja",
     alternatives: [
       {
@@ -1481,7 +1481,7 @@ const initialData = [
       "\n\n\t\t\t\t\t\tA continuaci\u00f3n se presenta un gr\u00e1fico el cual corresponde a la cantidad de estudiantes de ciertos curso. Identifica si la(s) siguiente(s) opci\u00f3n(es) es(son) correcta(s).\\\\\n    I) El total de cursos es 10\\\\\n    II) La frecuencia absoluta corresponde al n\u00famero de alumnos\\\\\n    III) Los datos son de tipo cuantitativo\\\\\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/paula/grafico_cursos.svg`,
     figureCaption: "Figura 1",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Bajo",
     alternatives: [
       {
@@ -1512,10 +1512,10 @@ const initialData = [
   },
   {
     questionText:
-      "\nLa siguiente tabla muestra las edades de los participantes en el nuevo reality Gran sobrino. $\\\\$$ \\begin{array}{|c|c|c|} \\hline\\textbf{Edad} & \\textbf{F. absoluta} &\n\t\t\t\t\t\t\\textbf{F. acumulada} \\\\ \\hline 18 & 4 & 4 \\\\ \\hline 19 & a & 14 \\\\ \\hline 20 & b & 9 \\\\ \\hline \\end{array} $ $\\\\$\n\t\t\t\t\t\n",
+      "\n\n\t\t\t\t\t\tLa siguiente tabla muestra las edades de los participantes en el nuevo reality Gran sobrino. $\\\\$$ \\begin{array}{|c|c|c|} \\hline\\textbf{Edad} & \\textbf{F. absoluta} &\n\t\t\t\t\t\t\\textbf{F. acumulada} \\\\ \\hline 18 & 4 & 4 \\\\ \\hline 19 & a & 14 \\\\ \\hline 20 & b & 9 \\\\ \\hline \\end{array} $ $\\\\$\n\t\t\t\t\t\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Facil",
     alternatives: [
       {
@@ -1545,14 +1545,14 @@ const initialData = [
   },
   {
     questionText:
-      "\nUn dado se lanz\u00f3 una cierta cantidad de veces y la probabilidad estimada de que saliera un 1 en la cara superior fue del 20\\%. \u00bfCu\u00e1ntas veces se lanz\u00f3 el dado si se obtuvo 7 veces el n\u00famero 1 en estos lanzamientos?\n",
+      "\nUn dado se lanz\u00f3 una cierta cantidad de veces y la probabilidad estimada de que saliera un $1$ en la cara superior fue del $20\\%$. \u00bfCu\u00e1ntas veces se lanz\u00f3 el dado si se obtuvo $7$ veces el n\u00famero $1$ en estos lanzamientos?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Baja",
     alternatives: [
       {
-        answerText: "\\(35\\)",
+        answerText: "$35$",
         isCorrect: true,
         feedback:
           "Dada la probabilidad de obtener un 1 en la cara superior del dado, se tiene la siguiente proporci\u00f3n:\\(\\dfrac{7}{n} = \\dfrac{20}{100}\\). De donde se obtiene que \\(n = 35\\).",
@@ -1579,7 +1579,7 @@ const initialData = [
       "\nEn la tabla se muestra la informaci\u00f3n ordenada de la cantidad de juguetes que tienen los ni\u00f1os en un pasaje de Maip\u00fa.\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Dificil",
     alternatives: [
       {
@@ -1610,7 +1610,7 @@ const initialData = [
       "\n\u201cSe realiz\u00f3 un experimento en el que se lanz\u00f3 un dado equilibrado 600 veces. Los resultados se registraron en una tabla de frecuencias.\u00bfc\u00f3mo analizar\u00edas la probabilidad de que el n\u00famero 3 aparezca en el pr\u00f3ximo lanzamiento asociado a los resultados obtenidos anteriormente?. \n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Media",
     alternatives: [
       {
@@ -1643,10 +1643,10 @@ const initialData = [
   },
   {
     questionText:
-      "\nUn naipe ingles est\u00e1 compuesto por $52$ cartas repartidas en partes iguales en $4$ pintas: Coraz\u00f3n, Diamante, Pica y Tr\u00e9bol. Cada pinta diferente cuenta con $9$ cartas numeradas del $1$ al $9$ y $4$ cartas con figuras: Jota, Reina, Rey y As. Si se escoge una carta al azar \u00bfcu\u00e1l es la probabilidad de obtener una carta que tengas el n\u00famero $5$?\n",
+      "\n\n\t\t\t\t\t\tUn naipe ingles est\u00e1 compuesto por $52$ cartas repartidas en partes iguales en $4$ pintas: Coraz\u00f3n, Diamante, Pica y Tr\u00e9bol. Cada pinta diferente cuenta con $9$ cartas\n\t\t\t\t\t\tnumeradas del $1$ al $9$ y $4$ cartas con figuras: Jota, Reina, Rey y As. Si se escoge una carta al azar \u00bfcu\u00e1l es la probabilidad de obtener una carta que tengas el n\u00famero $5$?\n\t\t\t\t\t\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 17,
+    node_id: 13,
     dificulty: "Media",
     alternatives: [
       {
@@ -1677,7 +1677,7 @@ const initialData = [
       "\n\u00bfEn cu\u00e1l de las siguientes situaciones es mejor utilizar un gr\u00e1fico circular?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 20,
+    node_id: 16,
     dificulty: "Media",
     alternatives: [
       {
@@ -1715,7 +1715,7 @@ const initialData = [
       "\nEn una maquina de dulces hay tres chicles sabor sand\u00eda, dos sabor frutilla y tres sabor menta. Se saca al azar un chicle, anotan el sabor y se devuelve a la maquina. \u00bfQu\u00e9 afirmaci\u00f3n es correcta?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 20,
+    node_id: 16,
     dificulty: "Media",
     alternatives: [
       {
@@ -1746,10 +1746,11 @@ const initialData = [
   },
   {
     questionText:
-      "\n\n\t\t\t\t\t\tEl siguiente gr\u00e1fico circular muestra los resultados de una encuesta aplicada a 300 estudiantes sobre la implementaci\u00f3n de salas tem\u00e1ticas en su colegio. \u00bfCu\u00e1l de las siguientes afirmaciones es verdadera?\n\t\t\t\t\t\t\n\nFigura 1\n\n\n",
+      "\n\n\t\t\t\t\t\tEl siguiente gr\u00e1fico circular muestra los resultados de una encuesta aplicada a 300 estudiantes sobre la implementaci\u00f3n de salas tem\u00e1ticas en su colegio. \u00bfCu\u00e1l de las siguientes afirmaciones es verdadera?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/camilo/54_3_Gr\u00e1fico circular.svg`,
+
     figureCaption: "Figura 1",
-    node_id: 20,
+    node_id: 16,
     dificulty: "Baja",
     alternatives: [
       {
@@ -1782,7 +1783,7 @@ const initialData = [
       "\nUsted se encuentra junto a su amigo y tiene una bolsa con 4 dulces rojos, 3 dulces azules y 2 dulces verdes. \u00bfC\u00f3mo le explicar\u00eda a su amigo que es lo m\u00e1s probable que ocurra cuando saque el siguiente dulce?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 20,
+    node_id: 16,
     dificulty: "Baja",
     alternatives: [
       {
@@ -1818,7 +1819,7 @@ const initialData = [
       "\nEl siguiente gr\u00e1fico muestra el promedio de votos en un curso entre los a\u00f1os 2020 y 2023.\n",
     imageURL: `${BASE_PATH}/images/eduardo/55_2imgpreg.svg`,
     figureCaption: "Figura 1",
-    node_id: 20,
+    node_id: 16,
     dificulty: "Media",
     alternatives: [
       {
@@ -1855,7 +1856,7 @@ const initialData = [
       "\nEn la siguiente tabla se muestran las edades de futbolistas de la selecci\u00f3n chilena\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 18,
+    node_id: 14,
     dificulty: "Facil",
     alternatives: [
       {
@@ -1885,7 +1886,7 @@ const initialData = [
       "\n\n\t\t\t\t\t\tLa siguiente tabla de frecuencias registra las frecuencias absolutas, $n_1$, $n_2$ y $n_3$, asociadas a cada una de las categor\u00edas de la variable cuantitativa en estudio,\n\t\t\t\t\t\t$C_1$, $C_2$ y $C_3$, respectivamente. $\\\\$$ \\begin{array}{|c|c|} \\hline\\textbf{Variable} & \\textbf{f} \\\\ \\hline C_1 & n_1 \\\\ \\hline C_2 & n_2 \\\\ \\hline C_3 & n_3 \\\\ \\hline\n\t\t\t\t\t\t\\end{array} $ $\\\\$ A partir de la tabla de frecuencias, \u00bfcu\u00e1l de las siguientes expresiones permite determinar la frecuencia relativa, expresada como fracci\u00f3n, para la\n\t\t\t\t\t\tcategor\u00eda C2?\n\t\t\t\t\t\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 18,
+    node_id: 14,
     dificulty: "Alta",
     alternatives: [
       {
@@ -1918,7 +1919,7 @@ const initialData = [
       "\nRoberto tiene diez mil pesos y los apuesta en una ruleta de dos caras como se muestra en la figura.\n",
     imageURL: `${BASE_PATH}/images/eduardo/58_4imgpreg.svg`,
     figureCaption: "Figura 1",
-    node_id: 18,
+    node_id: 14,
     dificulty: "Dificil",
     alternatives: [
       {
@@ -1950,7 +1951,7 @@ const initialData = [
       "\n\n\t\t\t\t\t\tUnos de sus compa\u00f1eros de curso le propone realizar un estudio de con respecto a las notas generales de sus compa\u00f1eros. Saben que tard\u00edo realizar una encuesta a todos los\n\t\t\t\t\t\tparticipantes del curso, por lo que deciden expresar de manera general la tabla de frecuencias que obtendr\u00e1n al realizar el estudio y quedar\u00eda de la siguiente forma:\n\t\t\t\t\t\t$\\begin{array}{|c|c|} \\hline \\textbf{Nota} & \\textbf{frecuencia absoluta} \\\\ \\hline [1 - 2 [& f_1 \\\\ \\hline [2 - 3[ & f_2 \\\\ \\hline [3 - 4[ & f_3 \\\\ \\hline [4 - 5[ & f_4 \\\\\n\t\t\t\t\t\t\\hline [5 - 6] & f_5 \\\\ \\hline \\end{array}$ $\\\\$ Si el plan de ustedes es hacer distintos an\u00e1lisis con la informaci\u00f3n, \u00bfCu\u00e1l/es de la/s siguiente/es afirmaciones es correcta?\n\t\t\t\t\t\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 18,
+    node_id: 14,
     dificulty: "Media",
     alternatives: [
       {
@@ -1987,26 +1988,26 @@ const initialData = [
       "\nTrinidad tiene sobre su banco $3$ l\u00e1pices de diferentes colores ordenados de izquierda a derecha. Mientras ella iba al ba\u00f1o su compa\u00f1ero Rodrigo se llev\u00f3 los l\u00e1pices de Trinidad para pintar su tarea y luego los devolvi\u00f3 al banco de Trinidad. \u00bfCu\u00e1l es la probabilidad de que Rodrigo dejara los l\u00e1pices en el mismo orden que los ten\u00eda Trinidad?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 18,
+    node_id: 14,
     dificulty: "Media",
     alternatives: [
       {
-        answerText: "\\(\\dfrac{1}{6}\\)",
+        answerText: "$\\dfrac{1}{6}$",
         isCorrect: true,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(\\dfrac{1}{3}\\)",
+        answerText: "$\\dfrac{1}{3}$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(\\dfrac{1}{1}\\)",
+        answerText: "$\\dfrac{1}{1}$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
       {
-        answerText: "\\(1\\)",
+        answerText: "$1$",
         isCorrect: false,
         feedback: "Feedback cuando seleccionan esta respuesta",
       },
@@ -2017,7 +2018,7 @@ const initialData = [
       "\nNico lanz\u00f3 un dado dos veces y en ambos lanzamientos obtuvo el n\u00famero 3, por lo que piensa que al lanzarlo una tercera vez obtendr\u00e1 de nuevo un 3. A partir de esto, \u00bfcu\u00e1l de las siguientes conclusiones es correcta?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 18,
+    node_id: 14,
     dificulty: "Alta",
     alternatives: [
       {
@@ -2055,7 +2056,7 @@ const initialData = [
       "\nEn una encuesta realizada a 100 estudiantes sobre su color favorito de 6 opciones disponibles, se encontr\u00f3 que el color azul fue elegido 25 veces. Si se realiza la misma encuesta a otro grupo de 100 estudiantes, \u00bfCu\u00e1l de las siguientes afirmaciones es m\u00e1s probable que sea cierta?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 19,
+    node_id: 15,
     dificulty: "Baja",
     alternatives: [
       {
@@ -2089,7 +2090,7 @@ const initialData = [
       "\n\n\t\t\t\t\t\tLa siguiente tabla muestra el n\u00famero de asignaturas inscritas por los estudiantes de una universidad durante su \u00faltimo a\u00f1o de estudio. \u00bfCu\u00e1ntas asignaturas inscribe la mayor\u00eda de los estudiantes?\n\t\t\t\t\t\t\n\n\n\n\n",
     imageURL: `${BASE_PATH}/images/camilo/61_3_Tabla.svg`,
     figureCaption: "Figura 1",
-    node_id: 19,
+    node_id: 15,
     dificulty: "Baja",
     alternatives: [
       {
@@ -2120,7 +2121,7 @@ const initialData = [
       "\nEn un curso se quiere realizar un experimento, para lo cual se gira un trompo que tiene la forma de un hex\u00e1gono regular y la profesora les pregunta \u00bfCu\u00e1l es la probabilidad de que salga el color rojo?\n",
     imageURL: "null",
     figureCaption: "null",
-    node_id: 19,
+    node_id: 15,
     dificulty: "Media",
     alternatives: [
       {
@@ -2154,7 +2155,7 @@ const initialData = [
       "\n\n\t\t\t\t\t\tUn grupo de seguidores de una famosa saga de drama particip\u00f3 en una encuesta en la que se les pregunt\u00f3 qu\u00e9 contenido les gustaba ver m\u00e1s con respecto a su saga favorita. Los datos obtenidos est\u00e1n presentados en la siguiente tabla:\n\t\t\t\t\t\t\n\nFigura 1\n\n\nSi la se quiere representar la informaci\u00f3n a trav\u00e9s de un gr\u00e1fico circular, \u00bfqu\u00e9 porcentaje del gr\u00e1fico debiese corresponder al sector destinado a aquellas personas que prefirieron el  Teatro?\n",
     imageURL: `${BASE_PATH}/images/camilo/63_2_Tabla.svg`,
     figureCaption: "Figura 1",
-    node_id: 19,
+    node_id: 15,
     dificulty: "Baja",
     alternatives: [
       {
@@ -2182,10 +2183,10 @@ const initialData = [
   },
   {
     questionText:
-      "\nEn una comuna de Santiago del mes de Enero de 2023 se registra el consumo por tipos de completos, y se construye el siguiente gr\u00e1fica.\n",
+      "\n\n\t\t\t\t\t\tEn una comuna de Santiago del mes de Enero de 2023 se registra el consumo por tipos de completos, y se construye el siguiente gr\u00e1fica.\n\t\t\t\t\t\t\n\n\n\n\t\t\t\t\t\t $\\\\$ Se desea traspasar la informaci\u00f3n del gr\u00e1fico a la siguiente tabla. Seg\u00fan la grafica \u00bfQu\u00e9 valores deberian ir en la tabla? $\\\\$$ \\begin{array}{|c|c|} \\hline Tipo de completos &\n\t\t\t\t\t\tF. absoluta \\\\ \\hline Din\u00e1mico & A \\\\ \\hline As & B \\\\ \\hline Italiano & C \\\\ \\hline Chacarero & D \\\\ \\hline Especial mayo & E \\\\ \\hline \\end{array} $ $\\\\$\n\t\t\t\t\t\n",
     imageURL: `${BASE_PATH}/images/eduardo/64_1imgpreg.svg`,
     figureCaption: "Figura 1",
-    node_id: 19,
+    node_id: 15,
     dificulty: "Facil",
     alternatives: [
       {

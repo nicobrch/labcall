@@ -32,9 +32,7 @@ export const signInUser = async (signInData: ISignInUser) => {
       rut,
     });
     if (!userResponse) {
-      throw new ValidationFailedError(
-        "Credenciales invalidas"
-      );
+      throw new ValidationFailedError("Credenciales invalidas");
     }
     // const isValidPassword = await compare(password, userResponse.getDataValue('password'));
 
@@ -80,6 +78,7 @@ export const addNodesToUser = async (input: IBulkNodesToUser) => {
           where: {
             user_id: idUser,
             node_id: idNode,
+            active: true,
           },
         });
         console.log(userNodeExist);
@@ -204,9 +203,7 @@ export const checkExistingStudent = async (rut: string) => {
   }
 };
 
-export const resetPassword = async (
-  rut: string,
-) => {
+export const resetPassword = async (rut: string) => {
   try {
     const password = rut.slice(0, 4);
     await User.updateByPk(
@@ -221,11 +218,7 @@ export const resetPassword = async (
   }
 };
 
-
-export const modPassword = async (
-  rut: string,
-  password: string
-) => {
+export const modPassword = async (rut: string, password: string) => {
   try {
     await User.updateByPk(
       {

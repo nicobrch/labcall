@@ -4,6 +4,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { literal } from "sequelize";
+import Image from "next/image";
 var Latex = require("react-latex");
 
 const Pregunta = () => {
@@ -196,6 +197,21 @@ const Pregunta = () => {
                 <div className="col-span-12 rounded-sm border border-stroke bg-white px-7 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <p className="items-center justify-center ">
                     <Latex>{(preguntas as any).questionText}</Latex>
+                    {(preguntas as any).imageURL &&
+                    (preguntas as any).imageURL !== "null" ? (
+                      <div className="w-full">
+                        {/* // eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={(preguntas as any).imageURL}
+                          alt="Descripción"
+                          className="w-full" // Aplica las clases de Tailwind aquí
+                        />
+                        {/* <Image
+                          src={(preguntas as any).imageURL}
+                          alt="Descripción"
+                        /> */}
+                      </div>
+                    ) : null}
                   </p>
                 </div>
 

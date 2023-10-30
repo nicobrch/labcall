@@ -12,6 +12,7 @@ export default async function handler(
       const {
         student_id,
         question_id,
+        node_id,
         alternative_id,
         is_correct,
         save_response,
@@ -20,18 +21,25 @@ export default async function handler(
         await createStudentQuestionResponse(
           student_id,
           question_id,
+          node_id,
           alternative_id,
           is_correct
         );
       }
-      const question = await getStudentQuestion(student_id);
       res.status(200).json({
         message:
           save_response === 1
             ? "Respuesta almacenada exitosamente"
             : "Pregunta obtenida exitosamente",
-        next_question: question,
       });
+      // const question = await getStudentQuestion(student_id);
+      // res.status(200).json({
+      //   message:
+      //     save_response === 1
+      //       ? "Respuesta almacenada exitosamente"
+      //       : "Pregunta obtenida exitosamente",
+      //   next_question: question,
+      // });
     }
   } catch (error: any) {
     res.status(500).json({

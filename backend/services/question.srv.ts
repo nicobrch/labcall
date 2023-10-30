@@ -41,11 +41,13 @@ export const getNodes = async () => {
   }
 };
 
+
 export const getStudentQuestion = async (user_id: number) => {
   try {
     const nodes = await UserNode.getAll({
       where: {
         user_id: user_id,
+        active: true,
       },
       include: {
         model: Node.Model,
@@ -61,11 +63,13 @@ export const getStudentQuestion = async (user_id: number) => {
             as: "questions",
           },
         });
-        return (questions as any)?.questions || [];
+        return (questions as any) || [];
       })
     );
     const allQuestions = questionArray.flat();
-    return allQuestions;
+    const indiceAleatorio = Math.floor(Math.random() * allQuestions.length);
+    const nodoRandom = allQuestions[indiceAleatorio];
+    return nodoRandom || 0;
   } catch (error) {
     throw error;
   }

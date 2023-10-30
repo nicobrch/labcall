@@ -15,10 +15,10 @@ export default async function handler(
 ) {
   try {
     const { student_id } = req.query;
-    const question = await getStudentQuestion(
+    const node = await getStudentQuestion(
       Number(student_id)
     );
-    res.status(200).json(question);
+    res.status(200).json(node);
   } catch (error: any) {
     res.status(500).json({
       message: "Error al obtener las preguntas correspondientes.",

@@ -70,7 +70,7 @@ export const getAbilityAxisNode = async () => {
 
 export const getNodesByUserId = async (user_id: string) => {
 	return await UserNode.getAll({
-		where: { user_id },
+		where: { user_id, active: true},
 		include: [
 			{
 				model: Node.Model,

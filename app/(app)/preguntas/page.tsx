@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { literal } from "sequelize";
 var Latex = require("react-latex");
 
-
 const Pregunta = () => {
   const [alternatives, setAlternatives] = useState([]);
 
@@ -42,7 +41,7 @@ const Pregunta = () => {
   const fetchAlternatives = async (idPreguntaActual: number) => {
     try {
       const response = await fetch(
-        `${API_PATH}/question/alternative?question_id=${(idPreguntaActual)}`,
+        `${API_PATH}/question/alternative?question_id=${idPreguntaActual}`,
         {
           method: "GET",
           headers: {
@@ -60,7 +59,7 @@ const Pregunta = () => {
     } catch (error) {
       console.error("Connection Error Alternative:", error);
     }
-  }
+  };
 
   const fetchData = async () => {
     try {
@@ -76,23 +75,25 @@ const Pregunta = () => {
       if (response.ok) {
         console.log("API Respondió OK!");
         const responseData = await response.json();
-        console.log(responseData)
+        console.log(responseData);
         // no quedan nodos ni preguntas por responder
         if (responseData === 0) {
-          router.push("/");
+          router.push("/finalizar");
         }
-        let indiceAleatorio = Math.floor(Math.random() * responseData?.questions.length);
+        let indiceAleatorio = Math.floor(
+          Math.random() * responseData?.questions.length
+        );
         // manejar la no existencia de preguntas pendientes
         if (responseData?.questions.length === 0) {
-          router.push("/");
+          router.push("/finalizar");
+        } else {
+          indiceAleatorio = Math.floor(
+            Math.random() * responseData?.questions.length
+          );
         }
-        else{
-          indiceAleatorio = Math.floor(Math.random() * responseData?.questions.length);
-        }        
         setPreguntas(responseData.questions[indiceAleatorio]);
-        setIdPregunta(responseData.questions[indiceAleatorio].id);
+        fetchAlternatives(responseData.questions[indiceAleatorio].id);
         // manejar la no existencia de nodos pendientes
-        
       } else {
         console.error("API Respondió mal :(");
       }
@@ -101,15 +102,20 @@ const Pregunta = () => {
     }
   };
   useEffect(() => {
-    fetchData().then(() => {
-      if (idPregunta !== 0){
-        fetchAlternatives(idPregunta);
-      }
-    });
-  }, [idPregunta]);
+    fetchData();
+  }, []);
 
   const fetchRespuesta = async () => {
     try {
+      console.log({
+        student_id: student_id,
+        question_id: idPregunta,
+        node_id: (preguntas as any)?.node_id,
+        alternative_id: respuestaUsuario,
+        is_correct: esCorrecta,
+        save_response: 1,
+      });
+
       const response = await fetch(`${API_PATH}/question/response`, {
         method: "POST",
         headers: {
@@ -117,7 +123,7 @@ const Pregunta = () => {
         },
         body: JSON.stringify({
           student_id: student_id,
-          question_id: idPregunta,
+          question_id: (preguntas as any).id,
           node_id: (preguntas as any)?.node_id,
           alternative_id: respuestaUsuario,
           is_correct: esCorrecta,
@@ -165,8 +171,8 @@ const Pregunta = () => {
   };
 
   const handleSiguientePregunta = () => {
-      isFinish();
-      fetchData();
+    isFinish();
+    fetchData();
   };
 
   return (
@@ -305,10 +311,10 @@ const Pregunta = () => {
                                 (alternatives[2] as any)?.id + ""
                               );
                               setJustificacion(
-                                 (alternatives[2] as any)?.feedback
+                                (alternatives[2] as any)?.feedback
                               );
                               setEsCorrecta(
-                                 (alternatives[2] as any)?.isCorrect
+                                (alternatives[2] as any)?.isCorrect
                               );
                               setIsChecked3(!isChecked3);
                               setIsChecked1(false);
@@ -351,10 +357,10 @@ const Pregunta = () => {
                                 (alternatives[3] as any)?.id + ""
                               );
                               setJustificacion(
-                                 (alternatives[3] as any)?.feedback
+                                (alternatives[3] as any)?.feedback
                               );
                               setEsCorrecta(
-                                 (alternatives[3] as any)?.isCorrect
+                                (alternatives[3] as any)?.isCorrect
                               );
                               setIsChecked4(!isChecked4);
                               setIsChecked1(false);
@@ -378,26 +384,26 @@ const Pregunta = () => {
                           </span>
                         </div>
                       </div>
-                      <Latex>{ (alternatives[3] as any)?.answerText}</Latex>
+                      <Latex>{(alternatives[3] as any)?.answerText}</Latex>
                     </label>
                   </div>
                 </div>
 
                 <div className="flex justify-center gap-4.5 py-6">
-                <button
-              onClick={handleEnviarRespuesta}
-              disabled={!respuestaUsuario || enviarRespuestaDeshabilitado}
-              className={`flex justify-center rounded bg-primary py-2 px-6 font-medium 
+                  <button
+                    onClick={handleEnviarRespuesta}
+                    disabled={!respuestaUsuario || enviarRespuestaDeshabilitado}
+                    className={`flex justify-center rounded bg-primary py-2 px-6 font-medium 
                 ${
                   enviarRespuestaDeshabilitado === true
                     ? "border-stroke bg-transparent outline-none focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
                     : "text-gray hover:bg-opacity-95"
                 }
               `}
-              id="enviarRespuesta"
-            >
-              Enviar respuesta
-            </button>
+                    id="enviarRespuesta"
+                  >
+                    Enviar respuesta
+                  </button>
                   {mostrarRespuesta && (
                     <div>
                       <button

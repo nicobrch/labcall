@@ -54,17 +54,17 @@ const Estadisticas = () => {
             colSpan: 4,
             render: (curso: ICourse) => (
               <>
-                <Link
+                {/* <Link
                   href={"/estadisticas/nodos/" + curso.id}
                   className=" items-center justify-center rounded-md bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mr-4 mb-4"
                 >
                   Nodo
-                </Link>
+                </Link> */}
                 <Link
                   href={"/estadisticas/items/" + curso.id}
                   className=" items-center justify-center rounded-md bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
                 >
-                  Items
+                  Por Items
                 </Link>
               </>
             ),

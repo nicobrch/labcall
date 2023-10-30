@@ -5,6 +5,7 @@ import React from "react";
 
 // without this the component renders on server and throws an error
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const DashEstudiante: React.FC = () => {
   return (
@@ -29,11 +30,13 @@ const DashEstudiante: React.FC = () => {
           <br></br>
           <h3 className="items-center">Exito!</h3>
         </div>
-        <div className="rounded-sm border border-stroke bg-primary py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark items-center justify-center">
-          <h3 className="items-center font-medium text-white dark:text-white justify-center">
-            <a href="/preguntas">Click aqui para responder test</a>
-          </h3>
-        </div>
+        <Link href={"/preguntas"}>
+          <div className="h-full rounded-sm border border-stroke bg-primary py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark items-center justify-center">
+            <h3 className="items-center font-medium text-white dark:text-white justify-center">
+              Click aqui para responder test
+            </h3>
+          </div>
+        </Link>
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">

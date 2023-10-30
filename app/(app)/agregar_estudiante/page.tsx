@@ -7,6 +7,7 @@ import AlertConfirmacion from "@/components/AlertConfirmacion";
 import AlertError from "@/components/AlertError";
 import { clean, validate, format } from "rut.js";
 import { API_PATH } from "@/config";
+import Link from "next/link";
 // export const metadata: Metadata = {
 //   title: "LabCal",
 //   // other metadata
@@ -177,11 +178,20 @@ const AddStudent = () => {
         <div className="grid grid-cols-5 gap-8">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
+              <div className="border-b border-stroke py-4 px-7 dark:border-strokedark flex flex-row justify-between items-center">
                 <h3 className="font-medium text-black dark:text-white">
                   Agregar Nuevo Estudiante
                 </h3>
+                <div>
+                  <Link
+                    href="/cargar/estudiantes"
+                    className={`flex justify-center rounded text-primary py-2 px-6 font-medium hover:bg-opacity-95 `}
+                  >
+                    Cargar Estudiantes
+                  </Link>
+                </div>
               </div>
+
               <div className="p-7">
                 <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                   {/* nombre */}

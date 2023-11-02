@@ -75,7 +75,7 @@ const DashEstudiante: React.FC = () => {
               className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
               type="submit"
               onClick={() => {
-                router.push("/asignacion/VerPreguntas");
+                router.push("/asignacion/preguntas");
               }}
             >
               Ver preguntas
@@ -99,7 +99,7 @@ const DashEstudiante: React.FC = () => {
               className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
               type="submit"
               onClick={() => {
-                router.push("/asignacion/preguntas");
+                router.push("/asignacion/asignar_nodos");
               }}
             >
               Asignar nodos
@@ -123,7 +123,7 @@ const DashEstudiante: React.FC = () => {
               className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
               type="submit"
               onClick={() => {
-                router.push("/addCourse");
+                router.push("/crear_curso");
               }}
             >
               Agregar curso
@@ -147,7 +147,7 @@ const DashEstudiante: React.FC = () => {
               className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
               type="submit"
               onClick={() => {
-                router.push("/addStudent");
+                router.push("/agregar_estudiante");
               }}
             >
               Agregar estudiante

@@ -22,12 +22,42 @@ export default function ModalPassword({
   rut,
 }: ModalProps) {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState("");
-  const [secondInputValue, setSecondInputValue] = useState("");
-  const isInputValid =
-    inputValue === secondInputValue &&
-    inputValue.length >= 6 &&
-    inputValue.match(/^[a-zA-Z0-9]+$/);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  const validatePasswords = (newPass: string, confirmPass: string) => {
+    const alphanumericRegex = /^(?=.*[A-Za-z])(?=.*\d)/;      
+    const isValid =
+      newPass === confirmPass &&
+      newPass.length >= 6 &&
+      alphanumericRegex.test(newPass);
+    setIsPasswordValid(isValid);
+    if (newPass === "" || confirmPass === "") {
+      setErrorMessage("");
+    } else if (!alphanumericRegex.test(newPass)) {
+      setErrorMessage(
+        "La contraseña debe tener letras y numeros, de minimo 6 caracteres de longitud."
+       );
+    } else if (newPass !== confirmPass) {
+      setErrorMessage("Las contraseñas no coinciden");
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const handleNewPasswordChange = (e: any) => {
+    const newPasswordValue = e.target.value;
+    setNewPassword(newPasswordValue);
+    validatePasswords(newPasswordValue, confirmPassword);
+  };
+
+  const handleConfirmPasswordChange = (e: any) => {
+    const confirmPasswordValue = e.target.value;
+    setConfirmPassword(confirmPasswordValue);
+    validatePasswords(newPassword, confirmPasswordValue);
+  };
 
   const fetchModPass = async () => {
     try {
@@ -38,7 +68,7 @@ export default function ModalPassword({
         },
         body: JSON.stringify({
           rut: clean(rut),
-          password: inputValue,
+          password: newPassword,
         }),
       });
       if (modifyPassword.ok) {
@@ -71,16 +101,20 @@ export default function ModalPassword({
             </div>
             {/*body*/}
             <div className="relative p-6">
-              Escriba su nueva contraseña (mínimo 6 caracteres, numéricos o
+              Escriba su nueva contraseña (mínimo 6 caracteres, numéricos y
               alfabéticos)
             </div>
+            
             <div className="flex flex-col gap-5.5 p-6.5 justify-center">
               {/* Campo de entrada de texto */}
+              {errorMessage && (
+              <p className="mt-2 text-sm text-red-500">{errorMessage}</p>
+            )}
               <input
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 type="password"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                value={newPassword}
+                onChange={handleNewPasswordChange}
                 placeholder="Escribe tu nueva contraseña"
               />
             </div>
@@ -90,31 +124,30 @@ export default function ModalPassword({
               <input
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 type="password"
-                value={secondInputValue}
-                onChange={(e) => setSecondInputValue(e.target.value)}
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
                 placeholder="Repite la contraseña"
               />
             </div>
+            
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-solid border-slate-200 rounded-b">
               <button
                 className={`inline-flex items-center justify-center rounded-full bg-primary py-4 px-10 m-1 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 color-boton ${
-                  isInputValid ? "" : "opacity-50 cursor-not-allowed"
+                  isPasswordValid ? "" : "opacity-50 cursor-not-allowed"
                 }`}
                 type="button"
                 onClick={() => {
                   fetchModPass();
                   setShow(false);
                   setShowAlertOK(true);
-                  setInputValue("");
-                  setSecondInputValue("");
                   setTimeout(() => {
                     router.push("/");
                   }, 2000);
                 }}
-                disabled={!isInputValid}
+                disabled={!isPasswordValid}
               >
-                Modificar
+                Modificar contraseña
               </button>
               <button
                 className="inline-flex items-center justify-center rounded-full bg-black py-4 px-10 m-1 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10 mr-2"

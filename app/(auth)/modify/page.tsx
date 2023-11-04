@@ -1,22 +1,16 @@
 "use client";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { useEffect, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { format, clean } from "rut.js";
-import ModalPassword from "@/components/ModalPassword";
 import AlertConfirmacion from "@/components/AlertConfirmacion";
 import { API_PATH } from "@/config";
 
 const ModPasswordInit = () => {
   const [user] = useLocalStorage("user", null);
   const [rut, setRut] = useState("");
-  const [firtsName, setFirstname] = useState("");
-  const [lastName1, setLastname1] = useState("");
-  const [lastName2, setLastname2] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const studentId = (user as any)?.id;
   const [showAlertOK, setShowAlertOK] = useState(false);

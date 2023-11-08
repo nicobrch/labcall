@@ -8,7 +8,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 1,
-    dificulty: "Media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "piso 3, piso -4 y piso 0.",
@@ -42,7 +42,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 4,
-    dificulty: "Media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -80,7 +80,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/p5.svg`,
     figureCaption: "Figura 1",
     node_id: 4,
-    dificulty: "Media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -117,7 +117,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 4,
-    dificulty: "Media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -152,7 +152,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 4,
-    dificulty: "Facil",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "Multiplicar el n\u00famero por 40 y dividirlo por 100.",
@@ -185,7 +185,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 4,
-    dificulty: "Alta",
+    dificulty: "alta",
     alternatives: [
       {
         answerText:
@@ -221,7 +221,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 2,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -256,7 +256,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 2,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "6\u00b0C",
@@ -290,7 +290,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 2,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "19:00 hrs",
@@ -324,7 +324,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 3,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -361,7 +361,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/porcentajes.svg`,
     figureCaption: "Figura 1",
     node_id: 3,
-    dificulty: "Media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$25\\%$",
@@ -396,7 +396,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/barras.svg`,
     figureCaption: "Figura 1",
     node_id: 3,
-    dificulty: "Media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$37,5\\%$",
@@ -430,7 +430,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 5,
-    dificulty: "Alta",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "$4.500 \\cdot g+5.500 \\cdot v+3.500 \\cdot p=total$",
@@ -464,7 +464,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 5,
-    dificulty: "Dificil",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "$\\frac{a+3}{2}$",
@@ -497,7 +497,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 8,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -534,7 +534,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 8,
-    dificulty: "Dificil",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "N = 2M + 4P",
@@ -566,7 +566,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 8,
-    dificulty: "Alta",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "Si hay \\(24\\) manzanas, entonces hay \\(45\\) naranjas.",
@@ -598,7 +598,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 8,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -636,7 +636,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 8,
-    dificulty: "Alta",
+    dificulty: "alta",
     alternatives: [
       {
         answerText:
@@ -670,7 +670,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 6,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "Una raz\u00f3n",
@@ -701,7 +701,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/mano.svg`,
     figureCaption: "Figura 1",
     node_id: 6,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$\\frac{persona}{1,6}=\\frac{x}{11}$",
@@ -735,7 +735,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 6,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -773,7 +773,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/frutas.svg`,
     figureCaption: "Figura 1",
     node_id: 6,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$u+s+u+u=950$\\\\$s+s+u=650$\\\\$u+p+s+u=800$",
@@ -808,7 +808,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/camilo/30_3_Imagen.svg`,
     figureCaption: "Figura 1",
     node_id: 7,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "\\(5:12\\)",
@@ -873,7 +873,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 9,
-    dificulty: "baja ",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "5 unidades",
@@ -940,7 +940,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/circunferencias.svg`,
     figureCaption: "Figura 1",
     node_id: 9,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$36 cm^2$",
@@ -1045,7 +1045,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 12,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "Cuadrado",
@@ -1075,7 +1075,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/eduardo/38_3img_preg.svg`,
     figureCaption: "Figura 1",
     node_id: 12,
-    dificulty: "Facil",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "$$(\\frac{x_1 + x_2}{2}, \\frac{y_1 + y_2}{2})$$",
@@ -1109,7 +1109,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 12,
-    dificulty: "media ",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1146,7 +1146,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/ciudad.svg`,
     figureCaption: "Figura 1",
     node_id: 12,
-    dificulty: "Bajo",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "Camila y Fernada viven a la misma altura",
@@ -1218,7 +1218,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 10,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "$\\pi\\left(\\frac{d}{2}\\right)^2$",
@@ -1349,7 +1349,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/l\u00e1mpara.svg`,
     figureCaption: "Figura 1",
     node_id: 11,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1387,7 +1387,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/camilo/48_1_puntos.svg`,
     figureCaption: "Figura 1",
     node_id: 11,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "$A(2, -3)$ y $B(2, 2)$",
@@ -1451,7 +1451,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 13,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "\\(3\\)",
@@ -1482,7 +1482,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/paula/grafico_cursos.svg`,
     figureCaption: "Figura 1",
     node_id: 13,
-    dificulty: "Bajo",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "I y III",
@@ -1516,7 +1516,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 13,
-    dificulty: "Facil",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "a = 10 ; b = 5",
@@ -1549,7 +1549,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 13,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "$35$",
@@ -1580,7 +1580,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 13,
-    dificulty: "Dificil",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "Los ni\u00f1os que tengan entre un y diez juguetes.",
@@ -1611,7 +1611,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 13,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1647,7 +1647,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 13,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "\\(\\dfrac{4}{52}\\)",
@@ -1678,7 +1678,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 16,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1716,7 +1716,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 16,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1751,7 +1751,7 @@ const initialData = [
 
     figureCaption: "Figura 1",
     node_id: 16,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText:
@@ -1784,7 +1784,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 16,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText:
@@ -1820,7 +1820,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/eduardo/55_2imgpreg.svg`,
     figureCaption: "Figura 1",
     node_id: 16,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1857,7 +1857,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 14,
-    dificulty: "Facil",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "$\\frac{1}{6}$",
@@ -1887,7 +1887,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 14,
-    dificulty: "Alta",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "$\\dfrac{n_2}{n_1 +n_2 + n_3}$",
@@ -1920,7 +1920,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/eduardo/58_4imgpreg.svg`,
     figureCaption: "Figura 1",
     node_id: 14,
-    dificulty: "Dificil",
+    dificulty: "alta",
     alternatives: [
       {
         answerText: "En cuatro intentos Roberto puede quedar sin dinero.",
@@ -1952,7 +1952,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 14,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText:
@@ -1989,7 +1989,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 14,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$\\dfrac{1}{6}$",
@@ -2019,7 +2019,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 14,
-    dificulty: "Alta",
+    dificulty: "alta",
     alternatives: [
       {
         answerText:
@@ -2057,7 +2057,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 15,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText:
@@ -2091,7 +2091,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/camilo/61_3_Tabla.svg`,
     figureCaption: "Figura 1",
     node_id: 15,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "\\(5\\)",
@@ -2122,7 +2122,7 @@ const initialData = [
     imageURL: "null",
     figureCaption: "null",
     node_id: 15,
-    dificulty: "Media",
+    dificulty: "media",
     alternatives: [
       {
         answerText: "$\\frac{1}{6}$",
@@ -2156,7 +2156,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/camilo/63_2_Tabla.svg`,
     figureCaption: "Figura 1",
     node_id: 15,
-    dificulty: "Baja",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "\\(14\\%\\)",
@@ -2187,7 +2187,7 @@ const initialData = [
     imageURL: `${BASE_PATH}/images/eduardo/64_1imgpreg.svg`,
     figureCaption: "Figura 1",
     node_id: 15,
-    dificulty: "Facil",
+    dificulty: "baja",
     alternatives: [
       {
         answerText: "A = 3, B = 7, C = 10, D = 4, E = 6",

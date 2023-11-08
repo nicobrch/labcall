@@ -61,13 +61,13 @@ const DashEstudiante: React.FC = () => {
 
         <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h3 className="font-semibold text-black dark:text-white">
-            <a>Items de Preguntas</a>
+            <a>Preguntas</a>
           </h3>
           <p className="items-center justify-center mt-4.5">
-            La sección "Items de preguntas" es donde encontrarás el banco
-            completo de preguntas disponibles. Desde aquí, puedes elegir y
-            organizar preguntas para tus evaluaciones y cuestionarios. Es un
-            recurso esencial para crear evaluaciones de alta calidad.
+            La sección "preguntas" es donde encontrarás el banco completo de
+            preguntas disponibles. Desde aquí, puedes elegir y organizar
+            preguntas para tus evaluaciones y cuestionarios. Es un recurso
+            esencial para crear evaluaciones de alta calidad.
           </p>
           <br></br>
           <div className="flex justify-center gap-4.5">
@@ -79,6 +79,30 @@ const DashEstudiante: React.FC = () => {
               }}
             >
               Ver preguntas
+            </button>
+          </div>
+        </div>
+
+        <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="font-semibold text-black dark:text-white">
+            <a>Lista de Estudiantes</a>
+          </h3>
+          <p className="items-center justify-center mt-4.5">
+            La sección "Lista de Estudiantes" permite consultar y gestionar la
+            información de los alumnos por curso, incluyendo la edición de sus
+            datos y la administración de los nodos de aprendizaje asignados que
+            incluye lectura y eliminación de nodos.
+          </p>
+          <br></br>
+          <div className="flex justify-center gap-4.5">
+            <button
+              className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+              type="submit"
+              onClick={() => {
+                router.push("/lista_estudiantes");
+              }}
+            >
+              Lista Estudiantes
             </button>
           </div>
         </div>

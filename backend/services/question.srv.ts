@@ -4,6 +4,7 @@ import QuestionRepository from "../repositories/question.rep";
 import AlternativeRepository from "../repositories/alternative.rep";
 import UserNodeRep from "../repositories/usernode.rep";
 import axios from "axios";
+import { QUESTION_SERVICE_PATH } from "@/config";
 
 const Question = new QuestionRepository();
 const Node = new NodeRep();
@@ -41,10 +42,9 @@ export const getNodes = async () => {
   }
 };
 
-
 export const getStudentQuestion = async (user_id: number) => {
   try {
-    const nodes = await UserNode.getAll({
+    const user_node = await UserNode.getAll({
       where: {
         user_id: user_id,
         active: true,
@@ -54,23 +54,69 @@ export const getStudentQuestion = async (user_id: number) => {
         as: "node",
       },
     });
-    const questionArray = await Promise.all(
-      nodes.map(async (node) => {
-        const idNode = node.node_id;
-        const questions = await Node.findByPk(idNode, {
-          include: {
-            model: Question.Model,
-            as: "questions",
-          },
-        });
-        return (questions as any) || [];
-      })
+    if (!user_node || !user_node[0]) {
+      return 0;
+    }
+    console.log("NODOS:", user_node);
+
+    const question_response = await axios
+      .get(
+        `${QUESTION_SERVICE_PATH}/api/enviar_pregunta/${user_id}/${user_node[0].node_id}`
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+
+    if (
+      !question_response ||
+      (question_response as any)?.data?.status === "error"
+    ) {
+      console.log("CAIIIIIIIIIIIMOOOOOOOOOOOOOOO");
+
+      const questionArray = await Promise.all(
+        user_node.map(async (node) => {
+          const idNode = node.node_id;
+          const questions = await Node.findByPk(idNode, {
+            include: {
+              model: Question.Model,
+              as: "questions",
+            },
+          });
+          return (questions as any) || [];
+        })
+      );
+      const allQuestions = questionArray.flat();
+
+      const indiceAleatorio = Math.floor(Math.random() * allQuestions.length);
+      const nodoRandom = allQuestions[indiceAleatorio];
+      return nodoRandom || 0;
+    }
+
+    console.log(
+      question_response.data.nodo,
+      question_response.data.pregunta_id
     );
-    const allQuestions = questionArray.flat();
-    const indiceAleatorio = Math.floor(Math.random() * allQuestions.length);
-    const nodoRandom = allQuestions[indiceAleatorio];
-    return nodoRandom || 0;
+
+    const question = await Node.getAll({
+      where: {
+        id: question_response.data.nodo,
+      },
+      include: {
+        model: Question.Model,
+        as: "questions",
+        required: true,
+        where: {
+          id: question_response.data.pregunta_id,
+        },
+      },
+    });
+    console.log(question[0]);
+    console.log(question.flat()[0]);
+
+    return question.flat()[0] || 0;
   } catch (error) {
+    console.log(error);
+
     throw error;
   }
 };

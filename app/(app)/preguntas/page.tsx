@@ -108,6 +108,8 @@ const Pregunta = () => {
 
   const fetchRespuesta = async () => {
     try {
+      console.log(preguntas);
+
       console.log({
         student_id: student_id,
         question_id: idPregunta,

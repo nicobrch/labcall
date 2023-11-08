@@ -17,6 +17,8 @@ export default async function handler(
         is_correct,
         save_response,
       } = body;
+      console.log(body);
+
       if (save_response === 1) {
         await createStudentQuestionResponse(
           student_id,

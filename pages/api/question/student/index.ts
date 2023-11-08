@@ -1,5 +1,5 @@
 /**
- * Retorna un arreglo de todas las preguntas para un determinado 
+ * Retorna un arreglo de todas las preguntas para un determinado
  * estudiante a partir de su ID (student_id)
  * @param req - The Next.js API request object.
  * @param res - The Next.js API response object.
@@ -15,9 +15,7 @@ export default async function handler(
 ) {
   try {
     const { student_id } = req.query;
-    const node = await getStudentQuestion(
-      Number(student_id)
-    );
+    const node = await getStudentQuestion(Number(student_id));
     res.status(200).json(node);
   } catch (error: any) {
     res.status(500).json({

@@ -1,6 +1,9 @@
 // export const API_PATH = "http://172.16.31.35/api";
 export const BASE_PATH = process.env.BASE_PATH || `http://localhost:3000`;
 
+export const QUESTION_SERVICE_PATH =
+  process.env.QUESTION_SERVICE_PATH || `http://localhost:8000`;
+
 export const API_PATH = `${BASE_PATH}/api`;
 
 export const BASE_IMAGES_PATH = BASE_PATH + "/images";

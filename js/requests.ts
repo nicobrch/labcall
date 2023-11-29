@@ -5,7 +5,7 @@ import { API_PATH } from "@/config";
 export const getToApi = (url: string, config: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API_PATH}${url}`, {
+      .get(`/api${url}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -25,7 +25,7 @@ export const getToApi = (url: string, config: any) => {
 export const postToApi = (url: string, body: any, config?: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_PATH}${url}`, body, {
+      .post(`/api${url}`, body, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -42,7 +42,7 @@ export const postToApi = (url: string, body: any, config?: any) => {
 export const putToApi = (url: string, body: any, config: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .put(`${API_PATH}${url}`, body, {
+      .put(`/api${url}`, body, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -60,7 +60,7 @@ export const putToApi = (url: string, body: any, config: any) => {
 export const deleteToApi = (url: string, body: any, config: any) => {
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${API_PATH}${url}`, {
+      .delete(`/api${url}`, {
         headers: {
           "Content-Type": "application/json",
         },

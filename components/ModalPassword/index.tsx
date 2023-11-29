@@ -28,7 +28,7 @@ export default function ModalPassword({
   const [newPassword, setNewPassword] = useState("");
 
   const validatePasswords = (newPass: string, confirmPass: string) => {
-    const alphanumericRegex = /^(?=.*[A-Za-z])(?=.*\d)/;      
+    const alphanumericRegex = /^(?=.*[A-Za-z])(?=.*\d)/;
     const isValid =
       newPass === confirmPass &&
       newPass.length >= 6 &&
@@ -39,7 +39,7 @@ export default function ModalPassword({
     } else if (!alphanumericRegex.test(newPass)) {
       setErrorMessage(
         "La contraseña debe tener letras y numeros, de minimo 6 caracteres de longitud."
-       );
+      );
     } else if (newPass !== confirmPass) {
       setErrorMessage("Las contraseñas no coinciden");
     } else {
@@ -61,7 +61,7 @@ export default function ModalPassword({
 
   const fetchModPass = async () => {
     try {
-      const modifyPassword = await fetch(`${API_PATH}/student/modPass`, {
+      const modifyPassword = await fetch(`/api/student/modPass`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,12 +104,12 @@ export default function ModalPassword({
               Escriba su nueva contraseña (mínimo 6 caracteres, numéricos y
               alfabéticos)
             </div>
-            
+
             <div className="flex flex-col gap-5.5 p-6.5 justify-center">
               {/* Campo de entrada de texto */}
               {errorMessage && (
-              <p className="mt-2 text-sm text-red-500">{errorMessage}</p>
-            )}
+                <p className="mt-2 text-sm text-red-500">{errorMessage}</p>
+              )}
               <input
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 type="password"
@@ -129,7 +129,7 @@ export default function ModalPassword({
                 placeholder="Repite la contraseña"
               />
             </div>
-            
+
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-solid border-slate-200 rounded-b">
               <button

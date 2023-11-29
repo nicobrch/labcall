@@ -42,7 +42,7 @@ const Pregunta = () => {
   const fetchAlternatives = async (idPreguntaActual: number) => {
     try {
       const response = await fetch(
-        `${API_PATH}/question/alternative?question_id=${idPreguntaActual}`,
+        `/api/question/alternative?question_id=${idPreguntaActual}`,
         {
           method: "GET",
           headers: {
@@ -119,7 +119,7 @@ const Pregunta = () => {
         save_response: 1,
       });
 
-      const response = await fetch(`${API_PATH}/question/response`, {
+      const response = await fetch(`/api/question/response`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -29,7 +29,7 @@ const EditStudent = () => {
   // funcion para traer la lista de cursos disponibles
   // llamada a la API para obtener los cursos
   useEffect(() => {
-    fetch(`${API_PATH}/course/all`)
+    fetch(`/api/course/all`)
       .then((response) => response.json())
       .then((data) => {
         setOpcionesCursos(data);
@@ -41,7 +41,7 @@ const EditStudent = () => {
 
   // funcion para obtener los datos del estudiante mediante llamada a API
   useEffect(() => {
-    fetch(`${API_PATH}/student/read`, {
+    fetch(`/api/student/read`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const EditStudent = () => {
 
   const fetchEditStudentData = async () => {
     try {
-      const response = await fetch(`${API_PATH}/student/edit`, {
+      const response = await fetch(`/api/student/edit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const EditStudent = () => {
 
   const fetchResetPassword = async () => {
     try {
-      const response = await fetch(`${API_PATH}/student/reset`, {
+      const response = await fetch(`/api/student/reset`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

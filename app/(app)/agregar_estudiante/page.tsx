@@ -89,7 +89,7 @@ const AddStudent = () => {
   const fetchRegistrarEstudiante = async () => {
     if (validateForm()) {
       try {
-        const verificarUsuario = await fetch(`${API_PATH}/student/check`, {
+        const verificarUsuario = await fetch(`/api/student/check`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const AddStudent = () => {
         });
         if (verificarUsuario.ok) {
           const rutFormateado = clean(studentRUT);
-          const response = await fetch(`${API_PATH}/register`, {
+          const response = await fetch(`/api/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -145,7 +145,7 @@ const AddStudent = () => {
   };
 
   useEffect(() => {
-    fetch(`${API_PATH}/course/all`)
+    fetch(`/api/course/all`)
       .then((response) => response.json())
       .then((data) => {
         setOpcionesCursos(data);

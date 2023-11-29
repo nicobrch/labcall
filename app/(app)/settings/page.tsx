@@ -27,7 +27,7 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    fetch(`${API_PATH}/student/read`, {
+    fetch(`/api/student/read`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -51,7 +51,7 @@ const ListaCurso = () => {
   const handleSubmit = async () => {
     // Lógica de envío de formulario o acciones relacionadas
     try {
-      const response = await fetch(`${API_PATH}/student/delete`, {
+      const response = await fetch(`/api/student/delete`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const ListaCurso = () => {
   // llamada a la API para obtener los estudiantes del curso especifico
   const fetchReadStudents = useCallback(async () => {
     try {
-      const response = await fetch(`${API_PATH}/course/students`, {
+      const response = await fetch(`/api/course/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

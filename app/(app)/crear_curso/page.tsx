@@ -40,7 +40,7 @@ const Settings = () => {
   const fetchGuardarCurso = async () => {
     if (validateForm()) {
       try {
-        const response = await fetch(`${API_PATH}/course/all`, {
+        const response = await fetch(`/api/course/all`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

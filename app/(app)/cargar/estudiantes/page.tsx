@@ -51,7 +51,7 @@ const CargarExcelEstudiantes = () => {
       formData.append("courseId", course);
 
       try {
-        const response = await fetch(`${API_PATH}/uploadExcel`, {
+        const response = await fetch(`/api/uploadExcel`, {
           method: "POST",
           body: formData,
         });
@@ -75,7 +75,7 @@ const CargarExcelEstudiantes = () => {
   };
 
   useEffect(() => {
-    fetch(`${API_PATH}/course/all`)
+    fetch(`/apicourse/all`)
       .then((response) => response.json())
       .then((data) => {
         setCourseOptions(data);

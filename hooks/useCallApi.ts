@@ -35,7 +35,7 @@ export const useCallGetApi = (
 
   const call = useCallback(async () => {
     setStatus(STATUS_LOADING);
-    fetch(`${API_PATH}${url}`, {
+    fetch(`/api${url}`, {
       method: "GET",
       headers: {},
       ...config,

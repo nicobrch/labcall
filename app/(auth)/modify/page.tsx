@@ -17,7 +17,7 @@ const ModPasswordInit = () => {
 
   const fetchModPass = async () => {
     try {
-      const modifyPassword = await fetch(`${API_PATH}/student/modPass`, {
+      const modifyPassword = await fetch(`/api/student/modPass`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const ModPasswordInit = () => {
   };
 
   useEffect(() => {
-    fetch(`${API_PATH}/student/read`, {
+    fetch(`/api/student/read`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

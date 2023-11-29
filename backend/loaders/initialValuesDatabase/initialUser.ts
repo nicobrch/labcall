@@ -14,8 +14,8 @@ const initial = [
   },
   {
     rut: "202486932",
-    firstname: "Carla",
-    lastname1: "Escalona",
+    firstname: "carla",
+    lastname1: "escalona",
     lastname2: "Morales",
     email: "carla.escalona@mail.udp.cl",
     password: "1234",
@@ -49,6 +49,7 @@ const initial = [
 
 export async function seedUsers() {
   for (let data of initial) {
+    //@ts-ignore
     await User.create(data);
   }
 }

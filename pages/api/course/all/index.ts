@@ -12,27 +12,20 @@ export default async function handler(
     }
     if (req.method === "POST") {
       const { body } = req;
-      const {
-        name,
-        description,
-        startDate,
-        endDate,
-      } = body;
-      await createCourse(
-        name,
-        description,
-        startDate,
-        endDate,
-      );
+      const { name, description, startDate, endDate } = body;
+      await createCourse(name, description, startDate, endDate);
       res.status(200).json({
         message: "Curso almacenado exitosamente",
       });
     }
-
   } catch (error: any) {
-    res.status(500).json({
-      message: "Error al obtener los nodos con sus preguntas correspondientes.",
-      error: error.message,
+    console.log(error.message);
+
+    res.status(error.statusCode || 500).json({
+      message:
+        error.message ||
+        "Error al obtener los nodos con sus preguntas correspondientes.",
+      error: error,
     });
   }
 }

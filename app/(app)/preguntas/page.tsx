@@ -407,6 +407,23 @@ const Pregunta = () => {
                   </div>
                 </div>
 
+                {mostrarRespuesta && (
+                  <div
+                    className={`mt-4 p-4  rounded-sm border border-stroke
+                    shadow-default ${esCorrecta ? "bg-gray-3" : "bg-gray-3"}`}
+                  >
+                    <p
+                      className={`${
+                        esCorrecta ? "text-success" : "text-danger"
+                      } font-bold`}
+                    >
+                      {esCorrecta
+                        ? "¡Respuesta correcta!"
+                        : "Respuesta incorrecta."}
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex justify-center gap-4.5 py-6">
                   <button
                     onClick={handleEnviarRespuesta}
@@ -420,9 +437,22 @@ const Pregunta = () => {
               `}
                     id="enviarRespuesta"
                   >
-                    Enviar respuesta
+                    Guardar Respuesta
                   </button>
-                  {mostrarRespuesta && (
+                  <button
+                    onClick={handleSiguientePregunta}
+                    disabled={!mostrarRespuesta}
+                    className={`flex justify-center rounded bg-primary py-2 px-6 font-medium 
+                ${
+                  enviarRespuestaDeshabilitado === false
+                    ? "border-stroke bg-transparent outline-none focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary dark:disabled:bg-black"
+                    : "text-gray hover:bg-opacity-95"
+                }
+              `}
+                  >
+                    Siguiente pregunta
+                  </button>
+                  {/* {mostrarRespuesta && (
                     <div>
                       <button
                         onClick={handleMostrarRespuesta}
@@ -437,10 +467,10 @@ const Pregunta = () => {
                         Mostrar explicación
                       </button>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
-              {mostrarExplicacion && (
+              {/* {mostrarExplicacion && (
                 <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
                   <div className="">
                     <h2 className="font-semibold text-black dark:text-white">
@@ -460,7 +490,7 @@ const Pregunta = () => {
                     </button>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         ) : (

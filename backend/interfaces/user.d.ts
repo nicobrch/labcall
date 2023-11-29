@@ -6,7 +6,7 @@ export interface IUser {
   lastname2?: string; // Segundo apellido
   email?: string;
   password?: string;
-  type?: string;
+  type?: "student" | "teacher";
   active?: boolean;
   course_id?: number;
   createdAt?: Date;

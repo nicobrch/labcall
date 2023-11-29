@@ -94,7 +94,7 @@ const EditStudent = () => {
         setShowAlertOK(true);
         //esperar unos segundos antes de redirigir
         setTimeout(() => {
-          router.push("/listaCurso");
+          router.push("/lista_estudiantes");
         }, 2000);
       } else {
         console.log("Error al obtener data del usuario");
@@ -126,7 +126,7 @@ const EditStudent = () => {
         setShowResetOK(true);
         //esperar unos segundos antes de redirigir
         setTimeout(() => {
-          router.push("/listaCurso");
+          router.push("/lista_estudiantes");
         }, 2000);
       } else {
         console.log("Error al restablecer contraseña del usuario");
@@ -326,7 +326,7 @@ const EditStudent = () => {
                   <button
                     className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
                     onClick={() => {
-                      router.push("/listaCurso");
+                      router.push("/lista_estudiantes");
                     }}
                   >
                     Cancelar

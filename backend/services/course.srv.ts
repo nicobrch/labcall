@@ -1,3 +1,4 @@
+import { BadRequestError } from "../error/customErrors";
 import CourseRep from "../repositories/course.rep";
 import UserRep from "../repositories/user.rep";
 
@@ -18,6 +19,20 @@ export const getAllCourse = async () => {
   }
 };
 
+export const getAllCourseStudents = async () => {
+  const courses = await Course.getAll({
+    include: {
+      model: User.Model,
+      as: "usuarios",
+      required: false,
+      where: {
+        type: "student",
+      },
+    },
+  });
+  return courses;
+};
+
 /**
  * Crea un nuevo curso en la base de datos.
  * @param {string} name - El nombre del curso.
@@ -30,9 +45,15 @@ export const createCourse = async (
   name: string,
   description: string,
   startDate: Date,
-  endDate: Date,
+  endDate: Date
 ) => {
   try {
+    const course = await Course.findOne({
+      name,
+    });
+    if (course) {
+      throw new BadRequestError("El nombre del curso ingresado ya existe.");
+    }
     await Course.create({
       name,
       description,
@@ -44,7 +65,6 @@ export const createCourse = async (
     throw error;
   }
 };
-
 
 export const getStudents = async (course_id: number) => {
   try {

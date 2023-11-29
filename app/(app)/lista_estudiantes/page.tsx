@@ -103,7 +103,7 @@ const ListaCurso = () => {
 
   // llamada a la API para obtener los cursos (dentro estan los estudiantes)
   useEffect(() => {
-    fetch(`${API_PATH}/course/all`)
+    fetch(`/api/course/all`)
       .then((response) => response.json())
       .then((data) => {
         setOpcionesCursos(data);

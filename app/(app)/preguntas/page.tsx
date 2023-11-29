@@ -65,7 +65,7 @@ const Pregunta = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${API_PATH}/question/student?student_id=${student_id}`,
+        `/api/question/student?student_id=${student_id}`,
         {
           method: "GET",
           headers: {

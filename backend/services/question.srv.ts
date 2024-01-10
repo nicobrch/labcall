@@ -71,8 +71,6 @@ export const getStudentQuestion = async (user_id: number) => {
       !question_response ||
       (question_response as any)?.data?.status === "error"
     ) {
-      console.log("CAIIIIIIIIIIIMOOOOOOOOOOOOOOO");
-
       const questionArray = await Promise.all(
         user_node.map(async (node) => {
           const idNode = node.node_id;

@@ -75,7 +75,7 @@ const CargarExcelEstudiantes = () => {
   };
 
   useEffect(() => {
-    fetch(`/apicourse/all`)
+    fetch(`/api/course/all`)
       .then((response) => response.json())
       .then((data) => {
         setCourseOptions(data);
